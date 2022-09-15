@@ -1,4 +1,4 @@
-# Contributing to the BridgeSwap Exchange❎
+# Contributing to the TTNEXSwap Exchange❎
 
 Thanks for taking the time to contribute !
 

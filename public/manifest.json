@@ -1,7 +1,7 @@
 {
-  "short_name": "BridgeSwap",
-  "name": "BridgeSwap",
-  "description": "Farm BRIS with BridgeSwap LP Tokens",
+  "short_name": "TTNEXSwap",
+  "name": "TTNEXSwap",
+  "description": "Farm BRIS with TTNEXSwap LP Tokens",
   "icons": [
     {
       "src": "favicon.svg",

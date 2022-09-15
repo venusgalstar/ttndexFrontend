@@ -367,7 +367,7 @@ const Home: React.FC = () => {
         </Heading>
         <Text color="white">
           {t(
-            'Bridgeswap is bridging Defi on Web 3.0 from traditional finance in a decentralized manner to create a fair global economy that is sustainable, accessible, and community-driven DAO.',
+            'TTNEXswap is bridging Defi on Web 3.0 from traditional finance in a decentralized manner to create a fair global economy that is sustainable, accessible, and community-driven DAO.',
           )}
         </Text>
         {/* <Button variant="primary" style={{margin: "20px 0px"}}>Learn more</Button> */}
@@ -383,7 +383,7 @@ const Home: React.FC = () => {
         <ComingSoon />
         <BridgeBoard>
           <Heading as="h3" mb="24px" color="primary">
-            {t('A suite of Features Powering BridgeSwap')}
+            {t('A suite of Features Powering TTNEXSwap')}
           </Heading>
           <FeatsGrid>
             <Card p="15px">
@@ -558,7 +558,7 @@ const Home: React.FC = () => {
         <StatsValue>
           <BridgeLottery>
             <Text fontSize="12px" mb="15px" color="text">
-              {t('The BridgeSwap Lottery')}
+              {t('The TTNEXSwap Lottery')}
             </Text>
             <Text fontWeight="700" mb="15px" fontSize="42px">
               {t('Win $0')}
@@ -583,7 +583,7 @@ const Home: React.FC = () => {
 
         <BridgeBoard style={{ marginTop: '20px' }}>
           <Heading as="h5" pt="12px" mb="30px" color="blue">
-            {t('BridgeSwap Partners')}
+            {t('TTNEXSwap Partners')}
           </Heading>
           <Partners>
             {partners.map((partner) => (

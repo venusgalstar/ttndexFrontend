@@ -55,7 +55,7 @@ export const usePollFarmsData = (includeArchive = false) => {
  * 251 = CAKE-BNB LP
  * 252 = BUSD-BNB LP
  * 
- * On Bridgeswap
+ * On TTNEXswap
  * 1 = BRIS-BNB LP
  * 3 = BUSD-BNB LP
  */

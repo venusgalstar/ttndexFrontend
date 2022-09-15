@@ -1,5 +1,5 @@
-#BridgeSwap Frontend
+#TTNEXSwap Frontend
 
-This project contains the main features of the bridgeswap application.
+This project contains the main features of the ttnexswap application.
 
 If you want to contribute, please refer to the [contributing guidelines](./CONTRIBUTING.md) of this project.
