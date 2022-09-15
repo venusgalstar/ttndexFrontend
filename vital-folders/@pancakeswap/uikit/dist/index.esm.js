@@ -3633,12 +3633,12 @@ var socials = [
     {
         label: "Twitter",
         icon: "TwitterIcon",
-        href: "https://twitter.com/bridgeswap_dex",
+        href: "https://twitter.com/thetokennetwork",
     },
     {
         label: "Medium",
         icon: "MediumIcon",
-        href: "https://bridgeswap.medium.com",
+        href: "https://thetokennetwork.medium.com/",
     },
     {
         label: "Gitbook",
