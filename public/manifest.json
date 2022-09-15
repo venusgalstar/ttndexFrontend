@@ -1,7 +1,7 @@
 {
-  "short_name": "TTNEXSwap",
-  "name": "TTNEXSwap",
-  "description": "Farm BRIS with TTNEXSwap LP Tokens",
+  "short_name": "TTNEX",
+  "name": "TTNEX",
+  "description": "Farm BRIS with TTNEX LP Tokens",
   "icons": [
     {
       "src": "favicon.svg",

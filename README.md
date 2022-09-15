@@ -1,5 +1,5 @@
-#TTNEXSwap Frontend
+#TTNEX Frontend
 
-This project contains the main features of the ttnexswap application.
+This project contains the main features of the TTNEX application.
 
 If you want to contribute, please refer to the [contributing guidelines](./CONTRIBUTING.md) of this project.

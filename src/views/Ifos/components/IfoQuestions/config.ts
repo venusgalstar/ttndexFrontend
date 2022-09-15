@@ -9,7 +9,7 @@ const config = [
   {
     title: 'Which sale should I commit to? Can I do both?',
     description: [
-      'You can choose one or both at the same time! If you’re only committing a small amount, we recommend the Basic Sale first. Just remember you need a TTNEXSwap Profile in order to participate.',
+      'You can choose one or both at the same time! If you’re only committing a small amount, we recommend the Basic Sale first. Just remember you need a TTNEX Profile in order to participate.',
     ],
   },
   {

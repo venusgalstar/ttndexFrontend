@@ -1,4 +1,4 @@
-# Contributing to the TTNEXSwap Exchange❎
+# Contributing to the TTNEX Exchange❎
 
 Thanks for taking the time to contribute !
 
