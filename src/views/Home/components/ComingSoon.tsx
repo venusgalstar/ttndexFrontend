@@ -42,13 +42,13 @@ const ComingSoon = () => {
         width='100'        
         >
             <div style={carouseImg}>
-                <SlideImg src="/images/baners/bridgeswap-farms.webp" alt='TTNEX farms'/>
+                <SlideImg src="/images/baners/bridgeswap-farms.webp" alt='TTNDEX farms'/>
             </div>
             <div style={carouseImg}>
-                <SlideImg src="/images/baners/bridgeswap-lottery.webp" alt='TTNEX lottery'/>
+                <SlideImg src="/images/baners/bridgeswap-lottery.webp" alt='TTNDEX lottery'/>
             </div>
             <div style={carouseImg}>
-                <SlideImg src="/images/baners/bridgeswap-pools.webp" alt='TTNEX-pools'/>
+                <SlideImg src="/images/baners/bridgeswap-pools.webp" alt='TTNDEX-pools'/>
             </div>
             <div style={carouseImg}>
                 <SlideImg src="/images/baners/defi2.0-zap.webp" alt='defi2.0-zap'/>
