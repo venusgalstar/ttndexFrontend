@@ -14,18 +14,18 @@ const useFarmsWithApr = () => {
   const cakePrice = usePriceCakeBusd();
 
   useEffect(() => {
-    const farmsToDisplayWithAPR = farms.map((farm) => {
-      if (!farm.lpTotalInQuoteToken || !farm.quoteToken.busdPrice) {
-        return {...farm, apr: undefined}
-      }
-      const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)
-      console.log("[DAVID] useFarmsWithApr :: ", farm, cakePrice.toString(), totalLiquidity.toString());
-      const apr = getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity);
+    // const farmsToDisplayWithAPR = farms.map((farm) => {
+    //   if (!farm.lpTotalInQuoteToken || !farm.quoteToken.busdPrice) {
+    //     return {...farm, apr: undefined}
+    //   }
+    //   const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)
+    //   console.log("[DAVID] useFarmsWithApr :: ", farm, cakePrice.toString(), totalLiquidity.toString());
+    //   const apr = getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity);
       
-      return { ...farm, apr}
-    })
+    //   return { ...farm, apr}
+    // })
 
-    setFarmsWithApr(farmsToDisplayWithAPR);
+    // setFarmsWithApr(farmsToDisplayWithAPR);
   }, [farms, cakePrice]);
   return farmsWithApr;
 }
