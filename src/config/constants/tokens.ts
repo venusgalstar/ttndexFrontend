@@ -10,7 +10,7 @@ const tokens = {
       97: '',
     },
     decimals: 18,
-    projectLink: 'https://bridgeswap.app/',
+    projectLink: 'https://ttndex.com/',
   },
   fswap: {
     symbol: 'FSWAP',

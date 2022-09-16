@@ -5,7 +5,7 @@ export const DEFAULT_META: PageMeta = {
   title: 'TTNDEX',
   description:
     'The AMM you can trust on the BSC network. Bringing you the true meaning of DeFi. Trade and farm tokens, passively, on our platform.',
-  image: 'https://bridgeswap.app/images/hero.svg',
+  image: 'https://ttndex.com/images/hero.svg',
 }
 
 export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {

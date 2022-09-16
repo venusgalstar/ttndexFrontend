@@ -13,11 +13,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     items: [
       {
         label: t('Exchange'),
-        href: 'https://dex.bridgeswap.app/#/swap',
+        href: 'https://dex.ttndex.com/#/swap',
       },
       {
         label: t('Liquidity'),
-        href: 'https://dex.bridgeswap.app/#/pool',
+        href: 'https://dex.ttndex.com/#/pool',
       },
       
     ],
@@ -118,7 +118,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       },
       // {
       //   label: t('Voting'),
-      //   href: 'https://voting.bridgeswap.app',
+      //   href: 'https://voting.ttndex.com',
       // },
       // {
       //   label: t('Github'),
@@ -126,7 +126,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       // },
       // {
       //   label: t('Docs'),
-      //   href: 'https://docs.bridgeswap.app',
+      //   href: 'https://docs.ttndex.com',
       // },
       // {
       //   label: t('Blog'),

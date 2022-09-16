@@ -394,7 +394,7 @@ const Home: React.FC = () => {
                 {t('Instantly swap crypto tokens: NO registration or account needed.')}
               </Text>
               <FeatBtn variant="secondary" scale="sm">
-                <Link external href="https://dex.bridgeswap.app/#/swap" color="text">
+                <Link external href="https://dex.ttndex.com/#/swap" color="text">
                   Enter exchange
                 </Link>
               </FeatBtn>
@@ -408,7 +408,7 @@ const Home: React.FC = () => {
                 {t('Provide liqudity to earn yield.')}
               </Text>
               <FeatBtn variant="secondary" scale="sm">
-                <Link href="https://dex.bridgeswap.app/#/pool" color="text">
+                <Link href="https://dex.ttndex.com/#/pool" color="text">
                   Add liquidity
                 </Link>
               </FeatBtn>
