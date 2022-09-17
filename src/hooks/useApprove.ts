@@ -62,7 +62,7 @@ export const useSousApprove = (lpContract: Contract, sousId, earningTokenSymbol)
   return { handleApprove, requestedApproval }
 }
 
-// Approve BRIS auto pool
+// Approve TTNP auto pool
 export const useVaultApprove = (setLastUpdated: () => void) => {
   const { account } = useWeb3React()
   const [requestedApproval, setRequestedApproval] = useState(false)
@@ -79,7 +79,7 @@ export const useVaultApprove = (setLastUpdated: () => void) => {
         setRequestedApproval(true)
       })
       .on('receipt', () => {
-        toastSuccess(t('Contract Enabled'), t('You can now stake in the %symbol% vault!', { symbol: 'BRIS' }))
+        toastSuccess(t('Contract Enabled'), t('You can now stake in the %symbol% vault!', { symbol: 'TTNP' }))
         setLastUpdated()
         setRequestedApproval(false)
       })

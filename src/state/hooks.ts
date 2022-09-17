@@ -56,7 +56,7 @@ export const usePollFarmsData = (includeArchive = false) => {
  * 252 = BUSD-BNB LP
  * 
  * On TTNDEX
- * 1 = BRIS-BNB LP
+ * 1 = TTNP-BNB LP
  * 3 = BUSD-BNB LP
  */
 export const usePollCoreFarmData = () => {

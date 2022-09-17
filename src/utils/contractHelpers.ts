@@ -104,7 +104,7 @@ export const getPointCenterIfoContract = (web3?: Web3) => {
 export const getCakeContract = (web3?: Web3) => {
   return getContract(cakeAbi, getCakeAddress(), web3)
 }
-// Cake and BRIS are the same
+// Cake and TTNP are the same
 export const getBRISContract = (web3?: Web3) => {
   return getContract(cakeAbi, getCakeAddress(), web3)
 }

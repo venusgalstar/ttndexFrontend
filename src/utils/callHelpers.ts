@@ -145,7 +145,7 @@ const WBNB_TOKEN = new Token(chainId, tokens.wbnb.address[chainId], 18)
 const CAKE_BNB_TOKEN = new Token(chainId, getAddress(cakeBnbFarm.lpAddresses), 18)
 
 /**
- * Returns the total BRIS staked in the BRIS-BNB LP
+ * Returns the total TTNP staked in the TTNP-BNB LP
  */
 export const getUserStakeInCakeBnbLp = async (account: string, block?: number) => {
   try {
@@ -175,7 +175,7 @@ export const getUserStakeInCakeBnbLp = async (account: string, block?: number) =
 }
 
 /**
- * Gets the BRIS staked in the main pool
+ * Gets the TTNP staked in the main pool
  */
 export const getUserStakeInCakePool = async (account: string, block?: number) => {
   try {
@@ -185,7 +185,7 @@ export const getUserStakeInCakePool = async (account: string, block?: number) =>
 
     return getBalanceAmount(new BigNumber(response.amount))
   } catch (error) {
-    console.error('Error getting stake in BRIS pool', error)
+    console.error('Error getting stake in TTNP pool', error)
     return BIG_ZERO
   }
 }

@@ -10,7 +10,7 @@ import HistoryButtons from './HistoryButtons'
 // const roundNumValue = 328
 // const drawDate = "Feb 21, 2022, 1:31 PM"
 // const lotteryPrize = "20,000"
-// const brisAmt = 99
+// const TTNPAmt = 99
 // const userNumTicket = 0;
 // const totalTickets = 658
 // const winningNumbers = [1, 2, 3, 4, 5, 6]
@@ -212,7 +212,7 @@ const FinishedRounds = () => {
                             {t(`$${Number(lotteryinfo[11])}`)}
                         </Heading>
                         <Text fontSize='11px' mb="22px" color='textSubtle'>
-                            {t(`~${Number(lotteryinfo[11])} BRIS`)}
+                            {t(`~${Number(lotteryinfo[11])} TTNP`)}
                         </Text>
                     </Prize>
                     <Text color='text'>

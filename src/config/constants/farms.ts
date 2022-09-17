@@ -7,7 +7,7 @@ const farms: FarmConfig[] = [
    */
   {
     pid: 0,
-    lpSymbol: 'BRIS',
+    lpSymbol: 'TTNP',
     lpAddresses: {
       97: '',
       56: '0x167EE66eF60D43B23b7cFa819f757beD4f513A94',
@@ -17,32 +17,32 @@ const farms: FarmConfig[] = [
   },
   // {
   //   pid: 7,
-  //   lpSymbol: 'BRIS-USDT LP',
+  //   lpSymbol: 'TTNP-USDT LP',
   //   lpAddresses: {
   //     97: '',
   //     56: '0x1b92FED083cFcd7158f37E4d95055Be0AEB51c59',
   //   },
-  //   token: tokens.bris,
+  //   token: tokens.TTNP,
   //   quoteToken: tokens.wbnb,
   // },
   {
     pid: 1,
-    lpSymbol: 'BRIS-BNB LP',
+    lpSymbol: 'TTNP-BNB LP',
     lpAddresses: {
       97: '',
       56: '0x8B3b22B12bF85F8bC1C6e17Bd09329FbAaFF5f7D',
     },
-    token: tokens.bris,
+    token: tokens.TTNP,
     quoteToken: tokens.wbnb,
   },
   {
     pid: 2,
-    lpSymbol: 'BRIS-BUSD LP',
+    lpSymbol: 'TTNP-BUSD LP',
     lpAddresses: {
       97: '',
       56: '0x9ED391218177B6F498625Bf58b8F1c38612630FC',
     },
-    token: tokens.bris,
+    token: tokens.TTNP,
     quoteToken: tokens.busd,
   },
   {

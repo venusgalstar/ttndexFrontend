@@ -58,7 +58,7 @@ const FAQ = () => {
             <Text fontSize="14px" color="textSubtle">
               -{' '}
               {t(
-                'Prizes to be distributed in BRIS and shared by all members of each respective tier as per the Prizes section above.',
+                'Prizes to be distributed in TTNP and shared by all members of each respective tier as per the Prizes section above.',
               )}
             </Text>
             <Text fontSize="14px" color="textSubtle">

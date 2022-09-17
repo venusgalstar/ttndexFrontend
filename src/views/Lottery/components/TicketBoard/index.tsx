@@ -185,7 +185,7 @@ const TicketBoard = () => {
                             {t(`$${Number(lotteryinfo[11])}`)}
                         </Heading>
                         <Text fontSize='11px' mb="22px" color='textSubtle'>
-                            {t(`~${Number(lotteryinfo[11])} BRIS`)}
+                            {t(`~${Number(lotteryinfo[11])} TTNP`)}
                         </Text>
                         <Text color='text'>
                             {t("Your Tickets")}

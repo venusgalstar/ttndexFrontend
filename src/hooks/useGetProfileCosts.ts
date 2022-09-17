@@ -31,7 +31,7 @@ const useGetProfileCosts = () => {
           numberCakeToUpdate: new BigNumber(numberCakeToUpdate as string),
         })
       } catch (error) {
-        toastError(t('Error'), t('Could not retrieve BRIS costs for profile'))
+        toastError(t('Error'), t('Could not retrieve TTNP costs for profile'))
       }
     }
 

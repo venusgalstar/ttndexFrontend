@@ -9,12 +9,12 @@ BigNumber.config({
 export const BSC_BLOCK_TIME = 3
 
 // CAKE_PER_BLOCK details
-// 40 BRIS is minted per block
-// 20 BRIS per block is sent to Burn pool (A farm just for burning cake)
-// 10 BRIS per block goes to BRIS syrup pool
-// 10 BRIS per block goes to Yield farms and lottery
-// BRIS_PER_BLOCK in config/index.ts = 40 as we only change the amount sent to the burn pool which is effectively a farm.
-// BRIS/Block in src/views/Home/components/CakeStats.tsx = 20 (40 - Amount sent to burn pool)
+// 40 TTNP is minted per block
+// 20 TTNP per block is sent to Burn pool (A farm just for burning cake)
+// 10 TTNP per block goes to TTNP syrup pool
+// 10 TTNP per block goes to Yield farms and lottery
+// TTNP_PER_BLOCK in config/index.ts = 40 as we only change the amount sent to the burn pool which is effectively a farm.
+// TTNP/Block in src/views/Home/components/CakeStats.tsx = 20 (40 - Amount sent to burn pool)
 
 export const CAKE_PER_BLOCK = new BigNumber(40)
 export const BLOCKS_PER_YEAR = new BigNumber((60 / BSC_BLOCK_TIME) * 60 * 24 * 365) // 10512000

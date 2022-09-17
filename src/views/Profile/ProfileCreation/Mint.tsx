@@ -93,7 +93,7 @@ const Mint: React.FC = () => {
           })}
           {!hasMinimumCakeRequired && (
             <Text color="failure" mb="16px">
-              {t('A minimum of %num% BRIS is required', { num: MINT_COST })}
+              {t('A minimum of %num% TTNP is required', { num: MINT_COST })}
             </Text>
           )}
           <ApproveConfirmButtons

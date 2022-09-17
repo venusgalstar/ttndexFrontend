@@ -106,7 +106,7 @@ const HowToParticipate = () => {
                     <StepNumber>3</StepNumber>
                     <Heading mb='10px' scale="md" color='text'>{t("Earn crypto")}</Heading>
                     <Text style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "12px" }}>
-                        {t("Receive referral rewards in BRIS tokens from your friends’ earnings forever.")}
+                        {t("Receive referral rewards in TTNP tokens from your friends’ earnings forever.")}
                     </Text>
                 </Steps>
             </PlaySteps>

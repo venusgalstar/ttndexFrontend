@@ -63,11 +63,11 @@ const FarmedStakingCard = () => {
           {t('Farms & Staking')}
         </Heading>
         <Block>
-          <Label>{t('BRIS to Harvest')}:</Label>
+          <Label>{t('TTNP to Harvest')}:</Label>
           <CakeHarvestBalance />
         </Block>
         <Block>
-          <Label>{t('BRIS in Wallet')}:</Label>
+          <Label>{t('TTNP in Wallet')}:</Label>
           <CakeWalletBalance />
         </Block>
         <Actions>
@@ -79,7 +79,7 @@ const FarmedStakingCard = () => {
               width="100%"
             >
               {pendingTx
-                ? t('Collecting BRIS')
+                ? t('Collecting TTNP')
                 : t('Harvest all (%count%)', {
                     count: balancesWithValue.length,
                   })}

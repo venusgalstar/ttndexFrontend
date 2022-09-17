@@ -28,7 +28,7 @@ const RecentCakeProfitCountdownRow = () => {
 
   return (
     <Flex alignItems="center" justifyContent="space-between">
-      <Text fontSize="14px">{`${t('Recent BRIS profit')}:`}</Text>
+      <Text fontSize="14px">{`${t('Recent TTNP profit')}:`}</Text>
       {hasAutoEarnings && (
         <RecentCakeProfitBalance
           cakeToDisplay={autoCakeToDisplay}

@@ -433,7 +433,7 @@ const Home: React.FC = () => {
                 {t('Defi 2.0 Zap')}
               </Heading>
               <Text small fontSize="12px" color="text">
-                {t('Swap LPs to receive discounted BRIS tokens.')}
+                {t('Swap LPs to receive discounted TTNP tokens.')}
               </Text>
               <FeatBtn variant="secondary" scale="sm">
                 <ReactLink to="/defi" color="text">

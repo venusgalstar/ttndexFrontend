@@ -75,7 +75,7 @@ const LotteryCard = () => {
     if (!allowance.toNumber()) {
       return (
         <Button width="100%" disabled={requestedApproval} onClick={handleApprove}>
-          {t('Approve BRIS')}
+          {t('Approve TTNP')}
         </Button>
       )
     }
@@ -97,9 +97,9 @@ const LotteryCard = () => {
         <Heading scale="xl" mb="24px">
           {t('Your Lottery Winnings')}
         </Heading>
-        <CardImage src="/images/ticket.svg" alt="BRIS logo" width={64} height={64} />
+        <CardImage src="/images/ticket.svg" alt="TTNP logo" width={64} height={64} />
         <Block>
-          <Label>{t('BRIS to Collect')}:</Label>
+          <Label>{t('TTNP to Collect')}:</Label>
           <CakeWinnings claimAmount={claimAmount} />
         </Block>
         <Block>

@@ -8,7 +8,7 @@ import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
 import { getWeb3NoAccount } from 'utils/web3'
 import BigNumber from 'bignumber.js'
 
-// Pool 0, BRIS / BRIS is a different kind of contract (master chef)
+// Pool 0, TTNP / TTNP is a different kind of contract (master chef)
 // BNB pools use the native BNB token (wrapping ? unwrapping is done at the contract level)
 const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
 const bnbPools = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
@@ -68,7 +68,7 @@ export const fetchUserStakeBalances = async (account) => {
     {},
   )
 
-  // BRIS / BRIS pool
+  // TTNP / TTNP pool
   const { amount: masterPoolAmount } = await masterChefContract.methods.userInfo('0', account).call()
 
   return { ...stakedBalances, 0: new BigNumber(masterPoolAmount).toJSON() }
@@ -89,8 +89,8 @@ export const fetchUserPendingRewards = async (account) => {
     {},
   )
 
-  // BRIS / BRIS pool
-  const pendingReward = await masterChefContract.methods.pendingBris('0', account).call()
+  // TTNP / TTNP pool
+  const pendingReward = await masterChefContract.methods.pendingTTNP('0', account).call()
 
   return { ...pendingRewards, 0: new BigNumber(pendingReward).toJSON() }
 }

@@ -21,7 +21,7 @@ const feats: Feats[] = [
     },
     {
         heading: "DeFi 2.0 Zap",
-        text: "Swap LPs to receive discounted BRIS tokens.",
+        text: "Swap LPs to receive discounted TTNP tokens.",
         btnText: "Swap now",
         href: ""
     },

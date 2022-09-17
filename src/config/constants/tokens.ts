@@ -4,7 +4,7 @@ const tokens = {
     projectLink: 'https://www.binance.com/',
   },
   bris: {
-    symbol: 'BRIS',
+    symbol: 'TTNP',
     address: {
       56: '0x167EE66eF60D43B23b7cFa819f757beD4f513A94',
       97: '',

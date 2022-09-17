@@ -6,7 +6,7 @@ import { BLOCKS_PER_YEAR, CAKE_PER_YEAR } from 'config'
  * @param stakingTokenPrice Token price in the same quote currency
  * @param rewardTokenPrice Token price in the same quote currency
  * @param totalStaked Total amount of stakingToken in the pool
- * @param tokenPerBlock Amount of new BRIS allocated to the pool for each new block
+ * @param tokenPerBlock Amount of new TTNP allocated to the pool for each new block
  * @returns Null if the APR is NaN or infinite.
  */
 export const getPoolApr = (
@@ -24,7 +24,7 @@ export const getPoolApr = (
 /**
  * Get farm APR value in %
  * @param poolWeight allocationPoint / totalAllocationPoint
- * @param cakePriceUsd BRIS price in USD
+ * @param cakePriceUsd TTNP price in USD
  * @param poolLiquidityUsd Total pool liquidity in USD
  * @returns
  */

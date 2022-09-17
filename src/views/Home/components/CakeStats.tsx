@@ -31,18 +31,18 @@ const CakeStats = () => {
     <StyledCakeStats>
       <CardBody>
         {/* <Heading scale="xl" mb="24px">
-          {t('BRIS Stats')}
+          {t('TTNP Stats')}
         </Heading> */}
         <Row>
-          <Text color="text" fontSize="14px">{t('Total BRIS Supply')}</Text>
+          <Text color="text" fontSize="14px">{t('Total TTNP Supply')}</Text>
           {cakeSupply && <CardValue fontSize="14px" value={cakeSupply} />}
         </Row>
         <Row>
-          <Text color="text" fontSize="14px">{t('Total BRIS Burned')}</Text>
+          <Text color="text" fontSize="14px">{t('Total TTNP Burned')}</Text>
           <CardValue fontSize="14px" decimals={0} value={burnedBalance} />
         </Row>
         <Row>
-          <Text color="text" fontSize="14px">{t('New BRIS/block')}</Text>
+          <Text color="text" fontSize="14px">{t('New TTNP/block')}</Text>
           {/* <CardValue fontSize="14px" decimals={100} value={0.100} /> */}
           <div>0.01</div>
         </Row>

@@ -3,7 +3,7 @@ import { getCakeAddress } from 'utils/addressHelpers'
 import useTokenBalance from './useTokenBalance'
 
 /**
- * A hook to check if a wallet's BRIS balance is at least the amount passed in
+ * A hook to check if a wallet's TTNP balance is at least the amount passed in
  */
 const useHasCakeBalance = (minimumBalance: BigNumber) => {
   const { balance: cakeBalance } = useTokenBalance(getCakeAddress())

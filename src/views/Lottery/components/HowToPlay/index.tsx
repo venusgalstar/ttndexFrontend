@@ -92,7 +92,7 @@ const HowToPlay = () => {
                     <StepNumber>1</StepNumber>
                     <Heading mb='10px' color='text'>{t("Buy Tickets")}</Heading>
                     <Text style={{ color: "rgba(255, 255, 255, 0.7)", fontSize: "12px" }}>
-                        {t("Prices are set when the round starts, equal to $1 in BRIS per ticket.")}
+                        {t("Prices are set when the round starts, equal to $1 in TTNP per ticket.")}
                     </Text>
                 </Steps>
                 <Steps>
