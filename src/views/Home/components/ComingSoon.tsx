@@ -41,7 +41,7 @@ const ComingSoon = () => {
         showIndicators={false}
         width='100'        
         >
-            <div style={carouseImg}>
+            {/* <div style={carouseImg}>
                 <SlideImg src="/images/baners/bridgeswap-farms.webp" alt='TTNDEX farms'/>
             </div>
             <div style={carouseImg}>
@@ -49,7 +49,7 @@ const ComingSoon = () => {
             </div>
             <div style={carouseImg}>
                 <SlideImg src="/images/baners/bridgeswap-pools.webp" alt='TTNDEX-pools'/>
-            </div>
+            </div> */}
             <div style={carouseImg}>
                 <SlideImg src="/images/baners/defi2.0-zap.webp" alt='defi2.0-zap'/>
             </div>
