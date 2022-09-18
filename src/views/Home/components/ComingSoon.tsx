@@ -49,9 +49,12 @@ const ComingSoon = () => {
             </div>
             <div style={carouseImg}>
                 <SlideImg src="/images/baners/bridgeswap-pools.webp" alt='TTNDEX-pools'/>
-            </div> */}
+            </div>
             <div style={carouseImg}>
                 <SlideImg src="/images/baners/defi2.0-zap.webp" alt='defi2.0-zap'/>
+            </div> */}
+            <div style={carouseImg}>
+                <SlideImg src="/images/baners/referral-program.webp" alt='referral-program'/>
             </div>
             <div style={carouseImg}>
                 <SlideImg src="/images/baners/referral-program.webp" alt='referral-program'/>
