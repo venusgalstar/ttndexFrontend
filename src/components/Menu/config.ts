@@ -51,7 +51,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     label: t('Referral Program'),
     icon: 'ReferralIcon',
     href: '/referral',
-    status: menuStatus.LIVE
+    // status: menuStatus.LIVE
   },
   // {
   //   label: t('Collectibles'),
