@@ -32,21 +32,21 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     icon: 'PoolIcon',
     href: '/pools',
   },
-  {
-    label: "Defi 2.0 Zap",
-    icon: "DefiIcon",
-    href: "/defi",
-  },
+  // {
+  //   label: "Defi 2.0 Zap",
+  //   icon: "DefiIcon",
+  //   href: "/defi",
+  // },
   // {
   //   label: t('Prediction (BETA)'),
   //   icon: 'PredictionsIcon',
   //   href: '/prediction',
   // },
-  {
-    label: t('Lottery'),
-    icon: 'TicketIcon',
-    href: '/lottery',
-  },
+  // {
+  //   label: t('Lottery'),
+  //   icon: 'TicketIcon',
+  //   href: '/lottery',
+  // },
   {
     label: t('Referral Program'),
     icon: 'ReferralIcon',
@@ -108,36 +108,36 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   //   icon: 'IfoIcon',
   //   href: '/ifo',
   // },
-  {
-    label: t('More'),
-    icon: 'MoreIcon',
-    items: [
-      {
-        label: t('Team'),
-        href: 'https://bridgeswap-exchange-1.gitbook.io/bridgeswap/our-team',
-      },
-      // {
-      //   label: t('Voting'),
-      //   href: 'https://voting.ttndex.com',
-      // },
-      // {
-      //   label: t('Github'),
-      //   href: 'https://github.com/Bridgeswap-Dex',
-      // },
-      // {
-      //   label: t('Docs'),
-      //   href: 'https://docs.ttndex.com',
-      // },
-      // {
-      //   label: t('Blog'),
-      //   href: 'https://bridgeswap.medium.com/',
-      // },
-      // {
-      //   label: t('Merch'),
-      //   href: 'https://bridgeswap.creator-spring.com/',
-      // },
-    ],
-  },
+  // {
+  //   label: t('More'),
+  //   icon: 'MoreIcon',
+  //   items: [
+  //     // {
+  //     //   label: t('Team'),
+  //     //   href: 'https://bridgeswap-exchange-1.gitbook.io/bridgeswap/our-team',
+  //     // },
+  //     // {
+  //     //   label: t('Voting'),
+  //     //   href: 'https://voting.ttndex.com',
+  //     // },
+  //     // {
+  //     //   label: t('Github'),
+  //     //   href: 'https://github.com/Bridgeswap-Dex',
+  //     // },
+  //     // {
+  //     //   label: t('Docs'),
+  //     //   href: 'https://docs.ttndex.com',
+  //     // },
+  //     // {
+  //     //   label: t('Blog'),
+  //     //   href: 'https://bridgeswap.medium.com/',
+  //     // },
+  //     // {
+  //     //   label: t('Merch'),
+  //     //   href: 'https://bridgeswap.creator-spring.com/',
+  //     // },
+  //   ],
+  // },
 ]
 
 export default config
