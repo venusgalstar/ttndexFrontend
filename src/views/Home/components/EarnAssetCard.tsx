@@ -28,8 +28,8 @@ const CardMidContent = styled(Heading).attrs({ scale: 'xl' })`
 
 const activeNonCakePools = pools.filter((pool) => !pool.isFinished && !pool.earningToken.symbol.includes('CAKE'))
 const latestPools: Pool[] = orderBy(activeNonCakePools, ['sortOrder', 'pid'], ['desc', 'desc']).slice(0, 3)
-// Always include BRIS
-const assets = ['Bris', ...latestPools.map((pool) => pool.earningToken.symbol)].join(', ')
+// Always include TTNP
+const assets = ['TTNP', ...latestPools.map((pool) => pool.earningToken.symbol)].join(', ')
 
 const EarnAssetCard = () => {
   const { t } = useTranslation()

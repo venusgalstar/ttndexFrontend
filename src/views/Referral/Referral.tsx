@@ -277,7 +277,7 @@ const Referral: React.FC = () => {
                   {t("Total Commissions")}
                 </Text>
                 <Text fontSize='25px' mb="17px" color='white'>
-                  {t(`${totalCommissions} BRIS`)}
+                  {t(`${totalCommissions} TTNP`)}
                 </Text>
               </div>
             </ReferralStatus>

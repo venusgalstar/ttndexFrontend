@@ -59,7 +59,7 @@ export const useCake = () => {
   const web3 = useWeb3()
   return useMemo(() => getCakeContract(web3), [web3])
 }
-// CAKE and BRIS are the same
+// CAKE and TTNP are the same
 export const useBRIS = () => {
   const web3 = useWeb3()
   return useMemo(() => getCakeContract(web3), [web3])

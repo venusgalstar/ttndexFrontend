@@ -20,7 +20,7 @@ const StyledCardHeader: React.FC<{
   const poolImageSrc = isAutoVault
     ? `bris-brisvault.svg`
     : `${earningTokenSymbol}-${stakingTokenSymbol}.svg`.toLocaleLowerCase()
-  const isCakePool = earningTokenSymbol === 'BRIS' && stakingTokenSymbol === 'BRIS'
+  const isCakePool = earningTokenSymbol === 'TTNP' && stakingTokenSymbol === 'TTNP'
   const background = isStaking ? 'bubblegum' : 'cardHeader'
   const getHeadingPrefix = () => {
     if (isAutoVault) {
@@ -40,7 +40,7 @@ const StyledCardHeader: React.FC<{
       return t('Automatic restaking')
     }
     if (isCakePool) {
-      return t('Earn BRIS, stake BRIS')
+      return t('Earn TTNP, stake TTNP')
     }
     return t('Stake %symbol%', { symbol: stakingTokenSymbol })
   }
