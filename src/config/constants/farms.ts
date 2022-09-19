@@ -30,7 +30,7 @@ const farms: FarmConfig[] = [
     lpSymbol: 'TTNP-BNB LP',
     lpAddresses: {
       97: '',
-      56: '0x8B3b22B12bF85F8bC1C6e17Bd09329FbAaFF5f7D',
+      56: '0xe6f046110c2335687d5a5d41592c2f9b9cc0a126',
     },
     token: tokens.bris,
     quoteToken: tokens.wbnb,
