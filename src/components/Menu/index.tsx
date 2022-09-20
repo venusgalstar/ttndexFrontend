@@ -18,6 +18,8 @@ const Menu = (props) => {
   const { profile } = useProfile()
   const { currentLanguage, setLanguage, t } = useTranslation()
 
+  console.log("cakePriceUsd", cakePriceUsd)
+  
   return (
     <UikitMenu
       netLogo={chainId !== undefined ? getChainLogo(chainId) : undefined}
