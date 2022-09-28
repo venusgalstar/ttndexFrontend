@@ -9,7 +9,7 @@ export default {
   },
   newlottery: {
     97: '',
-    56: '0x57477f43a22F6b8D729428153D2B85cE71d1a587',
+    56: '0xb93655dB1A7d40b6b63929C9950BfF51AE03B5b5',
   },
   lottery: {
     97: '0x99c2EcD51d52c036B00130d882Bc65f20Fdecf9f',
@@ -25,7 +25,7 @@ export default {
   },
   referral: {
     97: '',
-    56: '0xE04111e39273Dde1CE37Dc7C1cc5ECB41c966FA1',
+    56: '0x237F5CF35BF7c4d9B736873C825Da139C4259756',
   },
   multiCall: {
     56: '0xfF6FD90A470Aaa0c1B8A54681746b07AcdFedc9B',

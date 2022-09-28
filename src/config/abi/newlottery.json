@@ -1,7 +1,7 @@
 [
   {
     "inputs": [
-      { "internalType": "address", "name": "_brisTokenAddress", "type": "address" },
+      { "internalType": "address", "name": "_ttnpTokenAddress", "type": "address" },
       { "internalType": "address", "name": "_randomGeneratorAddress", "type": "address" }
     ],
     "stateMutability": "nonpayable",
@@ -50,7 +50,7 @@
       { "indexed": true, "internalType": "uint256", "name": "lotteryId", "type": "uint256" },
       { "indexed": false, "internalType": "uint256", "name": "startTime", "type": "uint256" },
       { "indexed": false, "internalType": "uint256", "name": "endTime", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "priceTicketInBris", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "priceTicketInTTNP", "type": "uint256" },
       { "indexed": false, "internalType": "uint256", "name": "firstTicketId", "type": "uint256" },
       { "indexed": false, "internalType": "uint256", "name": "injectedAmount", "type": "uint256" }
     ],
@@ -128,13 +128,6 @@
     "inputs": [],
     "name": "MIN_LENGTH_LOTTERY",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "brisToken",
-    "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -244,14 +237,14 @@
   },
   {
     "inputs": [],
-    "name": "maxPriceTicketInBris",
+    "name": "maxPriceTicketInTTNP",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "minPriceTicketInBris",
+    "name": "minPriceTicketInTTNP",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -304,10 +297,10 @@
   },
   {
     "inputs": [
-      { "internalType": "uint256", "name": "_minPriceTicketInBris", "type": "uint256" },
-      { "internalType": "uint256", "name": "_maxPriceTicketInBris", "type": "uint256" }
+      { "internalType": "uint256", "name": "_minPriceTicketInTTNP", "type": "uint256" },
+      { "internalType": "uint256", "name": "_maxPriceTicketInTTNP", "type": "uint256" }
     ],
-    "name": "setMinAndMaxTicketPriceInBris",
+    "name": "setMinAndMaxTicketPriceInTTNP",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -326,7 +319,7 @@
   {
     "inputs": [
       { "internalType": "uint256", "name": "_endTime", "type": "uint256" },
-      { "internalType": "uint256", "name": "_priceTicketInBris", "type": "uint256" },
+      { "internalType": "uint256", "name": "_priceTicketInTTNP", "type": "uint256" },
       { "internalType": "uint256", "name": "_discountDivisor", "type": "uint256" },
       { "internalType": "uint256[6]", "name": "_rewardsBreakdown", "type": "uint256[6]" },
       { "internalType": "uint256", "name": "_treasuryFee", "type": "uint256" }
@@ -352,6 +345,13 @@
   },
   {
     "inputs": [],
+    "name": "ttnpToken",
+    "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "viewCurrentLotteryId",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
@@ -363,21 +363,21 @@
     "outputs": [
       {
         "components": [
-          { "internalType": "enum BridgeSwapLottery.Status", "name": "status", "type": "uint8" },
+          { "internalType": "enum TTNDEXLottery.Status", "name": "status", "type": "uint8" },
           { "internalType": "uint256", "name": "startTime", "type": "uint256" },
           { "internalType": "uint256", "name": "endTime", "type": "uint256" },
-          { "internalType": "uint256", "name": "priceTicketInBris", "type": "uint256" },
+          { "internalType": "uint256", "name": "priceTicketInTTNP", "type": "uint256" },
           { "internalType": "uint256", "name": "discountDivisor", "type": "uint256" },
           { "internalType": "uint256[6]", "name": "rewardsBreakdown", "type": "uint256[6]" },
           { "internalType": "uint256", "name": "treasuryFee", "type": "uint256" },
-          { "internalType": "uint256[6]", "name": "brisPerBracket", "type": "uint256[6]" },
+          { "internalType": "uint256[6]", "name": "ttnpPerBracket", "type": "uint256[6]" },
           { "internalType": "uint256[6]", "name": "countWinnersPerBracket", "type": "uint256[6]" },
           { "internalType": "uint256", "name": "firstTicketId", "type": "uint256" },
           { "internalType": "uint256", "name": "firstTicketIdNextLottery", "type": "uint256" },
-          { "internalType": "uint256", "name": "amountCollectedInBris", "type": "uint256" },
+          { "internalType": "uint256", "name": "amountCollectedInTTNP", "type": "uint256" },
           { "internalType": "uint32", "name": "finalNumber", "type": "uint32" }
         ],
-        "internalType": "struct BridgeSwapLottery.Lottery",
+        "internalType": "struct TTNDEXLottery.Lottery",
         "name": "",
         "type": "tuple"
       }
