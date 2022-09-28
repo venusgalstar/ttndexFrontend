@@ -259,7 +259,7 @@ const Referral: React.FC = () => {
           <ReferralPad>
             <ReferralStatus>
               <ReferralIcon>
-                <img src="/images/Referral-icon.svg" alt="referralIcon" width="40px" height="40px"/>
+                <img src="/images/Referral-icon.svg" alt="referralIcon" width="40px" height="40px" />
               </ReferralIcon>
               <div>
                 <Text mb="2px" color='textSubtle'>
@@ -270,7 +270,7 @@ const Referral: React.FC = () => {
                 </Text>
               </div>
               <ReferralIcon>
-                <img src="/images/pools/bris-bris.svg" alt="referralIcon" width="40px" height="40px"/>
+                <img src="/images/pools/bris-bris.svg" alt="referralIcon" width="40px" height="40px" />
               </ReferralIcon>
               <div>
                 <Text mb="2px" color='textSubtle'>
@@ -281,7 +281,7 @@ const Referral: React.FC = () => {
                 </Text>
               </div>
             </ReferralStatus>
-            
+
             <div>
               <Text fontSize='25px' color='text'>My Referral link</Text>
               {!account ? (
@@ -297,7 +297,7 @@ const Referral: React.FC = () => {
                       {`${referLink}${account.slice(0, 4)}...${account.slice(-4)}`}
                     </Text>
                     {/* <CopyIcon/> */}
-                    <CopyIcon style={{color: 'white', fontSize: '22px', margin: '4px 7px'}} onClick={() => {
+                    <CopyIcon style={{ color: 'white', fontSize: '22px', margin: '4px 7px' }} onClick={() => {
                       if (navigator.clipboard) {
                         navigator.clipboard.writeText(`${referLink}${account}`);
                         setIsTooltipDisplayed(true);
@@ -310,7 +310,9 @@ const Referral: React.FC = () => {
                   </Flex>
                 </LinkPad>
               )}
-              <Button variant="primary" scale="md" style={{margin: "10px auto", width: "200px", borderRadius: "30px", backgroundColor: "#00A478"}}>Withdraw Earnings</Button>
+              <Button variant="primary" scale="md" style={{ margin: "10px auto", width: "200px", borderRadius: "30px", backgroundColor: "#00A478" }}>
+                Withdraw Earnings
+              </Button>
             </div>
           </ReferralPad>
         </ReferralLink>
