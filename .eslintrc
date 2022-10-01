@@ -28,7 +28,8 @@
     "import/no-extraneous-dependencies": 0,
     "jsx-a11y/media-has-caption": 0,
     "max-classes-per-file": ["error", 20],
-    "class-methods-use-this": ["off"]
+    "class-methods-use-this": ["off"],
+    "react-hooks/exhaustive-deps": 0
     // End temporary rules
   }
 }

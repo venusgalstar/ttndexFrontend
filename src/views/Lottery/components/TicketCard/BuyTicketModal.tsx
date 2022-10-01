@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Button, Modal } from '@pancakeswap/uikit'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
 import { BIG_TEN } from 'utils/bigNumber'
-import TicketInput from 'components/TicketInput'
+import TicketInput, { TicketNumberInput } from 'components/TicketInput'
 import ModalActions from 'components/ModalActions'
 import {
   useMultiBuyLottery,
@@ -31,6 +31,9 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   const [pendingTx, setPendingTx] = useState(false)
   const [, setRequestedBuy] = useState(false)
   const [, setRequestedApproveToken] = useState(false)
+
+  const [ticketNumbers, setTicketNumbers] = useState([Math.floor(Math.random() * 1000000)])
+
   const { t } = useTranslation()
 
   const allowance = useNewLotteryAllowance()
@@ -50,7 +53,9 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     if (e.currentTarget.validity.valid) {
-      setVal(e.currentTarget.value)
+      const value = !Number.isNaN(parseInt(e.currentTarget.value)) && parseInt(e.currentTarget.value) > maxNumberTickets ?
+        maxNumberTickets.toString() : e.currentTarget.value;
+      setVal(value)
     }
   }
 
@@ -134,9 +139,15 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
     setPendingTx(false)
   }
 
-  const cakeCosts = (amount: string): number => {
-    return getBalanceAmount(new BigNumber(amount).times(lotteryinfo[3])).toNumber()
-  }
+  useEffect(() => {
+    const valLength = Number.isNaN(parseInt(val)) ? 0 : parseInt(val);
+    let fillArray: number[] = [];
+    for (let index = 0; index < Math.max(valLength - ticketNumbers.length, 0); index++) {
+      fillArray = [...fillArray, Math.floor(Math.random() * 1000000)]
+    }
+    const _ticketNumbers = [...ticketNumbers, ...fillArray].slice(0, valLength);
+    setTicketNumbers(_ticketNumbers)
+  }, [val])
 
   const tokenAmountForTickets = useCalculateTotalPriceForBulkTickets(
     lotteryinfo[4],
@@ -154,6 +165,22 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
         symbol={t('Tickets').toUpperCase()}
         availableSymbol="TTNP"
       />
+      <div className='input-box' style={{
+        justifyContent: "center",
+        display: "flex",
+        maxHeight: "185px",
+        overflowY: "auto"
+      }}>
+        <div>
+          {ticketNumbers.length > 0 && Array(Number.isNaN(parseInt(val)) ? 0 : parseInt(val)).fill(0).map((v, idx) =>
+            <TicketNumberInput
+              index={idx}
+              initTicketNumber={ticketNumbers[idx]}
+              ticketNumbers={ticketNumbers}
+              setTicketNumbers={setTicketNumbers}
+            />)}
+        </div>
+      </div>
       <div>
         <Tips>{t('1 Ticket = %lotteryPrice% TTNP', { lotteryPrice: getBalanceAmount(lotteryinfo[3]).toString() })}</Tips>
       </div>
@@ -195,7 +222,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
           </Button>
         )}
       </ModalActions>
-    </Modal>
+    </Modal >
   )
 }
 

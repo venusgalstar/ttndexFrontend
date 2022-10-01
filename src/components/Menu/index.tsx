@@ -33,7 +33,7 @@ const Menu = (props) => {
       currentLang={currentLanguage.code}
       langs={languageList}
       setLang={setLanguage}
-      cakePriceUsd={Number.isNaN(cakePriceUsd.toNumber()) === true ? 5.001 : cakePriceUsd.toNumber()}
+      cakePriceUsd={Number.isNaN(cakePriceUsd.toNumber()) === true ? 0 : cakePriceUsd.toNumber()}
       links={config(t)}
       profile={{
         username: profile?.username,

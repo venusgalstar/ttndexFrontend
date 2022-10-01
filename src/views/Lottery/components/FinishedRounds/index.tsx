@@ -174,9 +174,9 @@ const FinishedRounds = () => {
         })()
     }, [lotteryid, onAccountTickets])
 
-    let finalNumber
+    let finalNumber: string
     if (lotteryinfo[12] === undefined || lotteryinfo[12] === '0') {
-        finalNumber = 'XXXXXX'
+        finalNumber = 'xxxxxx'
     } else {
         finalNumber = lotteryinfo[12].toString()
     }
@@ -236,7 +236,7 @@ const FinishedRounds = () => {
                     <Text m='10px 0px' fontSize='20px' color='text'>{t('Winning Number')}</Text>
                     <WinningNumbers>
                         {
-                            usingSplit.map((num: number) => <DrawNumber>{num}</DrawNumber>)
+                            usingSplit.map((num: string) => <DrawNumber>{num}</DrawNumber>)
                         }
                     </WinningNumbers>
                 </WinningNumber>
