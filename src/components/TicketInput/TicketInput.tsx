@@ -7,10 +7,10 @@ import { getBalanceNumber } from 'utils/formatBalance'
 import { useTranslation } from 'contexts/Localization'
 
 interface TokenInputProps extends InputProps {
-  max: number | string
+  max: number
   symbol: string
   availableSymbol: string
-  value: string
+  value: number
   onSelectMax?: () => void
   onChange: (evt: React.FormEvent<HTMLInputElement>) => void
 }
@@ -28,7 +28,7 @@ const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, 
   return (
     <>
       <Flex alignItems="center">
-        <Input type="number" inputMode="numeric" min="0" onChange={onChange} placeholder="0" value={value} />
+        <Input type="number" inputMode="numeric" min="0" max={max} onChange={onChange} placeholder="0" value={value} />
         <StyledTokenAdornmentWrapper>
           <StyledSpacer />
           <StyledTokenSymbol>{symbol}</StyledTokenSymbol>
@@ -46,7 +46,6 @@ const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, 
 }
 
 export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, ticketNumbers, setTicketNumbers }) => {
-  console.log("TicketNumberInput: ", ticketNumbers)
   const { t } = useTranslation()
 
   const [val1, setVal1] = useState((Math.floor(ticketNumbers[index] / 100000)).toString())
