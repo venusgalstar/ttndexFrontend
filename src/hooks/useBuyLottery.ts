@@ -1,9 +1,21 @@
 import { useCallback, useState, useEffect } from 'react'
+import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { useNewLottery, useLottery, useLotteryTicket, useBRIS } from 'hooks/useContract'
 
 import { getNewLotteryAddress } from 'utils/addressHelpers'
-import { multiClaim, getMax, getLotteryInfo, getLotteryId, multiBuy, buyTickets, approveTokens, getAccountTickets, getMaxNumberTickets } from '../utils/lotteryUtils'
+import {
+  multiClaim,
+  getMax,
+  getLotteryInfo,
+  getLotteryId,
+  multiBuy,
+  buyTickets,
+  approveTokens,
+  getAccountTickets,
+  getMaxNumberTickets,
+  getTotalPriceForBulkTickets
+} from '../utils/lotteryUtils'
 
 export const useMultiClaimLottery = () => {
   const { account } = useWeb3React()
@@ -95,6 +107,24 @@ export const useCurrentLotteryId = () => {
   }, [lotteryContract, fetchLottery])
 
   return lotteryId
+}
+
+export const useCalculateTotalPriceForBulkTickets = (discountDivisor, priceTicket, numberTickets: number) => {
+  const lotteryContract = useNewLottery()
+  const [totalPrice, setTotalPrice] = useState()
+
+  const fetchLottery = useCallback(async () => {
+    const _totalPrice = await getTotalPriceForBulkTickets(lotteryContract, discountDivisor, priceTicket, numberTickets)
+    setTotalPrice(_totalPrice)
+  }, [lotteryContract, priceTicket, discountDivisor, numberTickets])
+
+  useEffect(() => {
+    if (lotteryContract) {
+      fetchLottery()
+    }
+  }, [lotteryContract, fetchLottery])
+
+  return numberTickets <= 1 ? new BigNumber(priceTicket).times(numberTickets) : totalPrice
 }
 
 export const useNewLotteryMaxNumberTickets = () => {

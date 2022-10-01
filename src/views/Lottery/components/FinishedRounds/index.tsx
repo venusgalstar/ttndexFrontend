@@ -184,7 +184,6 @@ const FinishedRounds = () => {
     const date = `${new Date(Number(lotteryinfo[2])).toDateString()} ${new Date(Number(lotteryinfo[2])).toLocaleTimeString()}`
     const usingSplit = finalNumber.split('')
 
-
     return (
         <RoundsContainer>
             <Title>

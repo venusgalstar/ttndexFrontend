@@ -124,6 +124,11 @@ export const getMaxNumberTickets = async (lotteryContract) => {
   return maxNumberTickets
 }
 
+export const getTotalPriceForBulkTickets = async (lotteryContract, priceTicket, discountDivisor, numberTickets) => {
+  const currentLotteryid = await lotteryContract.methods.calculateTotalPriceForBulkTickets(priceTicket, discountDivisor, numberTickets).call()
+  return currentLotteryid
+}
+
 export const getTicketsAmount = async (ticketsContract, account) => {
   return ticketsContract.methods.balanceOf(account).call()
 }

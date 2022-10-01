@@ -10,6 +10,7 @@ import {
   useMultiBuyLottery,
   useMaxNumber,
   useCurrentLotteryId,
+  useCalculateTotalPriceForBulkTickets,
   useBuyTicketsLottery,
   useApproveTokenLottery,
   useNewLotteryMaxNumberTickets,
@@ -136,6 +137,13 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   const cakeCosts = (amount: string): number => {
     return getBalanceAmount(new BigNumber(amount).times(lotteryinfo[3])).toNumber()
   }
+
+  const tokenAmountForTickets = useCalculateTotalPriceForBulkTickets(
+    lotteryinfo[4],
+    lotteryinfo[3],
+    Number.isNaN(parseInt(val)) ? 0 : parseInt(val)
+  )
+
   return (
     <Modal title={t('Enter amount of tickets to buy')} onDismiss={onDismiss}>
       <TicketInput
@@ -153,7 +161,9 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
         <Announce>
           {t('Ticket purchases are final. Your TTNP cannot be returned to you after buying tickets.')}
         </Announce>
-        <Final>{t('You will spend: %num% TTNP', { num: cakeCosts(val) })}</Final>
+        <Final>
+          {t('You will spend: %num% TTNP', { num: getBalanceAmount(tokenAmountForTickets).toString() })}
+        </Final>
       </div>
       <ModalActions>
         <Button width="100%" variant="secondary" onClick={onDismiss}>
