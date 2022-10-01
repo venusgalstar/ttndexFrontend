@@ -102,7 +102,7 @@ export const useMatchingRewardLength = (numbers) => {
   const lotteryContract = useLottery()
   const { fastRefresh } = useRefresh()
 
-  const [lotteryinfo, setLotteryinfo] = useState({ priceTicketInTTNP: 0 }) // TODO
+  const [lotteryinfo, setLotteryinfo] = useState({})
   const lotteryid = useCurrentLotteryId()
   const { onViewLottery } = useLotteryInfo()
 
@@ -116,7 +116,7 @@ export const useMatchingRewardLength = (numbers) => {
 
   useEffect(() => {
     const fetchBalance = async () => {
-      const matchedNumbers = await getMatchingRewardLength(lotteryContract, numbers, lotteryinfo.priceTicketInTTNP)
+      const matchedNumbers = await getMatchingRewardLength(lotteryContract, numbers, lotteryinfo[3])
       setMatchingNumbers(matchedNumbers)
     }
 

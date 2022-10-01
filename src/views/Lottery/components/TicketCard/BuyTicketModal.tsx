@@ -36,7 +36,6 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
 
   const maxNumberTickets = useNewLotteryMaxNumberTickets()
   const lotteryid = useCurrentLotteryId()
-  const pricePerTicket = lotteryinfo.priceTicketInTTNP;
 
   const ttnpBalance = useBrisBalance()
 
@@ -45,8 +44,8 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   }, [max])
 
   const maxTickets = useMemo(() => {
-    return parseInt(new BigNumber(ttnpBalance).div(lotteryinfo.priceTicketInTTNP).toString(), 10)
-  }, [ttnpBalance, lotteryinfo.priceTicketInTTNP])
+    return parseInt(new BigNumber(ttnpBalance).div(lotteryinfo[3]).toString(), 10)
+  }, [ttnpBalance, lotteryinfo])
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     if (e.currentTarget.validity.valid) {
@@ -135,7 +134,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   }
 
   const cakeCosts = (amount: string): number => {
-    return getBalanceAmount(new BigNumber(amount).times(lotteryinfo.priceTicketInTTNP)).toNumber()
+    return getBalanceAmount(new BigNumber(amount).times(lotteryinfo[3])).toNumber()
   }
   return (
     <Modal title={t('Enter amount of tickets to buy')} onDismiss={onDismiss}>
@@ -144,11 +143,11 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
         onSelectMax={handleSelectMax}
         onChange={handleChange}
         max={fullBalance}
-        symbol={t('Ticket').toUpperCase()}
+        symbol={t('Tickets').toUpperCase()}
         availableSymbol="TTNP"
       />
       <div>
-        <Tips>{t('1 Ticket = %lotteryPrice% TTNP', { lotteryPrice: getBalanceAmount(lotteryinfo.priceTicketInTTNP).toString() })}</Tips>
+        <Tips>{t('1 Ticket = %lotteryPrice% TTNP', { lotteryPrice: getBalanceAmount(lotteryinfo[3]).toString() })}</Tips>
       </div>
       <div>
         <Announce>
@@ -160,7 +159,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
         <Button width="100%" variant="secondary" onClick={onDismiss}>
           {t('Cancel')}
         </Button>
-        {allowance.lt(new BigNumber(parseInt(val)).times(lotteryinfo.priceTicketInTTNP)) ? (
+        {allowance.lt(new BigNumber(parseInt(val)).times(lotteryinfo[3])) ? (
           <Button
             id="lottery-approve-complete"
             width="100%"

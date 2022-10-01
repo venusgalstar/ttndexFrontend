@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
+import BigNumber from 'bignumber.js'
 import { Heading, Text, BaseLayout, Button, Image, Card, Flex, Grid } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import { useAccountTickets, useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
+import { getBalanceAmount } from 'utils/formatBalance'
+import { usePriceCakeBusd } from 'state/hooks'
 import HistoryButtons from './HistoryButtons'
-
 
 // Local states. These values can be updated
 // const roundNumValue = 328
@@ -155,10 +157,11 @@ const FinishedRounds = () => {
     const { onViewLottery } = useLotteryInfo()
     const { onAccountTickets } = useAccountTickets()
 
+    const ttnpPriceUsd = usePriceCakeBusd()
 
     useEffect(() => {
         (async () => {
-            const lottery = await onViewLottery((Number(lotteryid)-1).toString())
+            const lottery = await onViewLottery((Number(lotteryid) - 1).toString())
             console.log("lottery info: ", lottery)
             setLotteryinfo(lottery)
         })()
@@ -166,16 +169,16 @@ const FinishedRounds = () => {
 
     useEffect(() => {
         (async () => {
-            const ticketsArr = await onAccountTickets((Number(lotteryid)-1).toString())
+            const ticketsArr = await onAccountTickets((Number(lotteryid) - 1).toString())
             setAccountTickets(ticketsArr)
         })()
     }, [lotteryid, onAccountTickets])
 
     let finalNumber
-    if(lotteryinfo[12] === undefined || lotteryinfo[12] === '0') {
+    if (lotteryinfo[12] === undefined || lotteryinfo[12] === '0') {
         finalNumber = 'XXXXXX'
     } else {
-        finalNumber = lotteryinfo[12]
+        finalNumber = lotteryinfo[12].toString()
     }
 
     const date = `${new Date(Number(lotteryinfo[2])).toDateString()} ${new Date(Number(lotteryinfo[2])).toLocaleTimeString()}`
@@ -193,7 +196,7 @@ const FinishedRounds = () => {
             <RoundDate>
                 <Text mb="22px" fontSize='12px' color='text'>
                     {t(`Round `)}
-                    <RoundNum>{`${Number(lotteryid)-1}`}</RoundNum>
+                    <RoundNum>{`${Number(lotteryid) - 1}`}</RoundNum>
                     {t(` Drawn ${date}`)}
                 </Text>
             </RoundDate>
@@ -204,15 +207,18 @@ const FinishedRounds = () => {
                             {t(`Prize Pot`)}
                         </PotHeading>
                         <TotalTickets>
-                            {t(`Total tickets this round: ${Number(lotteryinfo[11])}`)}
+                            {t(`Total tickets this round: ${new BigNumber(lotteryinfo[10]).minus(lotteryinfo[9])} tickets`)}
                         </TotalTickets>
                     </PotTitle>
                     <Prize>
                         <Heading>
-                            {t(`$${Number(lotteryinfo[11])}`)}
+                            {t(`$${getBalanceAmount(lotteryinfo[11]).times(ttnpPriceUsd).toNumber().toLocaleString('en-US', {
+                                minimumFractionDigits: 3,
+                                maximumFractionDigits: 3,
+                            })}`)}
                         </Heading>
                         <Text fontSize='11px' mb="22px" color='textSubtle'>
-                            {t(`~${Number(lotteryinfo[11])} TTNP`)}
+                            {t(`~${getBalanceAmount(lotteryinfo[11]).toString()} TTNP`)}
                         </Text>
                     </Prize>
                     <Text color='text'>

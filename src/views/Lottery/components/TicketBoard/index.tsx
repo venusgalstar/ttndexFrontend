@@ -5,6 +5,8 @@ import { useTranslation } from 'contexts/Localization'
 import styled from 'styled-components'
 import { useAccountTickets, useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
 import useBrisBalance from 'hooks/useGetBrisBalance'
+import { getBalanceAmount } from 'utils/formatBalance'
+import { usePriceCakeBusd } from 'state/hooks'
 import BuyTicketModal from '../TicketCard/BuyTicketModal'
 import CountDownDate from './CountDownDate'
 
@@ -136,6 +138,8 @@ const TicketBoard = () => {
     const { onViewLottery } = useLotteryInfo()
     const { onAccountTickets } = useAccountTickets()
 
+    const ttnpPriceUsd = usePriceCakeBusd()
+
     useEffect(() => {
         (async () => {
             const lottery = await onViewLottery(lotteryid.toString())
@@ -182,10 +186,13 @@ const TicketBoard = () => {
                 <PrizePot>
                     <PrizePotDetails>
                         <Heading>
-                            {t(`$${Number(lotteryinfo[11])}`)}
+                            {t(`$${getBalanceAmount(lotteryinfo[11]).times(ttnpPriceUsd).toNumber().toLocaleString('en-US', {
+                                minimumFractionDigits: 3,
+                                maximumFractionDigits: 3,
+                            })}`)}
                         </Heading>
                         <Text fontSize='11px' mb="22px" color='textSubtle'>
-                            {t(`~${Number(lotteryinfo[11])} TTNP`)}
+                            {t(`~${getBalanceAmount(lotteryinfo[11]).toString()} TTNP`)}
                         </Text>
                         <Text color='text'>
                             {t("Your Tickets")}

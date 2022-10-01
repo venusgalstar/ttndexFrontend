@@ -28,7 +28,7 @@ const PageMeta = () => {
   const { pathname } = useLocation()
   const cakePriceUsd = usePriceCakeBusd()
   const cakePriceUsdDisplay = cakePriceUsd.gt(0)
-    ? `$${cakePriceUsd.toNumber().toLocaleString(undefined, {
+    ? `$${cakePriceUsd.toNumber().toLocaleString('en-US', {
         minimumFractionDigits: 3,
         maximumFractionDigits: 3,
       })}`
