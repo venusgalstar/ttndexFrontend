@@ -111,7 +111,7 @@ export const useCurrentLotteryId = () => {
 
 export const useCalculateTotalPriceForBulkTickets = (discountDivisor, priceTicket, numberTickets: number) => {
   const lotteryContract = useNewLottery()
-  const [totalPrice, setTotalPrice] = useState()
+  const [totalPrice, setTotalPrice] = useState(new BigNumber(0))
 
   const fetchLottery = useCallback(async () => {
     const _totalPrice = await getTotalPriceForBulkTickets(lotteryContract, discountDivisor, priceTicket, numberTickets)

@@ -81,7 +81,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
       toastError("Buy Tickets Error!", `Failed purchased tickets!`)
       console.error(e)
     }
-  }, [onBuyTickets, setRequestedBuy, toastSuccess, toastError, ticketAmount, lotteryid])
+  }, [onBuyTickets, setRequestedBuy, toastSuccess, toastError, ticketAmount, lotteryid, ticketNumbers])
   // [onMultiBuy, setRequestedBuy, maxNumber, ticketAmount]
 
   const handleApproveToken = useCallback(async () => {
@@ -156,12 +156,15 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
         overflowY: "auto"
       }}>
         <div>
-          {ticketNumbers.length > 0 && ticketNumbers.map((v, idx) =>
-            <TicketNumberInput
-              index={idx}
-              ticketNumbers={ticketNumbers}
-              setTicketNumbers={setTicketNumbers}
-            />)}
+          {
+            ticketNumbers.length > 0 && ticketNumbers.map((v, idx) =>
+              <TicketNumberInput
+                index={idx}
+                ticketNumbers={ticketNumbers}
+                setTicketNumbers={setTicketNumbers}
+              />
+            )
+          }
         </div>
       </div>
       <div>
@@ -195,7 +198,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
             disabled={
               pendingTx ||
               !Number.isInteger(ticketAmount) ||
-              tokenAmountForTickets.gt(ttnpBalance) ||
+              new BigNumber(tokenAmountForTickets).gt(ttnpBalance) ||
               ticketAmount > maxNumberTickets ||
               ticketAmount < 1
             }

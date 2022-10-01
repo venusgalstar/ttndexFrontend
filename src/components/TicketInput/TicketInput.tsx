@@ -55,15 +55,15 @@ export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, tick
   const [val5, setVal5] = useState((Math.floor((ticketNumbers[index] % 100) / 10)).toString())
   const [val6, setVal6] = useState((ticketNumbers[index] % 10).toString())
 
-  const handleSetManualTicketNumber = () => {
-    const val = parseInt(val1) * 100000 + parseInt(val2) * 10000 + parseInt(val3) * 1000 + parseInt(val4) * 100 + parseInt(val5) * 10 + parseInt(val6);
-    handleSetTicketNumber(val)
-  }
-
   const handleSetTicketNumber = (ticketNumber: number) => {
     const _ticketNumbers = [...ticketNumbers];
     _ticketNumbers[index] = ticketNumber
     setTicketNumbers(_ticketNumbers);
+  }
+
+  const handleSetManualTicketNumber = () => {
+    const val = parseInt(val1) * 100000 + parseInt(val2) * 10000 + parseInt(val3) * 1000 + parseInt(val4) * 100 + parseInt(val5) * 10 + parseInt(val6);
+    handleSetTicketNumber(val)
   }
 
   const handleSetRandomTicketNumber = () => {
