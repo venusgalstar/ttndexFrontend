@@ -17,7 +17,6 @@ interface TokenInputProps extends InputProps {
 
 interface TokenNumberInputProps extends InputProps {
   index: number
-  initTicketNumber: number
   ticketNumbers: any
   setTicketNumbers: any
 }
@@ -46,15 +45,16 @@ const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, 
   )
 }
 
-export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, initTicketNumber, ticketNumbers, setTicketNumbers }) => {
+export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, ticketNumbers, setTicketNumbers }) => {
+  console.log("TicketNumberInput: ", ticketNumbers)
   const { t } = useTranslation()
 
-  const [val1, setVal1] = useState((Math.floor(initTicketNumber / 100000)).toString())
-  const [val2, setVal2] = useState((Math.floor((initTicketNumber % 100000) / 10000)).toString())
-  const [val3, setVal3] = useState((Math.floor((initTicketNumber % 10000) / 1000)).toString())
-  const [val4, setVal4] = useState((Math.floor((initTicketNumber % 1000) / 100)).toString())
-  const [val5, setVal5] = useState((Math.floor((initTicketNumber % 100) / 10)).toString())
-  const [val6, setVal6] = useState((initTicketNumber % 10).toString())
+  const [val1, setVal1] = useState((Math.floor(ticketNumbers[index] / 100000)).toString())
+  const [val2, setVal2] = useState((Math.floor((ticketNumbers[index] % 100000) / 10000)).toString())
+  const [val3, setVal3] = useState((Math.floor((ticketNumbers[index] % 10000) / 1000)).toString())
+  const [val4, setVal4] = useState((Math.floor((ticketNumbers[index] % 1000) / 100)).toString())
+  const [val5, setVal5] = useState((Math.floor((ticketNumbers[index] % 100) / 10)).toString())
+  const [val6, setVal6] = useState((ticketNumbers[index] % 10).toString())
 
   const handleSetManualTicketNumber = () => {
     const val = parseInt(val1) * 100000 + parseInt(val2) * 10000 + parseInt(val3) * 1000 + parseInt(val4) * 100 + parseInt(val5) * 10 + parseInt(val6);
@@ -134,7 +134,7 @@ export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, init
 
   useEffect(() => {
     handleSetManualTicketNumber()
-  }, [val1, val2, val3, val3, val4, val5, val6])
+  }, [val1, val2, val3, val4, val5, val6])
 
   return (
     <>

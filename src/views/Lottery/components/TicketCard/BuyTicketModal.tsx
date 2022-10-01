@@ -65,21 +65,16 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   const { onApproveToken } = useApproveTokenLottery()
   const { toastSuccess, toastError } = useToast()
 
-  const handleBuy = useCallback(async () => {
+  const handleBuy = useCallback(async (ticketList: number[]) => {
     try {
       setRequestedBuy(true)
       const length = parseInt(val)
+      console.log("handleBuy: ticketList", ticketList)
       // @ts-ignore
       // eslint-disable-next-line prefer-spread
-      const numbers = Array.apply(null, { length }).map(() =>
-        Math.floor(1.01).toString() +
-        Math.floor(Math.random() * 10).toString() +
-        Math.floor(Math.random() * 10).toString() +
-        Math.floor(Math.random() * 10).toString() +
-        Math.floor(Math.random() * 10).toString() +
-        Math.floor(Math.random() * 10).toString() +
-        Math.floor(Math.random() * 10).toString()
-      )
+      const numbers = Array.apply(null, { length }).map((v, idx) => `1${ticketList[idx].toString()}`)
+
+      console.log("handleBuy: ", numbers)
 
       const txHash = await onBuyTickets(lotteryid.toString(), numbers)
 
@@ -127,7 +122,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   const handleBuyTickets = async () => {
     console.log("handleBuyTickets");
     setPendingTx(true)
-    await handleBuy()
+    await handleBuy(ticketNumbers)
     setPendingTx(false)
     onDismiss()
   }
@@ -141,11 +136,12 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
 
   useEffect(() => {
     const valLength = Number.isNaN(parseInt(val)) ? 0 : parseInt(val);
-    let fillArray: number[] = [];
+    const fillArray: number[] = [];
+    console.log("vvalLength", valLength)
     for (let index = 0; index < Math.max(valLength - ticketNumbers.length, 0); index++) {
-      fillArray = [...fillArray, Math.floor(Math.random() * 1000000)]
+      fillArray.push(Math.floor(Math.random() * 1000000))
     }
-    const _ticketNumbers = [...ticketNumbers, ...fillArray].slice(0, valLength);
+    const _ticketNumbers = [...ticketNumbers, ...fillArray] // TODO
     setTicketNumbers(_ticketNumbers)
   }, [val])
 
@@ -154,6 +150,10 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
     lotteryinfo[3],
     Number.isNaN(parseInt(val)) ? 0 : parseInt(val)
   )
+
+  useEffect(() => {
+    console.log("ticketNumbers: ", ticketNumbers)
+  }, [ticketNumbers])
 
   return (
     <Modal title={t('Enter amount of tickets to buy')} onDismiss={onDismiss}>
@@ -175,7 +175,6 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
           {ticketNumbers.length > 0 && Array(Number.isNaN(parseInt(val)) ? 0 : parseInt(val)).fill(0).map((v, idx) =>
             <TicketNumberInput
               index={idx}
-              initTicketNumber={ticketNumbers[idx]}
               ticketNumbers={ticketNumbers}
               setTicketNumbers={setTicketNumbers}
             />)}
