@@ -162,7 +162,8 @@ const TicketBoard = () => {
         return () => clearInterval(interval)
     }, [])
 
-    const date = `${new Date(Number(lotteryinfo[2])).toDateString()} ${new Date(Number(lotteryinfo[2])).toLocaleTimeString()}`
+    const timeStamp = new BigNumber(lotteryinfo[2]).times(1000).toNumber();
+    const date = `${new Date(timeStamp).toDateString()} ${new Date(timeStamp).toLocaleTimeString()}`
     const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)} lotteryinfo={lotteryinfo} />)
 
 
@@ -210,7 +211,7 @@ const TicketBoard = () => {
                             {t("Get Your Tickets Now")}
                         </Text>
                         <CountDown>
-                            <CountDownDate seconds={16501793732 - (currentTime / 1000)} />
+                            <CountDownDate seconds={lotteryinfo[2] - (currentTime / 1000)} />
 
                             {/* <Time>
                                 <Value>{timeHours}</Value>
