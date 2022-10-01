@@ -1,7 +1,8 @@
 import BigNumber from 'bignumber.js'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { Button, Modal } from '@pancakeswap/uikit'
+import { Button, Modal, useWalletModal } from '@pancakeswap/uikit'
+import { useWeb3React } from '@web3-react/core'
 import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
 import { BIG_TEN } from 'utils/bigNumber'
 import TicketInput, { TicketNumberInput } from 'components/TicketInput'
@@ -18,6 +19,7 @@ import {
 import { useNewLotteryAllowance } from 'hooks/useAllowance'
 import useBrisBalance from 'hooks/useGetBrisBalance'
 import useToast from 'hooks/useToast'
+import useAuth from 'hooks/useAuth'
 import { useTranslation } from 'contexts/Localization'
 
 interface BuyTicketModalProps {
@@ -31,6 +33,9 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   const [pendingTx, setPendingTx] = useState(false)
   const [, setRequestedBuy] = useState(false)
   const [, setRequestedApproveToken] = useState(false)
+  const { account } = useWeb3React()
+  const { login, logout } = useAuth()
+  const { onPresentConnectModal } = useWalletModal(login, logout)
 
   const [ticketNumbers, setTicketNumbers] = useState([Math.floor(Math.random() * 1000000)])
 
@@ -182,14 +187,26 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
         <Button width="100%" variant="secondary" onClick={onDismiss}>
           {t('Cancel')}
         </Button>
-        {allowance.lt(tokenAmountForTickets) ? (
+        {!account || allowance.lt(tokenAmountForTickets) ? (
           <Button
             id="lottery-approve-complete"
             width="100%"
             disabled={pendingTx}
-            onClick={handleApprove}
+            onClick={!account ? onPresentConnectModal : handleApprove}
           >
-            {pendingTx ? t('Approving') : t('Approve')}
+            {
+              (
+                () => {
+                  if (account) {
+                    return t('Connect Wallet')
+                  }
+                  if (pendingTx) {
+                    return t('Approving')
+                  }
+                  return t('Approve')
+                }
+              )()
+            }
           </Button>
         ) : (
           <Button
