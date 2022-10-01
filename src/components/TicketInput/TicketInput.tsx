@@ -141,7 +141,8 @@ export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, tick
         <StyledMaxText style={{ width: "40px" }}>
           {`#${index + 1}`}
         </StyledMaxText>
-        <StyledSpacer />
+        <StyledSpacer style={{ width: "15px" }} />
+
         <Input type="number" inputMode="numeric" min="0" max="9" onChange={onChange1} placeholder="0"
           value={val1} style={{ width: "45px" }}
         />
@@ -165,6 +166,8 @@ export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, tick
         <Input type="number" inputMode="numeric" min="0" max="9" onChange={onChange6} placeholder="0"
           value={val6} style={{ width: "45px" }}
         />
+        <StyledSpacer style={{ width: "15px" }} />
+
         <StyledTokenAdornmentWrapper>
           <StyledSpacer />
           <Button scale="sm" onClick={handleSetRandomTicketNumber}>
