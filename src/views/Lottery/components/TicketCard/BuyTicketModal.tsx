@@ -197,7 +197,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
             {
               (
                 () => {
-                  if (account) {
+                  if (!account) {
                     return t('Connect Wallet')
                   }
                   if (pendingTx) {
