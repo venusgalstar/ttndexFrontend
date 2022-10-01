@@ -1,11 +1,12 @@
 /* eslint-disable no-await-in-loop */
 import BigNumber from 'bignumber.js'
+import { ethers } from 'ethers'
 import { Interface } from '@ethersproject/abi'
 import { getWeb3NoAccount } from 'utils/web3'
 import MultiCallAbi from 'config/abi/Multicall.json'
 import ticketAbi from 'config/abi/lotteryNft.json'
 import lotteryAbi from 'config/abi/lottery.json'
-import { DEFAULT_TOKEN_DECIMAL, LOTTERY_TICKET_PRICE } from 'config'
+import { DEFAULT_TOKEN_DECIMAL } from 'config'
 import { AbiItem } from 'web3-utils'
 import { getMulticallAddress } from './addressHelpers'
 import { BIG_ZERO } from './bigNumber'
@@ -80,10 +81,25 @@ export const getLotteryInfo = async (lotteryContract, lotteryid) => {
   return lotteryinfo
 }
 
-export const buyTickets = async (lotteryContract, lotteryid, numbersList, account) => {
+export const buyTickets = async (lotteryContract, lotteryid: string, numbersList: number[], account: string) => {
+  console.log("buyTickets: ", lotteryContract, lotteryid, numbersList)
   try {
     return lotteryContract.methods
       .buyTickets(lotteryid, numbersList)
+      .send({ from: account })
+      .on('transactionHash', (tx) => {
+        return tx.transactionHash
+      })
+  } catch (err) {
+    return console.error(err)
+  }
+}
+
+export const approveTokens = async (tokenContract, targetAddress: string, account: string) => {
+  console.log("approveTokens: ", tokenContract, targetAddress, account)
+  try {
+    return tokenContract.methods
+      .approve(targetAddress, ethers.constants.MaxUint256)
       .send({ from: account })
       .on('transactionHash', (tx) => {
         return tx.transactionHash
@@ -101,6 +117,11 @@ export const getAccountTickets = async (lotteryContract, account, lotteryid) => 
 export const getLotteryId = async (lotteryContract) => {
   const currentLotteryid = await lotteryContract.methods.currentLotteryId().call()
   return currentLotteryid
+}
+
+export const getMaxNumberTickets = async (lotteryContract) => {
+  const maxNumberTickets = await lotteryContract.methods.maxNumberTicketsPerBuyOrClaim().call()
+  return maxNumberTickets
 }
 
 export const getTicketsAmount = async (ticketsContract, account) => {
@@ -208,7 +229,7 @@ export const getLotteryStatus = async (lotteryContract) => {
   return lotteryContract.methods.drawed().call()
 }
 
-export const getMatchingRewardLength = async (lotteryContract, matchNumber) => {
+export const getMatchingRewardLength = async (lotteryContract, matchNumber, pricePerTicket) => {
   let issueIndex = await lotteryContract.methods.issueIndex().call()
   const drawed = await lotteryContract.methods.drawed().call()
   if (!drawed) {
@@ -217,7 +238,7 @@ export const getMatchingRewardLength = async (lotteryContract, matchNumber) => {
   try {
     const amount = await lotteryContract.methods.historyAmount(issueIndex, 5 - matchNumber).call()
 
-    return new BigNumber(amount).div(DEFAULT_TOKEN_DECIMAL).div(LOTTERY_TICKET_PRICE).toNumber()
+    return new BigNumber(amount).div(pricePerTicket).toNumber()
   } catch (err) {
     console.error(err)
   }

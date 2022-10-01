@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Button, useModal } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
@@ -8,6 +8,7 @@ import useTickets from 'hooks/useTickets'
 import useTokenBalance from 'hooks/useTokenBalance'
 import { getCakeAddress } from 'utils/addressHelpers'
 import { useApproval } from 'hooks/useApproval'
+import { useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
 import BuyTicketModal from './BuyTicketModal'
 import MyTicketsModal from './UserTicketsModal'
 import PurchaseWarningModal from './PurchaseWarningModal'
@@ -31,7 +32,19 @@ const TicketCard: React.FC = () => {
   const ticketsLength = tickets.length
   const [onPresentMyTickets] = useModal(<MyTicketsModal myTicketNumbers={tickets} from="buy" />)
   const [onPresentApprove] = useModal(<PurchaseWarningModal />)
-  const [onPresentBuy] = useModal(<BuyTicketModal max={cakeBalance} />)
+
+  const [lotteryinfo, setLotteryinfo] = useState({})
+  const lotteryid = useCurrentLotteryId()
+  const { onViewLottery } = useLotteryInfo()
+
+  useEffect(() => {
+    (async () => {
+      const lottery = await onViewLottery(lotteryid.toString())
+      setLotteryinfo(lottery)
+    })()
+  }, [lotteryid, onViewLottery])
+
+  const [onPresentBuy] = useModal(<BuyTicketModal max={cakeBalance} lotteryinfo={lotteryinfo} />)
   const { handleApprove, requestedApproval } = useApproval(onPresentApprove)
 
   const renderLotteryTicketButtons = () => {

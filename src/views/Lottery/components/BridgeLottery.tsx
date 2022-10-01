@@ -31,30 +31,31 @@ const BridgeLottery = () => {
   const { onViewLottery } = useLotteryInfo()
 
 
-  const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)}/>)
+  const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)} lotteryinfo={lotteryinfo} />)
+
   useEffect(() => {
-      (async () => {
-          const lottery = await onViewLottery(lotteryid.toString())
-          setLotteryinfo(lottery)
-      })()
+    (async () => {
+      const lottery = await onViewLottery(lotteryid.toString())
+      setLotteryinfo(lottery)
+    })()
   }, [lotteryid, onViewLottery])
 
 
   return (
-      <LotteryInfo>
-          <Text fontSize="12px" mb="15px" color="text">
-            {t("The BridgeSwap Lottery")}
-          </Text><Text fontWeight="700" mb="15px" fontSize="42px">
-            {t("Win $0")}
-          </Text>
-          <Text fontSize="12px" mb="22px" color="text">
-            {t("in prizes")}
-          </Text>
-          <Button variant="primary" scale="sm" style={{margin: "10px auto", width: "200px"}} onClick={onPresentBuyTicketsModal}>Buy tickets</Button>
-          <Text fontSize='12px' color='text'>
-              {t(`Tickets sold at $${Number(lotteryinfo[3])} per ticket`)}
-          </Text>
-      </LotteryInfo>
+    <LotteryInfo>
+      <Text fontSize="12px" mb="15px" color="text">
+        {t("The BridgeSwap Lottery")}
+      </Text><Text fontWeight="700" mb="15px" fontSize="42px">
+        {t("Win $0")}
+      </Text>
+      <Text fontSize="12px" mb="22px" color="text">
+        {t("in prizes")}
+      </Text>
+      <Button variant="primary" scale="sm" style={{ margin: "10px auto", width: "200px" }} onClick={onPresentBuyTicketsModal}>Buy tickets</Button>
+      <Text fontSize='12px' color='text'>
+        {t(`Tickets sold at $${Number(lotteryinfo[3])} per ticket`)}
+      </Text>
+    </LotteryInfo>
   )
 }
 

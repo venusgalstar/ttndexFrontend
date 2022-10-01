@@ -1,8 +1,9 @@
 import { useCallback, useState, useEffect } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { useNewLottery, useLottery, useLotteryTicket } from 'hooks/useContract'
+import { useNewLottery, useLottery, useLotteryTicket, useBRIS } from 'hooks/useContract'
 
-import { multiClaim, getMax, getLotteryInfo, getLotteryId, multiBuy, buyTickets, getAccountTickets } from '../utils/lotteryUtils'
+import { getNewLotteryAddress } from 'utils/addressHelpers'
+import { multiClaim, getMax, getLotteryInfo, getLotteryId, multiBuy, buyTickets, approveTokens, getAccountTickets, getMaxNumberTickets } from '../utils/lotteryUtils'
 
 export const useMultiClaimLottery = () => {
   const { account } = useWeb3React()
@@ -59,6 +60,25 @@ export const useBuyTicketsLottery = () => {
   return { onBuyTickets: handleBuy }
 }
 
+export const useApproveTokenLottery = () => {
+  const { account } = useWeb3React()
+  const tokenContract = useBRIS()
+
+  const handleApproveToken = useCallback(
+    async () => {
+      try {
+        const txHash = await approveTokens(tokenContract, getNewLotteryAddress(), account)
+        return txHash
+      } catch (e) {
+        return false
+      }
+    },
+    [account, tokenContract],
+  )
+
+  return { onApproveToken: handleApproveToken }
+}
+
 export const useCurrentLotteryId = () => {
   const lotteryContract = useNewLottery()
   const [lotteryId, setLotteryId] = useState(0)
@@ -75,6 +95,24 @@ export const useCurrentLotteryId = () => {
   }, [lotteryContract, fetchLottery])
 
   return lotteryId
+}
+
+export const useNewLotteryMaxNumberTickets = () => {
+  const lotteryContract = useNewLottery()
+  const [maxNumberTickets, setMaxNumberTickets] = useState(0)
+
+  const fetchLottery = useCallback(async () => {
+    const maxNumber = await getMaxNumberTickets(lotteryContract)
+    setMaxNumberTickets(maxNumber)
+  }, [lotteryContract])
+
+  useEffect(() => {
+    if (lotteryContract) {
+      fetchLottery()
+    }
+  }, [lotteryContract, fetchLottery])
+
+  return maxNumberTickets
 }
 
 export const useLotteryInfo = () => {

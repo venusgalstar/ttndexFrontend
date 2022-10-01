@@ -159,7 +159,7 @@ const TicketBoard = () => {
     }, [])
 
     const date = `${new Date(Number(lotteryinfo[2])).toDateString()} ${new Date(Number(lotteryinfo[2])).toLocaleTimeString()}`
-    const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)}/>)
+    const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)} lotteryinfo={lotteryinfo} />)
 
 
     return (
@@ -195,7 +195,7 @@ const TicketBoard = () => {
                             <UserTicket>{`{${accountTickets.length}}`}</UserTicket>
                             {t(` tickets for this round.`)}
                         </Text>
-                        <Button scale="sm" variant="primary" onClick={onPresentBuyTicketsModal}>Buy Tickets</Button>                        
+                        <Button scale="sm" variant="primary" onClick={onPresentBuyTicketsModal}>Buy Tickets</Button>
                     </PrizePotDetails>
 
                     <CountDownTimer>

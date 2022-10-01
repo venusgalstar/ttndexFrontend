@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { Heading, Card, CardBody, Button, useModal } from '@pancakeswap/uikit'
 import { useWeb3React } from '@web3-react/core'
@@ -10,6 +10,7 @@ import useTokenBalance from 'hooks/useTokenBalance'
 import { useMultiClaimLottery } from 'hooks/useBuyLottery'
 import { useTotalClaim } from 'hooks/useTickets'
 import { useLotteryAllowance } from 'hooks/useAllowance'
+import { useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
 import { useApproval } from 'hooks/useApproval'
 import PurchaseWarningModal from 'views/Lottery/components/TicketCard/PurchaseWarningModal'
 import BuyTicketModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
@@ -57,6 +58,17 @@ const LotteryCard = () => {
   const { balance: cakeBalance } = useTokenBalance(getCakeAddress())
   const { handleApprove, requestedApproval } = useApproval(onPresentApprove)
 
+  const [lotteryinfo, setLotteryinfo] = useState({})
+  const lotteryid = useCurrentLotteryId()
+  const { onViewLottery } = useLotteryInfo()
+
+  useEffect(() => {
+    (async () => {
+      const lottery = await onViewLottery(lotteryid.toString())
+      setLotteryinfo(lottery)
+    })()
+  }, [lotteryid, onViewLottery])
+
   const handleClaim = useCallback(async () => {
     try {
       setRequestedClaim(true)
@@ -89,7 +101,7 @@ const LotteryCard = () => {
     )
   }
 
-  const [onPresentBuy] = useModal(<BuyTicketModal max={cakeBalance} />)
+  const [onPresentBuy] = useModal(<BuyTicketModal max={cakeBalance} lotteryinfo={lotteryinfo} />)
 
   return (
     <StyledLotteryCard>

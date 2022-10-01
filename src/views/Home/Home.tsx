@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link as ReactLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
@@ -26,6 +26,7 @@ import EarnAssetCard from 'views/Home/components/EarnAssetCard'
 import WinCard from 'views/Home/components/WinCard'
 import partners from 'config/constants/partners'
 import useBrisBalance from 'hooks/useGetBrisBalance'
+import { useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
 import BuyTicketModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
 import { useFarms, usePools, usePriceCakeBusd } from 'state/hooks'
 import { useWeb3React } from '@web3-react/core'
@@ -300,7 +301,7 @@ const Title = styled.div`
 
 const AuditCard: React.FC = () => {
   return (
-    <div style={{ display:"flex", width:"100%", justifyContent: "end" }}>
+    <div style={{ display: "flex", width: "100%", justifyContent: "end" }}>
       <div
         style={{
           padding: '16px',
@@ -333,8 +334,19 @@ const Home: React.FC = () => {
   const cakePrice = usePriceCakeBusd();
   const farmsWitApr = useFarmsWithApr();
 
+  const [lotteryinfo, setLotteryinfo] = useState({})
+  const lotteryid = useCurrentLotteryId()
+  const { onViewLottery } = useLotteryInfo()
+
+  useEffect(() => {
+    (async () => {
+      const lottery = await onViewLottery(lotteryid.toString())
+      setLotteryinfo(lottery)
+    })()
+  }, [lotteryid, onViewLottery])
+
   const maxBalance = useBrisBalance()
-  const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)} />)
+  const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)} lotteryinfo={lotteryinfo} />)
   const farmsList = useCallback(
     (farmsToDisplay: Farm[]): FarmWithStakedValue[] => {
       const farmsToDisplayWithAPR: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
@@ -343,7 +355,7 @@ const Home: React.FC = () => {
         }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)
         const apr = getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity);
-        
+
         return { ...farm, apr, liquidity: totalLiquidity }
       })
 

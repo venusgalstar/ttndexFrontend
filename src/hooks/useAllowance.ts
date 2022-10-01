@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Contract } from 'web3-eth-contract'
-import { getLotteryAddress } from 'utils/addressHelpers'
+import { getLotteryAddress, getNewLotteryAddress } from 'utils/addressHelpers'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { useCake } from './useContract'
 import useRefresh from './useRefresh'
@@ -24,6 +24,26 @@ export const useLotteryAllowance = () => {
       fetchAllowance()
     }
   }, [account, cakeContract, fastRefresh])
+
+  return allowance
+}
+
+export const useNewLotteryAllowance = () => {
+  const [allowance, setAllowance] = useState(BIG_ZERO)
+  const { account } = useWeb3React()
+  const ttnpContract = useCake()
+  const { fastRefresh } = useRefresh()
+
+  useEffect(() => {
+    const fetchAllowance = async () => {
+      const res = await ttnpContract.methods.allowance(account, getNewLotteryAddress()).call()
+      setAllowance(new BigNumber(res))
+    }
+
+    if (account) {
+      fetchAllowance()
+    }
+  }, [account, ttnpContract, fastRefresh])
 
   return allowance
 }

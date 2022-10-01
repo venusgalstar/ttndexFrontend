@@ -1,31 +1,52 @@
 import BigNumber from 'bignumber.js'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { Button, Modal } from '@pancakeswap/uikit'
-import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
+import { getBalanceNumber, getBalanceAmount } from 'utils/formatBalance'
+import { BIG_TEN } from 'utils/bigNumber'
 import TicketInput from 'components/TicketInput'
 import ModalActions from 'components/ModalActions'
-import { useMultiBuyLottery, useMaxNumber, useCurrentLotteryId, useBuyTicketsLottery } from 'hooks/useBuyLottery'
+import {
+  useMultiBuyLottery,
+  useMaxNumber,
+  useCurrentLotteryId,
+  useBuyTicketsLottery,
+  useApproveTokenLottery,
+  useNewLotteryMaxNumberTickets,
+} from 'hooks/useBuyLottery'
+import { useNewLotteryAllowance } from 'hooks/useAllowance'
+import useBrisBalance from 'hooks/useGetBrisBalance'
+import useToast from 'hooks/useToast'
 import { useTranslation } from 'contexts/Localization'
-import { LOTTERY_MAX_NUMBER_OF_TICKETS, LOTTERY_TICKET_PRICE } from 'config'
 
 interface BuyTicketModalProps {
-  max: BigNumber
+  max: BigNumber,
+  lotteryinfo?: any,
   onDismiss?: () => void
 }
 
-const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, onDismiss }) => {
+const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDismiss }) => {
   const [val, setVal] = useState('1')
   const [pendingTx, setPendingTx] = useState(false)
   const [, setRequestedBuy] = useState(false)
+  const [, setRequestedApproveToken] = useState(false)
   const { t } = useTranslation()
+
+  const allowance = useNewLotteryAllowance()
+
+  const maxNumberTickets = useNewLotteryMaxNumberTickets()
+  const lotteryid = useCurrentLotteryId()
+  const pricePerTicket = lotteryinfo.priceTicketInTTNP;
+
+  const ttnpBalance = useBrisBalance()
+
   const fullBalance = useMemo(() => {
     return getBalanceNumber(max)
   }, [max])
 
   const maxTickets = useMemo(() => {
-    return parseInt(getFullDisplayBalance(max.div(LOTTERY_TICKET_PRICE)), 10)
-  }, [max])
+    return parseInt(new BigNumber(ttnpBalance).div(lotteryinfo.priceTicketInTTNP).toString(), 10)
+  }, [ttnpBalance, lotteryinfo.priceTicketInTTNP])
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     if (e.currentTarget.validity.valid) {
@@ -36,7 +57,8 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, onDismiss }) => {
   // const { onMultiBuy } = useMultiBuyLottery()
   // const maxNumber = useMaxNumber()
   const { onBuyTickets } = useBuyTicketsLottery()
-  const lotteryid = useCurrentLotteryId()
+  const { onApproveToken } = useApproveTokenLottery()
+  const { toastSuccess, toastError } = useToast()
 
   const handleBuy = useCallback(async () => {
     try {
@@ -44,46 +66,76 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, onDismiss }) => {
       const length = parseInt(val)
       // @ts-ignore
       // eslint-disable-next-line prefer-spread
-      // const numbers = Array.apply(null, { length }).map(() => [
-      //   Math.floor(Math.random() * maxNumber) + 1,
-      //   Math.floor(Math.random() * maxNumber) + 1,
-      //   Math.floor(Math.random() * maxNumber) + 1,
-      //   Math.floor(Math.random() * maxNumber) + 1,
-      // ])
-      
-      // @ts-ignore
-      // eslint-disable-next-line prefer-spread
       const numbers = Array.apply(null, { length }).map(() =>
-        Math.floor(Math.random() * 10).toString() + 
-        Math.floor(Math.random() * 10).toString() + 
-        Math.floor(Math.random() * 10).toString() + 
-        Math.floor(Math.random() * 10).toString() + 
-        Math.floor(Math.random() * 10).toString() + 
+        Math.floor(1.01).toString() +
+        Math.floor(Math.random() * 10).toString() +
+        Math.floor(Math.random() * 10).toString() +
+        Math.floor(Math.random() * 10).toString() +
+        Math.floor(Math.random() * 10).toString() +
+        Math.floor(Math.random() * 10).toString() +
         Math.floor(Math.random() * 10).toString()
       )
 
       const txHash = await onBuyTickets(lotteryid.toString(), numbers)
-      // const txHash = await onMultiBuy(LOTTERY_TICKET_PRICE.toString(), numbers)
+
       // user rejected tx or didn't go thru
       if (txHash) {
+        toastSuccess("Buy Tickets Success!", `Successfully purchased ${length} tickets!`)
         setRequestedBuy(false)
+      } else {
+        toastError("Buy Tickets Error!", `Failed purchased tickets!`)
       }
     } catch (e) {
+      toastError("Buy Tickets Error!", `Failed purchased tickets!`)
       console.error(e)
     }
-  }, [onBuyTickets, setRequestedBuy, val, lotteryid])
+  }, [onBuyTickets, setRequestedBuy, toastSuccess, toastError, val, lotteryid])
   // [onMultiBuy, setRequestedBuy, maxNumber, val]
 
+  const handleApproveToken = useCallback(async () => {
+    try {
+      setRequestedApproveToken(true)
+
+      const txHash = await onApproveToken()
+
+      // user rejected tx or didn't go thru
+      if (txHash) {
+        toastSuccess("Approve TTNP Success!", `Successfully approved TTNP token!`)
+        setRequestedApproveToken(false)
+      } else {
+        toastError("Approve TTNP Error!", `Approve Fail!`)
+      }
+    } catch (e) {
+      toastError("Approve TTNP Error!", `Approve Fail!`)
+      console.error(e)
+    }
+  }, [onApproveToken, setRequestedApproveToken, toastSuccess, toastError])
+
   const handleSelectMax = useCallback(() => {
-    if (Number(maxTickets) > LOTTERY_MAX_NUMBER_OF_TICKETS) {
-      setVal(LOTTERY_MAX_NUMBER_OF_TICKETS.toString())
+    if (Number(maxTickets) > maxNumberTickets) {
+      setVal(maxNumberTickets.toString())
     } else {
       setVal(maxTickets.toString())
     }
-  }, [maxTickets])
+  }, [maxTickets, maxNumberTickets])
+
+  const handleBuyTickets = async () => {
+    console.log("handleBuyTickets");
+    setPendingTx(true)
+    await handleBuy()
+    setPendingTx(false)
+    onDismiss()
+  }
+
+  const handleApprove = async () => {
+    console.log("handleApprove");
+    setPendingTx(true)
+    await handleApproveToken()
+    setPendingTx(false)
+  }
 
   const cakeCosts = (amount: string): number => {
-    return +amount * LOTTERY_TICKET_PRICE
+    return getBalanceAmount(new BigNumber(amount).times(lotteryinfo.priceTicketInTTNP)).toNumber()
   }
   return (
     <Modal title={t('Enter amount of tickets to buy')} onDismiss={onDismiss}>
@@ -96,7 +148,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, onDismiss }) => {
         availableSymbol="TTNP"
       />
       <div>
-        <Tips>{t('1 Ticket = %lotteryPrice% TTNP', { lotteryPrice: LOTTERY_TICKET_PRICE })}</Tips>
+        <Tips>{t('1 Ticket = %lotteryPrice% TTNP', { lotteryPrice: getBalanceAmount(lotteryinfo.priceTicketInTTNP).toString() })}</Tips>
       </div>
       <div>
         <Announce>
@@ -108,25 +160,31 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, onDismiss }) => {
         <Button width="100%" variant="secondary" onClick={onDismiss}>
           {t('Cancel')}
         </Button>
-        <Button
-          id="lottery-buy-complete"
-          width="100%"
-          disabled={
-            pendingTx ||
-            !Number.isInteger(parseInt(val)) ||
-            parseInt(val) > Number(maxTickets) ||
-            parseInt(val) > LOTTERY_MAX_NUMBER_OF_TICKETS ||
-            parseInt(val) < 1
-          }
-          onClick={async () => {
-            setPendingTx(true)
-            await handleBuy()
-            setPendingTx(false)
-            onDismiss()
-          }}
-        >
-          {pendingTx ? t('Pending Confirmation') : t('Confirm')}
-        </Button>
+        {allowance.lt(new BigNumber(parseInt(val)).times(lotteryinfo.priceTicketInTTNP)) ? (
+          <Button
+            id="lottery-approve-complete"
+            width="100%"
+            disabled={pendingTx}
+            onClick={handleApprove}
+          >
+            {pendingTx ? t('Approving') : t('Approve')}
+          </Button>
+        ) : (
+          <Button
+            id="lottery-buy-complete"
+            width="100%"
+            disabled={
+              pendingTx ||
+              !Number.isInteger(parseInt(val)) ||
+              parseInt(val) > Number(maxTickets) ||
+              parseInt(val) > maxNumberTickets ||
+              parseInt(val) < 1
+            }
+            onClick={handleBuyTickets}
+          >
+            {pendingTx ? t('Pending Confirmation') : t('Confirm')}
+          </Button>
+        )}
       </ModalActions>
     </Modal>
   )

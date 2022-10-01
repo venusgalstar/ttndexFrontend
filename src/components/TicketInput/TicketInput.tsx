@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import BigNumber from 'bignumber.js'
 import { Button, Flex, Input, InputProps } from '@pancakeswap/uikit'
+import useBrisBalance from 'hooks/useGetBrisBalance'
+import { getBalanceNumber } from 'utils/formatBalance'
 import { useTranslation } from 'contexts/Localization'
 
 interface TokenInputProps extends InputProps {
@@ -14,6 +17,7 @@ interface TokenInputProps extends InputProps {
 
 const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, onChange, onSelectMax, value }) => {
   const { t } = useTranslation()
+  const ttnpBalance = useBrisBalance()
 
   return (
     <>
@@ -29,7 +33,7 @@ const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, 
         </StyledTokenAdornmentWrapper>
       </Flex>
       <StyledMaxText>
-        {t('%num% %symbol% Available', { num: max.toLocaleString(), symbol: availableSymbol })}
+        {t('%num% %symbol% Available', { num: getBalanceNumber(new BigNumber(ttnpBalance)).toLocaleString(), symbol: availableSymbol })}
       </StyledMaxText>
     </>
   )
