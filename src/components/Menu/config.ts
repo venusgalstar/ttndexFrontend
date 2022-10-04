@@ -99,7 +99,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   //     },
   //     {
   //       label: t('Accounts'),
-  //       href: 'https://bridgeswap.info/accounts',
+  //       href: 'https://ttndex.info/accounts',
   //     },
   //   ],
   // },
@@ -114,7 +114,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   //   items: [
   //     // {
   //     //   label: t('Team'),
-  //     //   href: 'https://bridgeswap-exchange-1.gitbook.io/bridgeswap/our-team',
+  //     //   href: 'https://doc.ttndex.com/ttndex/our-team',
   //     // },
   //     // {
   //     //   label: t('Voting'),

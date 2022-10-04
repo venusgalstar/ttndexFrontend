@@ -26,7 +26,7 @@ const StyledLink = styled(Link)`
 const HelpButton = () => {
   const { t } = useTranslation()
   return (
-    <StyledLink external href="https://bridgeswap-exchange-1.gitbook.io/bridgeswap/core-products/pools">
+    <StyledLink external href="https://doc.ttndex.com/ttndex/core-products/pools">
       <Button px={['14px', null, null, null, '20px']} variant="subtle">
         <ButtonText color="backgroundAlt" bold fontSize="16px">
           {t('Help')}

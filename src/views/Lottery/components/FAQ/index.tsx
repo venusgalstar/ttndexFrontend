@@ -55,7 +55,7 @@ const Faq = () => {
             <Wordings>
                 <Heading color='text'>{t("Got questions?")}</Heading>
                 <Text mb='20px' fontSize='14px' color='text'>{t("Go over our detailed explanation in the docs section.")}</Text>
-                <DocsLink href='https://bridgeswap-exchange-1.gitbook.io/bridgeswap/core-products/lottery' target='_blank' rel='noreferrer noopener'>
+                <DocsLink href='https://doc.ttndex.com/ttndex/core-products/lottery' target='_blank' rel='noreferrer noopener'>
                     <Text fontSize='14px' color='text'>
                         {t('Go to docs')}
                         &#x2192;

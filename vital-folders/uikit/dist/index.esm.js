@@ -3622,7 +3622,7 @@ var socials = [
     // {
     //     label: "Github",
     //     icon: "GithubIcon",
-    //     href: "https://github.com/Bridgeswap-Dex",
+    //     href: "https://github.com/ttndex",
     // },
     {
         label: "Twitter",
@@ -3637,7 +3637,7 @@ var socials = [
     // {
     //     label: "Gitbook",
     //     icon: "GitbookIcon",
-    //     href: "https://bridgeswap-exchange-1.gitbook.io/bridgeswap/",
+    //     href: "https://doc.ttndex.com/ttndex/",
     // },
     // {
     //     label: "Telegram",
@@ -3645,55 +3645,55 @@ var socials = [
     //     items: [
     //         {
     //             label: "English",
-    //             href: "https://t.me/bridgeswap",
+    //             href: "https://t.me/ttndex",
     //         },
     //         // {
     //         //   label: "Bahasa Indonesia",
-    //         //   href: "https://t.me/PancakeSwapIndonesia",
+    //         //   href: "https://t.me/TTNDEXIndonesia",
     //         // },
     //         // {
     //         //   label: "中文",
-    //         //   href: "https://t.me/PancakeSwap_CN",
+    //         //   href: "https://t.me/TTNDEX_CN",
     //         // },
     //         // {
     //         //   label: "Tiếng Việt",
-    //         //   href: "https://t.me/PancakeSwapVN",
+    //         //   href: "https://t.me/TTNDEXVN",
     //         // },
     //         // {
     //         //   label: "Italiano",
-    //         //   href: "https://t.me/pancakeswap_ita",
+    //         //   href: "https://t.me/TTNDEX_ita",
     //         // },
     //         // {
     //         //   label: "русский",
-    //         //   href: "https://t.me/pancakeswap_ru",
+    //         //   href: "https://t.me/TTNDEX_ru",
     //         // },
     //         // {
     //         //   label: "Türkiye",
-    //         //   href: "https://t.me/pancakeswapturkiye",
+    //         //   href: "https://t.me/TTNDEXturkiye",
     //         // },
     //         // {
     //         //   label: "Português",
-    //         //   href: "https://t.me/PancakeSwapPortuguese",
+    //         //   href: "https://t.me/TTNDEXPortuguese",
     //         // },
     //         // {
     //         //   label: "Español",
-    //         //   href: "https://t.me/PancakeswapEs",
+    //         //   href: "https://t.me/TTNDEXEs",
     //         // },
     //         // {
     //         //   label: "日本語",
-    //         //   href: "https://t.me/pancakeswapjp",
+    //         //   href: "https://t.me/TTNDEXjp",
     //         // },
     //         // {
     //         //   label: "Français",
-    //         //   href: "https://t.me/pancakeswapfr",
+    //         //   href: "https://t.me/TTNDEXfr",
     //         // },
     //         // {
     //         //   label: "Announcements",
-    //         //   href: "https://t.me/PancakeSwapAnn",
+    //         //   href: "https://t.me/TTNDEXAnn",
     //         // },
     //         // {
     //         //   label: "Whale Alert",
-    //         //   href: "https://t.me/PancakeSwapWhales",
+    //         //   href: "https://t.me/TTNDEXWhales",
     //         // },
     //     ],
     // },
@@ -4054,7 +4054,7 @@ var ConnectModal = function (_a) {
     var login = _a.login, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b;
     return (React.createElement(Modal, { title: "Connect to a wallet", onDismiss: onDismiss },
         connectors.map(function (entry, index) { return (React.createElement(WalletCard, { key: entry.title, login: login, walletConfig: entry, onDismiss: onDismiss, mb: index < connectors.length - 1 ? "8px" : "0" })); }),
-        React.createElement(HelpLink, { href: "https://bridgeswap-exchange-1.gitbook.io/bridgeswap/get-started/connecting-your-wallet-to-bridgeswap", external: true },
+        React.createElement(HelpLink, { href: "https://doc.ttndex.com/ttndex/get-started/connecting-your-wallet-to-bridgeswap", external: true },
             React.createElement(Icon$1h, { color: "primary", mr: "6px" }),
             "Learn how to connect")));
 };

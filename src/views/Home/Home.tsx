@@ -384,7 +384,7 @@ const Home: React.FC = () => {
         </Text>
         {/* <Button variant="primary" style={{margin: "20px 0px"}}>Learn more</Button> */}
         <LearnMoreBtn
-          href="https://bridgeswap-exchange-1.gitbook.io/bridgeswap/"
+          href="https://doc.ttndex.com/ttndex/"
           target="_blank"
           rel="noreferrer noopener"
         >
