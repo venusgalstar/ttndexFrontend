@@ -4067,7 +4067,7 @@ var ConnectModal = function (_a) {
     var login = _a.login, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b;
     return (React__default['default'].createElement(Modal, { title: "Connect to a wallet", onDismiss: onDismiss },
         connectors.map(function (entry, index) { return (React__default['default'].createElement(WalletCard, { key: entry.title, login: login, walletConfig: entry, onDismiss: onDismiss, mb: index < connectors.length - 1 ? "8px" : "0" })); }),
-        React__default['default'].createElement(HelpLink, { href: "https://doc.ttndex.com/ttndex/get-started/connecting-your-wallet-to-bridgeswap", external: true },
+        React__default['default'].createElement(HelpLink, { href: "https://doc.ttndex.com/ttndex/get-started/connecting-your-wallet-to-ttndex", external: true },
             React__default['default'].createElement(Icon$1h, { color: "primary", mr: "6px" }),
             "Learn how to connect")));
 };
