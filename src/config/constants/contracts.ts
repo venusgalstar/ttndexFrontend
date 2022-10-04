@@ -1,7 +1,7 @@
 export default {
   masterChef: {
     97: '0x1d32c2945C8FDCBc7156c553B7cEa4325a17f4f9',
-    56: '0x0fb702557f4c0ab1ce0d9a1c37296409c5f57d06',
+    56: '0x0876f5d486125a095560D2A40CF56b10380e54C1',
   },
   sousChef: {
     97: '0xd3af5fe61dbaf8f73149bfcfa9fb653ff096029a',
@@ -9,7 +9,7 @@ export default {
   },
   newlottery: {
     97: '',
-    56: '0xb93655dB1A7d40b6b63929C9950BfF51AE03B5b5',
+    56: '0x963873294c23eA6948E957e1db4a70bF7Ae2Bd0a',
   },
   lottery: {
     97: '0x99c2EcD51d52c036B00130d882Bc65f20Fdecf9f',
@@ -25,7 +25,7 @@ export default {
   },
   referral: {
     97: '',
-    56: '0x237F5CF35BF7c4d9B736873C825Da139C4259756',
+    56: '0x2a658d7c689f789936539d71434C34A64b49b78e',
   },
   multiCall: {
     56: '0xfF6FD90A470Aaa0c1B8A54681746b07AcdFedc9B',
