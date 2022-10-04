@@ -87,15 +87,15 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   //   items: [
   //     {
   //       label: t('Overview'),
-  //       href: 'https://bridgeswap.info',
+  //       href: 'https://ttndex.info',
   //     },
   //     {
   //       label: t('Tokens'),
-  //       href: 'https://bridgeswap.info/tokens',
+  //       href: 'https://ttndex.info/tokens',
   //     },
   //     {
   //       label: t('Pairs'),
-  //       href: 'https://bridgeswap.info/pairs',
+  //       href: 'https://ttndex.info/pairs',
   //     },
   //     {
   //       label: t('Accounts'),
@@ -130,11 +130,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   //     // },
   //     // {
   //     //   label: t('Blog'),
-  //     //   href: 'https://bridgeswap.medium.com/',
+  //     //   href: 'https://ttndex.medium.com/',
   //     // },
   //     // {
   //     //   label: t('Merch'),
-  //     //   href: 'https://bridgeswap.creator-spring.com/',
+  //     //   href: 'https://ttndex.creator-spring.com/',
   //     // },
   //   ],
   // },

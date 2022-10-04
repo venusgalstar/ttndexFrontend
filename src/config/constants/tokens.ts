@@ -6,7 +6,7 @@ const tokens = {
   bris: {
     symbol: 'TTNP',
     address: {
-      56: '0x167EE66eF60D43B23b7cFa819f757beD4f513A94',
+      56: '0x501345C098030AD7EBD6A33ce44E020033Fe0f79',
       97: '',
     },
     decimals: 18,

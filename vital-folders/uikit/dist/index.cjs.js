@@ -3578,19 +3578,19 @@ var links = [
         items: [
             {
                 label: "Overview",
-                href: "https://bridgeswap.info",
+                href: "https://ttndex.info",
             },
             {
                 label: "Tokens",
-                href: "https://bridgeswap.info/tokens",
+                href: "https://ttndex.info/tokens",
             },
             {
                 label: "Pairs",
-                href: "https://bridgeswap.info/pairs",
+                href: "https://ttndex.info/pairs",
             },
             {
                 label: "Accounts",
-                href: "https://bridgeswap.info/accounts",
+                href: "https://ttndex.info/accounts",
             },
         ],
     },
@@ -3626,7 +3626,7 @@ var links = [
             },
             {
                 label: "Blog",
-                href: "https://bridgeswap.medium.com",
+                href: "https://ttndex.medium.com",
             },
         ],
     },

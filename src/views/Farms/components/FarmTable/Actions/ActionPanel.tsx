@@ -149,7 +149,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   })
   const lpAddress = farm.lpAddresses[process.env.REACT_APP_CHAIN_ID]
   const bsc = getBscScanAddressUrl(lpAddress)
-  const info = `https://bridgeswap.info/pair/${lpAddress}`
+  const info = `https://ttndex.info/pair/${lpAddress}`
 
   return (
     <Container expanded={expanded}>

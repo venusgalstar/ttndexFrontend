@@ -10,7 +10,7 @@ const farms: FarmConfig[] = [
     lpSymbol: 'TTNP',
     lpAddresses: {
       97: '',
-      56: '0x167EE66eF60D43B23b7cFa819f757beD4f513A94',
+      56: '0x501345C098030AD7EBD6A33ce44E020033Fe0f79',
     },
     token: tokens.soup,
     quoteToken: tokens.wbnb,
@@ -30,7 +30,7 @@ const farms: FarmConfig[] = [
     lpSymbol: 'TTNP-BNB LP',
     lpAddresses: {
       97: '',
-      56: '0xa2cd9d0b9091a30a78e9ec92eb77478cee47ebf1',
+      56: '0xC14B58920A46bB3462d304fE9E6824F73af2eF80', // BNB-TTNP (TTNDEX)
     },
     token: tokens.bris,
     quoteToken: tokens.wbnb,
@@ -40,7 +40,7 @@ const farms: FarmConfig[] = [
     lpSymbol: 'TTNP-BUSD LP',
     lpAddresses: {
       97: '',
-      56: '0x9ED391218177B6F498625Bf58b8F1c38612630FC',
+      56: '0x4ed3d65C49a0afd1ea0257878f052e85B1e8417F',  // BUSD-TTNP (TTNDEX)
     },
     token: tokens.bris,
     quoteToken: tokens.busd,
@@ -50,7 +50,7 @@ const farms: FarmConfig[] = [
     lpSymbol: 'BUSD-BNB LP',
     lpAddresses: {
       97: '',
-      56: '0x5E7239dFc60D54a4c469bfb3a1804C27a4A214D5',
+      56: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16', // BNB-BUSD (Pancake)
     },
     token: tokens.busd,
     quoteToken: tokens.wbnb,
