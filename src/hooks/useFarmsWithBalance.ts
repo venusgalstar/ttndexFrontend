@@ -21,7 +21,7 @@ const useFarmsWithBalance = () => {
     const fetchBalances = async () => {
       const calls = farmsConfig.map((farm) => ({
         address: getMasterChefAddress(),
-        name: 'pendingBris',
+        name: 'pendingTTNP',
         params: [farm.pid, account],
       }))
       const rawResults = await multicall(masterChefABI, calls)
