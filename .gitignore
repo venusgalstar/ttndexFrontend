@@ -48,3 +48,4 @@ firebase.json
 # yarn
 yarn-error.log
 *.zip
+*.gz
