@@ -69,9 +69,8 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   const handleBuy = useCallback(async () => {
     try {
       setRequestedBuy(true)
-      // @ts-ignore
-      // eslint-disable-next-line prefer-spread
-      const numbers = Array.apply(null, { ticketAmount }).map((v, idx) => `${1000000 + ticketNumbers[idx]}`)
+      const numbers = ticketNumbers.length > 0 ? ticketNumbers.map((v, idx) => `${(1000000 + ticketNumbers[idx]).toString()}`) : []
+      console.log("[PRINCE](buyTicket): ", lotteryid.toString(), numbers)
 
       const txHash = await onBuyTickets(lotteryid.toString(), numbers)
 
