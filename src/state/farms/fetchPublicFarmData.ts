@@ -60,7 +60,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   const [tokenBalanceLP, quoteTokenBalanceLP, lpTokenBalanceMC, lpTotalSupply, tokenDecimals, quoteTokenDecimals] =
     await multicall(erc20, calls)
 
-  console.log(`[DAVID](fetchFarm) ${farm.lpSymbol} :: (${tokenBalanceLP}, ${quoteTokenBalanceLP})`);
+  console.log(`[PRINCE](fetchFarm) ${farm.lpSymbol} :: (${tokenBalanceLP}, ${quoteTokenBalanceLP})`);
   // Ratio in % of LP tokens that are staked in the MC, vs the total number in circulation
   const lpTokenRatio = new BigNumber(lpTokenBalanceMC).div(new BigNumber(lpTotalSupply))
 
@@ -76,25 +76,35 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   const lpTotalInQuoteToken = quoteTokenAmountMc.times(new BigNumber(2))
 
   // Only make masterchef calls if farm has pid
+  const getData = async (pidVal: number) => {
+    try {
+      return await multicall(masterchefABI, [
+        {
+          address: getMasterChefAddress(),
+          name: 'poolInfo',
+          params: [pidVal],
+        },
+        {
+          address: getMasterChefAddress(),
+          name: 'totalAllocPoint',
+        },
+      ])
+    } catch (error) {
+      console.log("[PRINCE](getData): ", error)
+      console.log(error)
+      return [null, null]
+    }
+  }
+
   const [info, totalAllocPoint] =
     pid || pid === 0
-      ? await multicall(masterchefABI, [
-          {
-            address: getMasterChefAddress(),
-            name: 'poolInfo',
-            params: [pid],
-          },
-          {
-            address: getMasterChefAddress(),
-            name: 'totalAllocPoint',
-          },
-        ])
+      ? await getData(pid)
       : [null, null]
 
-      const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
-      const poolWeight = totalAllocPoint ? allocPoint.div(new BigNumber(totalAllocPoint)) : BIG_ZERO
+  const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
+  const poolWeight = totalAllocPoint ? allocPoint.div(new BigNumber(totalAllocPoint)) : BIG_ZERO
 
-  return {
+  const retVal = {
     tokenAmountMc: tokenAmountMc.toJSON(),
     quoteTokenAmountMc: quoteTokenAmountMc.toJSON(),
     tokenAmountTotal: tokenAmountTotal.toJSON(),
@@ -105,6 +115,10 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     poolWeight: poolWeight.toJSON(),
     multiplier: `${allocPoint.div(100).toString()}X`,
   }
+
+  console.log("[PRINCE](retVal): ", retVal)
+
+  return retVal;
 }
 
 export default fetchFarm
