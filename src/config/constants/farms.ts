@@ -50,22 +50,22 @@ const farms: FarmConfig[] = [
     lpSymbol: 'BUSD-BNB LP',
     lpAddresses: {
       97: '',
-      56: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16', // BNB-BUSD (Pancake)
+      56: '0x12c208751eeB3540d473194cD2467303395E1211', // BNB-BUSD (TTNDEX)
     },
     token: tokens.busd,
     quoteToken: tokens.wbnb,
   },
 
-  {
-    pid: 4,
-    lpSymbol: 'TND-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0x5E270C50F392aeFC394D8Dad644Fb4ce07a8cc58',
-    },
-    token: tokens.tnd,
-    quoteToken: tokens.wbnb,
-  },
+  // {
+  //   pid: 4,
+  //   lpSymbol: 'TND-BNB LP',
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0x5E270C50F392aeFC394D8Dad644Fb4ce07a8cc58',
+  //   },
+  //   token: tokens.tnd,
+  //   quoteToken: tokens.wbnb,
+  // },
   
 //   /**
 //    * V3 by order of release (some may be out of PID order due to multiplier boost)
