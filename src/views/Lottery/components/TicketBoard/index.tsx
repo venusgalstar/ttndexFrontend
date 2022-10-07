@@ -6,9 +6,11 @@ import styled from 'styled-components'
 import { useAccountTickets, useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
 import useBrisBalance from 'hooks/useGetBrisBalance'
 import { getBalanceAmount } from 'utils/formatBalance'
+import { BIG_ZERO } from 'utils/bigNumber'
 import { usePriceCakeBusd } from 'state/hooks'
 import BuyTicketModal from '../TicketCard/BuyTicketModal'
 import CountDownDate from './CountDownDate'
+import RewardBracketDetail from '../RewardBracketDetail'
 
 // Local states. These values can be updated
 // const drawNumber = 329
@@ -125,7 +127,36 @@ const TimeLabel = styled(Text)`
     font-size: 10px;
 `
 
-const TicketBoard = () => {
+const Wrapper = styled(Flex)`
+  width: 100%;
+  flex-direction: column;
+`
+
+const RewardsInner = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  row-gap: 16px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`
+
+interface RewardsState {
+    isLoading: boolean
+    cakeToBurn: BigNumber
+    rewardsLessTreasuryFee: BigNumber
+    rewardsBreakdown: string[]
+    countWinnersPerBracket: string[]
+}
+
+interface RewardMatchesProps {
+    isHistoricRound?: boolean
+}
+
+const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
+    isHistoricRound,
+}) => {
     const { t } = useTranslation()
 
     const maxBalance = useBrisBalance()
@@ -133,6 +164,14 @@ const TicketBoard = () => {
     const [lotteryinfo, setLotteryinfo] = useState({})
     const [accountTickets, setAccountTickets] = useState([])
     const [currentTime, setCurrentTime] = useState(new Date().getTime());
+
+    const [state, setState] = useState<RewardsState>({
+        isLoading: true,
+        cakeToBurn: BIG_ZERO,
+        rewardsLessTreasuryFee: BIG_ZERO,
+        rewardsBreakdown: null,
+        countWinnersPerBracket: null,
+    })
 
     const lotteryid = useCurrentLotteryId()
     const { onViewLottery } = useLotteryInfo()
@@ -166,6 +205,55 @@ const TicketBoard = () => {
     const date = `${new Date(timeStamp).toDateString()} ${new Date(timeStamp).toLocaleTimeString()}`
     const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)} lotteryinfo={lotteryinfo} />)
 
+    useEffect(() => {
+        console.log("[PRINCE](lotteryInfo): ", lotteryinfo)
+        if (lotteryinfo && Object.keys(lotteryinfo).length > 0) {
+            console.log("[PRINCE](lotteryInfo): 1", lotteryinfo)
+
+            const rewardsBreakdown = lotteryinfo[5]
+            const amountCollectedInCake = lotteryinfo[11];
+            const treasuryFee = lotteryinfo[6];
+            const countWinnersPerBracket = lotteryinfo[8];
+
+            const feeAsPercentage = new BigNumber(treasuryFee).div(100)
+            const cakeToBurn = feeAsPercentage.div(100).times(new BigNumber(amountCollectedInCake))
+            const amountLessTreasuryFee = new BigNumber(amountCollectedInCake).minus(cakeToBurn)
+
+            setState({
+                isLoading: false,
+                cakeToBurn,
+                rewardsLessTreasuryFee: amountLessTreasuryFee,
+                rewardsBreakdown,
+                countWinnersPerBracket,
+            })
+        } else {
+            console.log("[PRINCE](lotteryInfo): 2", lotteryinfo)
+            setState({
+                isLoading: true,
+                cakeToBurn: BIG_ZERO,
+                rewardsLessTreasuryFee: BIG_ZERO,
+                rewardsBreakdown: null,
+                countWinnersPerBracket: null,
+            })
+        }
+    }, [lotteryinfo])
+
+    const getCakeRewards = (bracket: number) => {
+        try {
+            if (state.rewardsBreakdown) {
+                const shareAsPercentage = new BigNumber(state.rewardsBreakdown[bracket]).div(100)
+                return state.rewardsLessTreasuryFee.div(100).times(shareAsPercentage)
+            }
+            return BIG_ZERO
+        } catch (error) {
+            console.log("getCakeRewards error", error);
+            return BIG_ZERO
+        }
+    }
+
+    const { isLoading, countWinnersPerBracket, cakeToBurn } = state
+
+    const rewardBrackets = [0, 1, 2, 3, 4, 5]
 
     return (
         <Board>
@@ -232,6 +320,26 @@ const TicketBoard = () => {
                 </PrizePot>
 
             </PrizeDisplay>
+
+            <Wrapper>
+                <Text fontSize="14px" mb="24px">
+                    {t('Match the winning number in the same order to share prizes.')}{' '}
+                </Text>
+                <RewardsInner>
+                    {rewardBrackets.map((bracketIndex) => (
+                        <RewardBracketDetail
+                            key={bracketIndex}
+                            rewardBracket={bracketIndex}
+                            cakeAmount={!isLoading && getCakeRewards(bracketIndex)}
+                            numberWinners={!isLoading && countWinnersPerBracket[bracketIndex]}
+                            // isHistoricRound={isHistoricRound}
+                            isHistoricRound={false}
+                            isLoading={isLoading}
+                        />
+                    ))}
+                    <RewardBracketDetail rewardBracket={0} cakeAmount={cakeToBurn} isBurn isLoading={isLoading} />
+                </RewardsInner>
+            </Wrapper>
         </Board>
     )
 }

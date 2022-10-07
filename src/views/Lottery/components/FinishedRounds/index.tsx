@@ -4,9 +4,12 @@ import { Heading, Text, BaseLayout, Button, Image, Card, Flex, Grid } from '@pan
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import { useAccountTickets, useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
+import { BIG_ZERO } from 'utils/bigNumber'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { usePriceCakeBusd } from 'state/hooks'
 import HistoryButtons from './HistoryButtons'
+import RewardBracketDetail from '../RewardBracketDetail'
+import RoundSwitcher from '../RoundSwitcher'
 
 // Local states. These values can be updated
 // const roundNumValue = 328
@@ -148,16 +151,128 @@ const DrawNumber = styled.div`
 
 `
 
+const Wrapper = styled(Flex)`
+  width: 100%;
+  flex-direction: column;
+`
+
+const RewardsInner = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  row-gap: 16px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`
+
+interface RewardsState {
+    isLoading: boolean
+    cakeToBurn: BigNumber
+    rewardsLessTreasuryFee: BigNumber
+    rewardsBreakdown: string[]
+    countWinnersPerBracket: string[]
+}
+
+interface RewardMatchesProps {
+    isHistoricRound?: boolean
+}
+
 const FinishedRounds = () => {
     const { t } = useTranslation()
     const [lotteryinfo, setLotteryinfo] = useState({})
     const [accountTickets, setAccountTickets] = useState([])
+
+    const [state, setState] = useState<RewardsState>({
+        isLoading: true,
+        cakeToBurn: BIG_ZERO,
+        rewardsLessTreasuryFee: BIG_ZERO,
+        rewardsBreakdown: null,
+        countWinnersPerBracket: null,
+    })
+
+    const [selectedRoundId, setSelectedRoundId] = useState('')
+    const [latestRoundId, setLatestRoundId] = useState(null)
 
     const lotteryid = useCurrentLotteryId()
     const { onViewLottery } = useLotteryInfo()
     const { onAccountTickets } = useAccountTickets()
 
     const ttnpPriceUsd = usePriceCakeBusd()
+
+    const handleInputChange = (event) => {
+        const {
+            target: { value },
+        } = event
+        if (value) {
+            setSelectedRoundId(value)
+            if (parseInt(value, 10) <= 0) {
+                setSelectedRoundId('')
+            }
+            if (parseInt(value, 10) >= latestRoundId) {
+                setSelectedRoundId(latestRoundId.toString())
+            }
+        } else {
+            setSelectedRoundId('')
+        }
+    }
+
+    const handleArrowButtonPress = (targetRound) => {
+        if (targetRound) {
+            setSelectedRoundId(targetRound.toString())
+        } else {
+            // targetRound is NaN when the input is empty, the only button press that will trigger this func is 'forward one'
+            setSelectedRoundId('1')
+        }
+    }
+
+    useEffect(() => {
+        console.log("[PRINCE](lotteryInfo FinishedRounds): ", lotteryinfo)
+        if (lotteryinfo && Object.keys(lotteryinfo).length > 0) {
+
+            const rewardsBreakdown = lotteryinfo[5]
+            const amountCollectedInCake = lotteryinfo[11];
+            const treasuryFee = lotteryinfo[6];
+            const countWinnersPerBracket = lotteryinfo[8];
+
+            const feeAsPercentage = new BigNumber(treasuryFee).div(100)
+            const cakeToBurn = feeAsPercentage.div(100).times(new BigNumber(amountCollectedInCake))
+            const amountLessTreasuryFee = new BigNumber(amountCollectedInCake).minus(cakeToBurn)
+
+            setState({
+                isLoading: false,
+                cakeToBurn,
+                rewardsLessTreasuryFee: amountLessTreasuryFee,
+                rewardsBreakdown,
+                countWinnersPerBracket,
+            })
+        } else {
+            setState({
+                isLoading: true,
+                cakeToBurn: BIG_ZERO,
+                rewardsLessTreasuryFee: BIG_ZERO,
+                rewardsBreakdown: null,
+                countWinnersPerBracket: null,
+            })
+        }
+    }, [lotteryinfo])
+
+    const getCakeRewards = (bracket: number) => {
+        try {
+            if (state.rewardsBreakdown) {
+                const shareAsPercentage = new BigNumber(state.rewardsBreakdown[bracket]).div(100)
+                return state.rewardsLessTreasuryFee.div(100).times(shareAsPercentage)
+            }
+            return BIG_ZERO
+        } catch (error) {
+            console.log("getCakeRewards error", error);
+            return BIG_ZERO
+        }
+    }
+
+    const { isLoading, countWinnersPerBracket, cakeToBurn } = state
+
+    const rewardBrackets = [0, 1, 2, 3, 4, 5]
 
     useEffect(() => {
         (async () => {
@@ -181,7 +296,7 @@ const FinishedRounds = () => {
         finalNumber = lotteryinfo[12].toString()
     }
 
-    const date = `${new Date(Number(lotteryinfo[2])).toDateString()} ${new Date(Number(lotteryinfo[2])).toLocaleTimeString()}`
+    const date = `${new Date(Number(lotteryinfo[2]) * 1000).toDateString()} ${new Date(Number(lotteryinfo[2]) * 1000).toLocaleTimeString()}`
     const usingSplit = finalNumber.split('')
 
     return (
@@ -192,10 +307,15 @@ const FinishedRounds = () => {
                     <HistoryButtons activeIndex={0} />
                 </HistoryBtnsContainer>
             </Title>
+            <RoundSwitcher
+                isLoading={isLoading}
+                selectedRoundId={selectedRoundId}
+                mostRecentRound={latestRoundId}
+                handleInputChange={handleInputChange}
+                handleArrowButtonPress={handleArrowButtonPress}
+            />
             <RoundDate>
-                <Text mb="22px" fontSize='12px' color='text'>
-                    {t(`Round `)}
-                    <RoundNum>{`${Number(lotteryid) - 1}`}</RoundNum>
+                <Text mb="22px" fontSize='12px' color='text' padding="5px">
                     {t(` Drawn ${date}`)}
                 </Text>
             </RoundDate>
@@ -228,6 +348,25 @@ const FinishedRounds = () => {
                         <UserTicket>{`{${accountTickets.length}}`}</UserTicket>
                         {t(` tickets for this round.`)}
                     </Text>
+                    <Wrapper>
+                        <Text fontSize="14px" mb="24px">
+                            {t('Match the winning number in the same order to share prizes.')}{' '}
+                        </Text>
+                        <RewardsInner>
+                            {rewardBrackets.map((bracketIndex) => (
+                                <RewardBracketDetail
+                                    key={bracketIndex}
+                                    rewardBracket={bracketIndex}
+                                    cakeAmount={!isLoading && getCakeRewards(bracketIndex)}
+                                    numberWinners={!isLoading && countWinnersPerBracket[bracketIndex]}
+                                    // isHistoricRound={isHistoricRound}
+                                    isHistoricRound={false}
+                                    isLoading={isLoading}
+                                />
+                            ))}
+                            <RewardBracketDetail rewardBracket={0} cakeAmount={cakeToBurn} isBurn isLoading={isLoading} />
+                        </RewardsInner>
+                    </Wrapper>
                 </PrizePot>
                 <WinningNumber>
                     <Latest>
