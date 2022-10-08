@@ -178,10 +178,20 @@ interface RewardMatchesProps {
     isHistoricRound?: boolean
 }
 
+export enum LotteryStatus {
+    PENDING = 'pending',
+    OPEN = 'open',
+    CLOSE = 'close',
+    CLAIMABLE = 'claimable',
+}
+
 const FinishedRounds = () => {
     const { t } = useTranslation()
-    const [lotteryinfo, setLotteryinfo] = useState({})
+    const [selectedLotteryinfo, setSelectedLotteryinfo] = useState({})
+    const [currentLotteryinfo, setCurrentLotteryinfo] = useState({})
     const [accountTickets, setAccountTickets] = useState([])
+    const [selectedRoundId, setSelectedRoundId] = useState('')
+    const [latestRoundId, setLatestRoundId] = useState(null)
 
     const [state, setState] = useState<RewardsState>({
         isLoading: true,
@@ -191,14 +201,75 @@ const FinishedRounds = () => {
         countWinnersPerBracket: null,
     })
 
-    const [selectedRoundId, setSelectedRoundId] = useState('')
-    const [latestRoundId, setLatestRoundId] = useState(null)
-
-    const lotteryid = useCurrentLotteryId()
+    const currentLotteryId = useCurrentLotteryId()
     const { onViewLottery } = useLotteryInfo()
     const { onAccountTickets } = useAccountTickets()
 
     const ttnpPriceUsd = usePriceCakeBusd()
+
+    useEffect(() => {
+        (async () => {
+            const lottery = await onViewLottery(currentLotteryId.toString())
+            setCurrentLotteryinfo(lottery)
+        })()
+    }, [currentLotteryId, onViewLottery, setCurrentLotteryinfo])
+
+    useEffect(() => {
+        if (currentLotteryinfo && Object.keys(currentLotteryinfo).length > 0) {
+            if (currentLotteryinfo[0] === LotteryStatus.CLAIMABLE) {
+                setLatestRoundId(currentLotteryId)
+                setSelectedRoundId(currentLotteryId.toString())
+            } else {
+                setLatestRoundId(currentLotteryId - 1)
+                setSelectedRoundId((currentLotteryId - 1).toString())
+            }
+        }
+    }, [currentLotteryinfo, setLatestRoundId])
+
+    useEffect(() => {
+        (async () => {
+            const lottery = await onViewLottery(selectedRoundId)
+            setSelectedLotteryinfo(lottery)
+        })()
+    }, [selectedRoundId, onViewLottery, setSelectedLotteryinfo])
+
+    useEffect(() => {
+        console.log("[PRINCE](lotteryInfo FinishedRounds): ", selectedLotteryinfo)
+        if (selectedLotteryinfo && Object.keys(selectedLotteryinfo).length > 0) {
+
+            const rewardsBreakdown = selectedLotteryinfo[5]
+            const amountCollectedInCake = selectedLotteryinfo[11];
+            const treasuryFee = selectedLotteryinfo[6];
+            const countWinnersPerBracket = selectedLotteryinfo[8];
+
+            const feeAsPercentage = new BigNumber(treasuryFee).div(100)
+            const cakeToBurn = feeAsPercentage.div(100).times(new BigNumber(amountCollectedInCake))
+            const amountLessTreasuryFee = new BigNumber(amountCollectedInCake).minus(cakeToBurn)
+
+            setState({
+                isLoading: false,
+                cakeToBurn,
+                rewardsLessTreasuryFee: amountLessTreasuryFee,
+                rewardsBreakdown,
+                countWinnersPerBracket,
+            })
+        } else {
+            setState({
+                isLoading: true,
+                cakeToBurn: BIG_ZERO,
+                rewardsLessTreasuryFee: BIG_ZERO,
+                rewardsBreakdown: null,
+                countWinnersPerBracket: null,
+            })
+        }
+    }, [selectedLotteryinfo])
+
+    useEffect(() => {
+        (async () => {
+            const ticketsArr = await onAccountTickets(selectedLotteryinfo.toString())
+            setAccountTickets(ticketsArr)
+        })()
+    }, [selectedLotteryinfo, onAccountTickets])
 
     const handleInputChange = (event) => {
         const {
@@ -226,37 +297,6 @@ const FinishedRounds = () => {
         }
     }
 
-    useEffect(() => {
-        console.log("[PRINCE](lotteryInfo FinishedRounds): ", lotteryinfo)
-        if (lotteryinfo && Object.keys(lotteryinfo).length > 0) {
-
-            const rewardsBreakdown = lotteryinfo[5]
-            const amountCollectedInCake = lotteryinfo[11];
-            const treasuryFee = lotteryinfo[6];
-            const countWinnersPerBracket = lotteryinfo[8];
-
-            const feeAsPercentage = new BigNumber(treasuryFee).div(100)
-            const cakeToBurn = feeAsPercentage.div(100).times(new BigNumber(amountCollectedInCake))
-            const amountLessTreasuryFee = new BigNumber(amountCollectedInCake).minus(cakeToBurn)
-
-            setState({
-                isLoading: false,
-                cakeToBurn,
-                rewardsLessTreasuryFee: amountLessTreasuryFee,
-                rewardsBreakdown,
-                countWinnersPerBracket,
-            })
-        } else {
-            setState({
-                isLoading: true,
-                cakeToBurn: BIG_ZERO,
-                rewardsLessTreasuryFee: BIG_ZERO,
-                rewardsBreakdown: null,
-                countWinnersPerBracket: null,
-            })
-        }
-    }, [lotteryinfo])
-
     const getCakeRewards = (bracket: number) => {
         try {
             if (state.rewardsBreakdown) {
@@ -274,29 +314,14 @@ const FinishedRounds = () => {
 
     const rewardBrackets = [0, 1, 2, 3, 4, 5]
 
-    useEffect(() => {
-        (async () => {
-            const lottery = await onViewLottery((Number(lotteryid) - 1).toString())
-            console.log("lottery info: ", lottery)
-            setLotteryinfo(lottery)
-        })()
-    }, [lotteryid, onViewLottery])
-
-    useEffect(() => {
-        (async () => {
-            const ticketsArr = await onAccountTickets((Number(lotteryid) - 1).toString())
-            setAccountTickets(ticketsArr)
-        })()
-    }, [lotteryid, onAccountTickets])
-
     let finalNumber: string
-    if (lotteryinfo[12] === undefined || lotteryinfo[12] === '0') {
+    if (selectedLotteryinfo[12] === undefined || selectedLotteryinfo[12] === '0') {
         finalNumber = 'xxxxxx'
     } else {
-        finalNumber = lotteryinfo[12].toString()
+        finalNumber = selectedLotteryinfo[12].toString()
     }
 
-    const date = `${new Date(Number(lotteryinfo[2]) * 1000).toDateString()} ${new Date(Number(lotteryinfo[2]) * 1000).toLocaleTimeString()}`
+    const date = `${new Date(Number(selectedLotteryinfo[2]) * 1000).toDateString()} ${new Date(Number(selectedLotteryinfo[2]) * 1000).toLocaleTimeString()}`
     const usingSplit = finalNumber.split('')
 
     return (
@@ -326,18 +351,18 @@ const FinishedRounds = () => {
                             {t(`Prize Pot`)}
                         </PotHeading>
                         <TotalTickets>
-                            {t(`Total tickets this round: ${new BigNumber(lotteryinfo[10]).minus(lotteryinfo[9])} tickets`)}
+                            {t(`Total tickets this round: ${new BigNumber(selectedLotteryinfo[10]).minus(selectedLotteryinfo[9])} tickets`)}
                         </TotalTickets>
                     </PotTitle>
                     <Prize>
                         <Heading>
-                            {t(`$${getBalanceAmount(lotteryinfo[11]).times(ttnpPriceUsd).toNumber().toLocaleString('en-US', {
+                            {t(`$${getBalanceAmount(selectedLotteryinfo[11]).times(ttnpPriceUsd).toNumber().toLocaleString('en-US', {
                                 minimumFractionDigits: 3,
                                 maximumFractionDigits: 3,
                             })}`)}
                         </Heading>
                         <Text fontSize='11px' mb="22px" color='textSubtle'>
-                            {t(`~${getBalanceAmount(lotteryinfo[11]).toString()} TTNP`)}
+                            {t(`~${getBalanceAmount(selectedLotteryinfo[11]).toString()} TTNP`)}
                         </Text>
                     </Prize>
                     <Text color='text'>
@@ -345,7 +370,7 @@ const FinishedRounds = () => {
                     </Text>
                     <Text mb="22px" fontSize='12px' color='text'>
                         {t(`You have `)}
-                        <UserTicket>{`{${accountTickets.length}}`}</UserTicket>
+                        <UserTicket>{`{${accountTickets.length === undefined ? 0 : accountTickets.length}}`}</UserTicket>
                         {t(` tickets for this round.`)}
                     </Text>
                     <Wrapper>

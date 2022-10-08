@@ -288,7 +288,7 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
                         </Text>
                         <Text mb="22px" fontSize='12px' color='text'>
                             {t(`You have `)}
-                            <UserTicket>{`{${accountTickets.length}}`}</UserTicket>
+                            <UserTicket>{`{${accountTickets.length === undefined ? 0 : accountTickets.length}}`}</UserTicket>
                             {t(` tickets for this round.`)}
                         </Text>
                         <Button scale="sm" variant="primary" onClick={onPresentBuyTicketsModal}>Buy Tickets</Button>
