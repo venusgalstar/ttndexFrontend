@@ -128,13 +128,13 @@ const Latest = styled.div`
     border-radius: 20px;
     text-align: center;
     width: 150px;
-    margin-right: auto;
+    height: 40px;
     margin-left: auto;
 `
 const WinningNumbers = styled(Grid)`
     width: 80%;
     margin: 0 auto;
-    grid-template-columns: repeat(3, 60px);
+    grid-template-columns: repeat(6, 60px);
     grid-gap: 12px;
     justify-content: center;
 }
@@ -142,11 +142,11 @@ const WinningNumbers = styled(Grid)`
 const DrawNumber = styled.div`
     background: ${({ theme }) => theme.colors.textSubtle};
     border-radius: 50%;
-    padding: 20px 0px;
+    padding: 10px 0px;
     color: ${({ theme }) => theme.colors.text};
 
     ${({ theme }) => theme.mediaQueries.sm} {
-        padding: 25px 0px;
+        padding: 10px 0px;
     }
 
 `
@@ -191,7 +191,7 @@ const FinishedRounds = () => {
     const [currentLotteryinfo, setCurrentLotteryinfo] = useState({})
     const [accountTickets, setAccountTickets] = useState([])
     const [selectedRoundId, setSelectedRoundId] = useState('')
-    const [latestRoundId, setLatestRoundId] = useState(null)
+    const [latestRoundId, setLatestRoundId] = useState(0)
 
     const [state, setState] = useState<RewardsState>({
         isLoading: true,
@@ -343,6 +343,12 @@ const FinishedRounds = () => {
                 <Text mb="22px" fontSize='20px' color='text' padding="5px">
                     {t(` Drawn ${date}`)}
                 </Text>
+                {
+                    selectedRoundId === latestRoundId.toString() &&
+                    <Latest>
+                        <Text fontSize='20px' color='text'>{t('LATEST')}</Text>
+                    </Latest>
+                }
             </RoundDate>
             <PrizeWinningContainer>
                 <PrizePot>
@@ -394,9 +400,6 @@ const FinishedRounds = () => {
                     </Wrapper>
                 </PrizePot>
                 <WinningNumber>
-                    <Latest>
-                        <Text fontSize='13px' color='text'>{t('LATEST')}</Text>
-                    </Latest>
                     <Text m='10px 0px' fontSize='20px' color='text'>{t('Winning Number')}</Text>
                     <WinningNumbers>
                         {

@@ -1,14 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { Heading, Text, BaseLayout, Button, CopyIcon, Image, Card, Flex, Grid, useWalletModal } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import Page from 'components/layout/Page'
+import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
+import useToast from 'hooks/useToast'
 import useAuth from 'hooks/useAuth'
-import { useTotalReferrals, useTotalCommissions } from 'hooks/useReferral'
+import { useTotalReferrals, useTotalCommissions, usePendingCommissions, useWithdrawReferralReward, useMinWithdraw } from 'hooks/useReferral'
+import { getBalanceAmount } from 'utils/formatBalance'
 import HowToParticipate from './components/HowToParticipate'
 import Faq from './components/FAQ'
-
 
 const InviteFriends = styled.div`
   border-radius: 20px;
@@ -233,10 +235,41 @@ const Referral: React.FC = () => {
   const { onPresentConnectModal } = useWalletModal(login, logout)
   const [isTooltipDisplayed, setIsTooltipDisplayed] = useState(false);
   const referLink = `https://ttndex.com?ref=`
+  const { toastSuccess, toastError } = useToast()
 
   const totalReferrals = useTotalReferrals()
   const totalCommissions = useTotalCommissions()
+  const pendingCommissions = usePendingCommissions()
+  const minWithdraw = useMinWithdraw()
 
+  const { onWithdrawReferralReward } = useWithdrawReferralReward()
+
+  const handlePendingReferralReward = useCallback(async () => {
+    try {
+      console.log("[PRINCE](handlePendingReferralReward): ", pendingCommissions.toString(), minWithdraw.toString(), new BigNumber(pendingCommissions).lt(new BigNumber(minWithdraw)))
+      if (new BigNumber(pendingCommissions).lt(new BigNumber(minWithdraw))) {
+        const minWithdrawString = `${getBalanceAmount(new BigNumber(minWithdraw)).toNumber().toLocaleString('en-US', {
+          minimumFractionDigits: 3,
+          maximumFractionDigits: 3,
+        })}`
+
+        toastError("Withdraw Error!", `Withdraw amount should be greater than ${minWithdrawString} TTNP!`)
+        return
+      }
+
+      const txHash = await onWithdrawReferralReward()
+
+      // user rejected tx or didn't go thru
+      if (txHash) {
+        toastSuccess("Withdraw Success!", `Successfully withdrawn pending referral rewards!`)
+      } else {
+        toastError("Withdraw Error!", `Failed withdrawn pending referral rewards!`)
+      }
+    } catch (e) {
+      toastError("Withdraw Error!", `Failed withdrawn pending referral rewards!`)
+      console.error(e)
+    }
+  }, [pendingCommissions, minWithdraw, onWithdrawReferralReward, toastSuccess, toastError])
 
   return (
     <Page>
@@ -258,6 +291,7 @@ const Referral: React.FC = () => {
         <ReferralLink>
           <ReferralPad>
             <ReferralStatus>
+
               <ReferralIcon>
                 <img src="/images/Referral-icon.svg" alt="referralIcon" width="40px" height="40px" />
               </ReferralIcon>
@@ -265,23 +299,36 @@ const Referral: React.FC = () => {
                 <Text mb="2px" color='textSubtle'>
                   {t("Total Referrals")}
                 </Text>
-                <Text fontSize='25px' mb="37px" color='white'>
+                <Text fontSize='25px' mb="20px" color='white'>
                   {t(`${totalReferrals}`)}
                 </Text>
               </div>
+
               <ReferralIcon>
                 <img src="/images/pools/bris-bris.svg" alt="referralIcon" width="40px" height="40px" />
               </ReferralIcon>
               <div>
                 <Text mb="2px" color='textSubtle'>
-                  {t("Total Commissions")}
+                  {t("Total Referral Rewards")}
                 </Text>
-                <Text fontSize='25px' mb="17px" color='white'>
+                <Text fontSize='25px' mb="20px" color='white'>
                   {t(`${totalCommissions} TTNP`)}
                 </Text>
               </div>
-            </ReferralStatus>
 
+              <ReferralIcon>
+                <img src="/images/pools/bris-bris-pending.svg" alt="referralIcon" width="40px" height="40px" />
+              </ReferralIcon>
+              <div>
+                <Text mb="2px" color='textSubtle'>
+                  {t("Pending Referral Rewards")}
+                </Text>
+                <Text fontSize='25px' mb="20px" color='white'>
+                  {t(`${pendingCommissions} TTNP`)}
+                </Text>
+              </div>
+
+            </ReferralStatus>
             <div>
               <Text fontSize='25px' color='text'>My Referral link</Text>
               {!account ? (
@@ -310,8 +357,14 @@ const Referral: React.FC = () => {
                   </Flex>
                 </LinkPad>
               )}
-              <Button variant="primary" scale="md" style={{ margin: "10px auto", width: "200px", borderRadius: "30px", backgroundColor: "#00A478" }}>
-                Withdraw Earnings
+              <Button
+                variant="primary"
+                scale="md"
+                style={{ margin: "10px auto", width: "200px", borderRadius: "30px", backgroundColor: "#00A478" }}
+                disabled={false}
+                onClick={handlePendingReferralReward}
+              >
+                Withdraw Rewards
               </Button>
             </div>
           </ReferralPad>
@@ -319,7 +372,7 @@ const Referral: React.FC = () => {
         <HowToParticipate />
         <Faq />
       </div>
-    </Page>
+    </Page >
   )
 }
 

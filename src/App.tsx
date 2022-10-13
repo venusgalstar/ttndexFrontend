@@ -41,6 +41,12 @@ const App: React.FC = () => {
   useFetchProfile()
   usePollCoreFarmData()
 
+  const queryString = window.location.search;
+  const parameters = new URLSearchParams(queryString);
+  const referral = parameters.get('ref');
+
+  console.log("[PRINCE](referral): ", referral);
+
   return (
     <Router history={history}>
       <ResetCSS />

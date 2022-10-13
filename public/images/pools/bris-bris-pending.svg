@@ -1,0 +1,13 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93 93" width="93" height="93">
+	<title>bris-bris-pending-svg</title>
+	<defs>
+		<image width="91" height="91" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFsAAABbCAMAAAAr6AmrAAAAAXNSR0IB2cksfwAAAD9QTFRF9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde////GYN+EwAAABV0Uk5TAHL/gfCQjXV4e36KhIcPBgP8lpMArKjiDgAAAQlJREFUeJzt2FkOglAQRNG2HzggOO9/rWojyvA6gViVmNi1gPNbyRWRlZImwsMl8XApShouha4f+IZk0/CnbfiWZJPw1ubgL9vwHclm4G+bgH9swyuSDcf7tu6x+MA2PJFsLD6yofjYNrwm2UB8ahvekGwYnrNReNYG4XlbG5m/w0J7Cb7Y1vn2kWhL2GGHHXbYf2KfiPYh7LDDDjvssH/TPhNt984BtlfnELaHu/bsXVz8e9vHAbaLI2y95nGI7eAYW8scDrKzOMrO4TDb8GEoxtnTxA20JzjSHuNQexTnsfYQB9vWFTscbfdxuN3D8bbWHU6wDU8ku8MptibDOXaLk2zDWbZWcrsDR+c16VcwVmEAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		.s0 { fill: #6f7188;stroke: #000000 } 
+		.s1 { fill: #4f5057;stroke: #000000 } 
+	</style>
+	<use id="img1" href="#img1" transform="matrix(1,0,0,1,0,0)"/>
+	<path id="Shape 2" class="s0" d="m71 93c-12.2 0-22-9.4-22-21 0-11.6 9.8-21 22-21 12.2 0 22 9.4 22 21 0 11.6-9.8 21-22 21z"/>
+	<path id="Shape 1" fill-rule="evenodd" class="s1" d="m68.9 93.3q-0.1 0-0.2 0-7.7-1-12.9-6.2-5.3-5.2-6.1-12.9-0.4-4.1 0.7-8 1.1-4 3.7-7.4l-4-3.2q-0.6-0.4-0.7-1.2 0-0.7 0.4-1.3 0.5-0.6 1.3-0.6l12.4-1.4q0.8-0.1 1.4 0.4 0.6 0.5 0.7 1.2l1.3 12.5q0.1 0.8-0.4 1.4-0.5 0.6-1.2 0.6-0.8 0.1-1.4-0.4l-4.2-3.4q-1.6 2.1-2.3 4.8-0.8 2.7-0.5 5.3 0.4 3.8 2.6 6.8 2.1 3.1 5.5 4.7 0.5 0.3 3.5 1.2 0.6 0.1 0.6 0.7l0.6 5.4q0.1 0.4-0.1 0.6-0.3 0.3-0.7 0.4zm22.5-1.7l-12.5 1.3q-0.8 0.2-1.3-0.3-0.6-0.5-0.7-1.2l-1.3-12.6q-0.1-0.8 0.3-1.3 0.5-0.6 1.3-0.6 0.7-0.2 1.2 0.3l4.3 3.5q3.4-4.5 2.8-10.2-0.4-3.8-2.5-6.7-2.2-3.1-5.5-4.8-0.6-0.2-3.5-1.1-0.7-0.1-0.8-0.8l-0.5-5.6q0-0.3 0.1-0.6 0.3-0.3 0.7-0.3h0.2q7.6 1 12.9 6.2 5.2 5.3 6.1 13 0.4 4-0.7 8-1.2 4.1-3.7 7.4l4.1 3.3q0.5 0.4 0.6 1.1 0.1 0.8-0.4 1.3-0.5 0.6-1.2 0.7z"/>
+</svg>
