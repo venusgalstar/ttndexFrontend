@@ -258,13 +258,13 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
     return (
         <Board>
             <DrawTimeDisplay>
-                <Text fontSize="14px" color='text'>
+                <Text fontSize="20px" color='text'>
                     {t("Next Draw")}
                 </Text>
                 <Draw>
-                    <Text fontSize="12px" color='text'>{`#${lotteryid}`}</Text >
-                    <Text m="0px 4px" fontSize="12px" color='text'>|</Text>
-                    <Text fontSize="12px" color='text'>{`Draw: ${date}`}</Text>
+                    <Text fontSize="20px" color='text'>{`#${lotteryid}`}</Text >
+                    <Text m="0px 4px" fontSize="20px" color='text'>|</Text>
+                    <Text fontSize="20px" color='text'>{`Draw: ${date}`}</Text>
                 </Draw>
 
             </DrawTimeDisplay>

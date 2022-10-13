@@ -340,7 +340,7 @@ const FinishedRounds = () => {
                 handleArrowButtonPress={handleArrowButtonPress}
             />
             <RoundDate>
-                <Text mb="22px" fontSize='12px' color='text' padding="5px">
+                <Text mb="22px" fontSize='20px' color='text' padding="5px">
                     {t(` Drawn ${date}`)}
                 </Text>
             </RoundDate>
