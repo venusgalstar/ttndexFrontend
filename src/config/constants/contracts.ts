@@ -8,8 +8,12 @@ export default {
     56: '0x6ab8463a4185b80905e05a9ff80a2d6b714b9e95',
   },
   newlottery: {
-    97: '',
-    56: '0x963873294c23eA6948E957e1db4a70bF7Ae2Bd0a',
+    97: '0x57C602A1891A4fC736E4F08AD8c6A901f775890C',
+    56: '0x1CAf3b8d5dF5A056c338AbbA45a663F2DF5d6bd3',
+  },
+  randomNumberGenerator: {
+    97: '0xB725a75Bf80443Acf9106D1e8559fA35fC517D55',
+    56: '0x6E642cB853e9E65E8b9e9d686522a605Ff8755a3',
   },
   lottery: {
     97: '0x99c2EcD51d52c036B00130d882Bc65f20Fdecf9f',
