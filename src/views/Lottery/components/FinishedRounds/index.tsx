@@ -318,7 +318,7 @@ const FinishedRounds = () => {
     if (selectedLotteryinfo[12] === undefined || selectedLotteryinfo[12] === '0') {
         finalNumber = 'xxxxxx'
     } else {
-        finalNumber = selectedLotteryinfo[12].toString()
+        finalNumber = selectedLotteryinfo[12].toString().substring(1, 7)
     }
 
     const date = `${new Date(Number(selectedLotteryinfo[2]) * 1000).toDateString()} ${new Date(Number(selectedLotteryinfo[2]) * 1000).toLocaleTimeString()}`
@@ -400,7 +400,12 @@ const FinishedRounds = () => {
                     <Text m='10px 0px' fontSize='20px' color='text'>{t('Winning Number')}</Text>
                     <WinningNumbers>
                         {
-                            usingSplit.map((num: string) => <DrawNumber>{num}</DrawNumber>)
+                            usingSplit.map((num: string) =>
+                                <DrawNumber>
+                                    <Text fontSize='25px' color='text'>
+                                        {num}
+                                    </Text>
+                                </DrawNumber>)
                         }
                     </WinningNumbers>
                 </WinningNumber>
