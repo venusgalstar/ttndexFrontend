@@ -8,6 +8,7 @@ import { BIG_ZERO } from 'utils/bigNumber'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { usePriceCakeBusd } from 'state/hooks'
 import ViewTicketsModal from '../TicketCard/ViewTicketsModal'
+import GetPrizesModal from '../TicketCard/GetPrizesModal'
 import HistoryButtons from './HistoryButtons'
 import RewardBracketDetail from '../RewardBracketDetail'
 import RoundSwitcher from '../RoundSwitcher'
@@ -415,6 +416,8 @@ const FinishedRounds = () => {
     const date = `${new Date(Number(selectedLotteryinfo[2]) * 1000).toDateString()} ${new Date(Number(selectedLotteryinfo[2]) * 1000).toLocaleTimeString()}`
     const usingSplit = finalNumber.split('')
 
+    const [onGetPrizesModal] = useModal(<GetPrizesModal winningNumber={parseInt(finalNumber)} ticketIds={accountTickets} lotteryId={selectedRoundId} />)
+
     return (
         <RoundsContainer>
             <Title>
@@ -505,7 +508,7 @@ const FinishedRounds = () => {
                 </PrizePot>
                 <RightPanel>
                     <PrizePanel>
-                        <Button m='10px 0px' color='text'>{t('Get Prizes!')}</Button>
+                        <Button m='10px 0px' color='text' onClick={onGetPrizesModal}>{t('Get Prizes!')}</Button>
                         <BatchImage>
                             <LotteryImage src='images/lottery/star-big.png' alt="card icon" />
                             <LotteryImage src='images/lottery/star-small.png' alt="card icon" />

@@ -54,7 +54,7 @@ const BridgeLottery = () => {
       <Text fontSize="12px" mb="22px" color="text">
         {t("in prizes")}
       </Text>
-      <Button variant="primary" scale="sm" style={{ margin: "10px auto", width: "200px" }} onClick={onPresentBuyTicketsModal}>Buy tickets</Button>
+      <Button variant="primary" scale="sm" style={{ margin: "10px auto", width: "150px" }} onClick={onPresentBuyTicketsModal}>Buy tickets</Button>
       <Text fontSize='12px' color='text'>
         {t(`Tickets sold at $${getBalanceAmount(lotteryinfo[3]).times(ttnpPriceUsd).toNumber().toLocaleString('en-US', {
           minimumFractionDigits: 3,

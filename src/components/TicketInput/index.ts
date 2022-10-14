@@ -1,2 +1,2 @@
 export { default } from './TicketInput'
-export {TicketNumberInput, ViewTicketNumber} from './TicketInput';
+export {TicketNumberInput, ViewTicketNumber, ViewTicketNumberAndGetPrize, ViewWinningNumber} from './TicketInput';

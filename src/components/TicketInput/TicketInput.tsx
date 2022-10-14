@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { Button, Flex, Input, InputProps } from '@pancakeswap/uikit'
+import { Button, Flex, Input, InputProps, Text } from '@pancakeswap/uikit'
 import useBrisBalance from 'hooks/useGetBrisBalance'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { useTranslation } from 'contexts/Localization'
@@ -22,6 +22,15 @@ interface TokenNumberInputProps extends InputProps {
 }
 
 interface ViewTicketNumberProps extends InputProps {
+  index: string
+  ticketNumber: number
+}
+
+interface ViewWinningNumberProps extends InputProps {
+  winningNumber: number
+}
+
+interface ViewTicketNumberAndGetPrizeProps extends InputProps {
   index: string
   ticketNumber: number
 }
@@ -184,6 +193,52 @@ export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, tick
   )
 }
 
+export const ViewWinningNumber: React.FC<ViewWinningNumberProps> = ({ winningNumber }) => {
+  const [val1, setVal1] = useState((Math.floor(winningNumber / 100000)).toString())
+  const [val2, setVal2] = useState((Math.floor((winningNumber % 100000) / 10000)).toString())
+  const [val3, setVal3] = useState((Math.floor((winningNumber % 10000) / 1000)).toString())
+  const [val4, setVal4] = useState((Math.floor((winningNumber % 1000) / 100)).toString())
+  const [val5, setVal5] = useState((Math.floor((winningNumber % 100) / 10)).toString())
+  const [val6, setVal6] = useState((winningNumber % 10).toString())
+
+  const disabled = true
+
+  return (
+    <>
+      <Flex alignItems="center" padding="10px">
+        <StyledWinnerText style={{ width: "40px" }}>Winner</StyledWinnerText>
+        <StyledSpacer style={{ width: "15px" }} />
+
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val1} style={{ width: "45px", backgroundColor: "yellow", color: "black" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val2} style={{ width: "45px", backgroundColor: "yellow", color: "black" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val3} style={{ width: "45px", backgroundColor: "yellow", color: "black" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val4} style={{ width: "45px", backgroundColor: "yellow", color: "black" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val5} style={{ width: "45px", backgroundColor: "yellow", color: "black" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val6} style={{ width: "45px", backgroundColor: "yellow", color: "black" }}
+        />
+        <StyledSpacer style={{ width: "15px" }} />
+        <StyledWinnerQueryText>Are you a winner?</StyledWinnerQueryText>
+      </Flex>
+    </>
+  )
+}
+
 export const ViewTicketNumber: React.FC<ViewTicketNumberProps> = ({ index, ticketNumber }) => {
   const [val1, setVal1] = useState((Math.floor(ticketNumber / 100000)).toString())
   const [val2, setVal2] = useState((Math.floor((ticketNumber % 100000) / 10000)).toString())
@@ -231,6 +286,32 @@ export const ViewTicketNumber: React.FC<ViewTicketNumberProps> = ({ index, ticke
   )
 }
 
+export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizeProps> = ({ index, ticketNumber }) => {
+  const { t } = useTranslation()
+
+  const handleSetRandomTicketNumber = () => {
+    console.log("aaa")
+  }
+
+  return (
+    <>
+      <Flex alignItems="center">
+        <ViewTicketNumber index={index} ticketNumber={ticketNumber} />
+        <StyledTokenAdornmentWrapper>
+          <Button scale="sm" onClick={handleSetRandomTicketNumber}>
+            {t('Get Prize')}
+          </Button>
+          <StyledPrizeSpacer />
+        </StyledTokenAdornmentWrapper>
+      </Flex>
+    </>
+  )
+}
+
+const StyledPrizeSpacer = styled.div`
+  width: 30px;
+`
+
 const StyledSpacer = styled.div`
   width: 5px;
 `
@@ -245,6 +326,26 @@ const StyledMaxText = styled.div`
   color: ${(props) => props.theme.colors.primary};
   display: flex;
   font-size: 14px;
+  font-weight: 700;
+  height: 44px;
+  justify-content: flex-end;
+`
+
+const StyledWinnerText = styled.div`
+  align-items: center;
+  color: ${(props) => props.theme.colors.primary};
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  height: 44px;
+  justify-content: flex-end;
+`
+
+const StyledWinnerQueryText = styled.div`
+  align-items: center;
+  color: ${(props) => props.theme.colors.primary};
+  display: flex;
+  font-size: 16px;
   font-weight: 700;
   height: 44px;
   justify-content: flex-end;

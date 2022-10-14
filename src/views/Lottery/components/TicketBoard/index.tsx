@@ -325,7 +325,7 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
                                 <ArrowForwardIcon />
                             </StyledIconButton>
                         </FlexFragment>
-                        <Button scale="sm" variant="primary" onClick={onPresentBuyTicketsModal}>Buy Tickets</Button>
+                        <Button scale="sm" variant="primary" style={{ margin: "10px auto", width: "150px" }} onClick={onPresentBuyTicketsModal}>Buy Tickets</Button>
                     </PrizePotDetails>
 
                     <CountDownTimer>
