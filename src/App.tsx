@@ -1,8 +1,10 @@
-import React, { lazy } from 'react'
+import React, { lazy, useEffect } from 'react'
 import { Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ResetCSS } from '@pancakeswap/uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
+import { getWeb3NoAccount } from 'utils/web3'
+import { ADMIN_ACCOUNT, MAINNET_CHAIN_ID } from 'config'
 import { usePollCoreFarmData, useFetchProfile, usePollBlockNumber } from 'state/hooks'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
@@ -43,9 +45,17 @@ const App: React.FC = () => {
 
   const queryString = window.location.search;
   const parameters = new URLSearchParams(queryString);
-  const referral = parameters.get('ref');
+  const newReferral = parameters.get('ref');
 
-  console.log("[PRINCE](referral): ", referral);
+  useEffect(() => {
+    const referral = window.localStorage.getItem("REFERRAL");
+    if (!getWeb3NoAccount().utils.isAddress(referral, parseInt(MAINNET_CHAIN_ID)) && getWeb3NoAccount().utils.isAddress(newReferral, parseInt(MAINNET_CHAIN_ID))) {
+      window.localStorage.setItem("REFERRAL", newReferral);
+    } else if (!getWeb3NoAccount().utils.isAddress(newReferral, parseInt(MAINNET_CHAIN_ID))) {
+      window.localStorage.setItem("REFERRAL", ADMIN_ACCOUNT);
+    }
+    console.log("[PRINCE](referral): ", referral);
+  }, [newReferral])
 
   return (
     <Router history={history}>

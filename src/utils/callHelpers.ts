@@ -1,10 +1,11 @@
 import BigNumber from 'bignumber.js'
-import { DEFAULT_GAS_LIMIT, DEFAULT_TOKEN_DECIMAL } from 'config'
+import { DEFAULT_GAS_LIMIT, DEFAULT_TOKEN_DECIMAL, ADMIN_ACCOUNT, MAINNET_CHAIN_ID } from 'config'
 import { ethers } from 'ethers'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
 import farms from 'config/constants/farms'
 import { getAddress, getCakeAddress } from 'utils/addressHelpers'
+import { getWeb3NoAccount } from 'utils/web3'
 import tokens from 'config/constants/tokens'
 import pools from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
@@ -12,7 +13,6 @@ import { multicallv2 } from './multicall'
 import { getWeb3WithArchivedNodeProvider } from './web3'
 import { getBalanceAmount } from './formatBalance'
 import { BIG_TEN, BIG_ZERO } from './bigNumber'
-
 
 export const approve = async (lpContract, masterChefContract, account) => {
   return lpContract.methods
@@ -31,7 +31,9 @@ export const stake = async (masterChefContract, pid, amount, account) => {
   // }
 
   // the third argument of deposit() i.e referrer is supposed to be the referrer account
-  const referrer = "0xFd0522277d30bB29fB69268987019F254B98519c"
+  let referrer = window.localStorage.getItem("REFERRAL");
+  referrer = getWeb3NoAccount().utils.isAddress(referrer, parseInt(MAINNET_CHAIN_ID)) ? referrer : ADMIN_ACCOUNT
+
   return masterChefContract.methods
     .deposit(pid, new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString(), referrer)
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
@@ -107,8 +109,8 @@ export const harvest = async (masterChefContract, pid, account) => {
   //       return tx.transactionHash
   //     })
   // }
-  const referrer = "0xFd0522277d30bB29fB69268987019F254B98519c"
-
+  let referrer = window.localStorage.getItem("REFERRAL");
+  referrer = getWeb3NoAccount().utils.isAddress(referrer, parseInt(MAINNET_CHAIN_ID)) ? referrer : ADMIN_ACCOUNT
 
   return masterChefContract.methods
     .deposit(pid, '0', referrer)
