@@ -123,15 +123,28 @@ const Prize = styled.div`
 const UserTicket = styled.span`
     color: ${({ theme }) => theme.colors.primary};
 `
+
 const Latest = styled.div`
+    background: ${({ theme }) => theme.colors.primary};
+    padding: 2px 15px;
+    border-radius: 20px;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    margin-left: auto;
+    margin-top: 4px;
+`
+
+const History = styled.div`
     background: ${({ theme }) => theme.colors.primary};
     padding: 3px 30px;
     border-radius: 20px;
     text-align: center;
-    width: 150px;
+    width: 160px;
     height: 40px;
     margin-left: auto;
 `
+
 const WinningNumbers = styled(Grid)`
     width: 80%;
     margin: 0 auto;
@@ -352,9 +365,12 @@ const FinishedRounds = () => {
         <RoundsContainer>
             <Title>
                 <Heading mb='12px' scale='md' color='text'>Finished Rounds</Heading>
-                <HistoryBtnsContainer>
+                <History>
+                    <Text fontSize='20px' color='text'>{t('All History')}</Text>
+                </History>
+                {/* <HistoryBtnsContainer>
                     <HistoryButtons activeIndex={0} />
-                </HistoryBtnsContainer>
+                </HistoryBtnsContainer> */}
             </Title>
             <RoundSwitcher
                 isLoading={isLoading}
@@ -370,7 +386,7 @@ const FinishedRounds = () => {
                 {
                     selectedRoundId === latestRoundId.toString() &&
                     <Latest>
-                        <Text fontSize='20px' color='text'>{t('LATEST')}</Text>
+                        <Text fontSize='16px' color='text'>{t('LATEST')}</Text>
                     </Latest>
                 }
             </RoundDate>
