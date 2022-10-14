@@ -306,6 +306,11 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
 
   const handleGetPrize = useCallback(async () => {
     try {
+      if (brackets < 0) {
+        toastError("Sorry!", `You didn't receive your prizes! Please check your ticket number. You may have already won a prize or not been a winner.`)
+        return
+      }
+
       setPendingTx(true)
 
       const txHash = await onGetPrize(lotteryId, ticketId, brackets)
