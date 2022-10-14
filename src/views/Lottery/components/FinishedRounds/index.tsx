@@ -177,17 +177,6 @@ const WinningNumbers = styled(Grid)`
     }
 }
 `
-const DrawNumber = styled.div`
-    background: ${({ theme }) => theme.colors.textSubtle};
-    border-radius: 50%;
-    padding: 2px 0px;
-    color: ${({ theme }) => theme.colors.text};
-
-    ${({ theme }) => theme.mediaQueries.sm} {
-        padding: 10px 0px;
-    }
-
-`
 
 const Wrapper = styled(Flex)`
   width: 100%;
@@ -237,11 +226,15 @@ const RightPanel = styled.div`
 `
 
 const NumberText = styled(Text)`
+    background-color: yellow;
     font-size: 18px;
-    color: text;
+    border-radius: 50%;
+    padding: 2px 0px;
+    color: black;
 
     ${({ theme }) => theme.mediaQueries.sm} {
         font-size: 20px;
+        padding: 10px 0px;
     }
 `
 
@@ -527,11 +520,10 @@ const FinishedRounds = () => {
                         <WinningNumbers>
                             {
                                 usingSplit.map((num: string) =>
-                                    <DrawNumber>
-                                        <NumberText fontSize='25px' color='text'>
-                                            {num}
-                                        </NumberText>
-                                    </DrawNumber>)
+                                    <NumberText fontSize='25px' color='text'>
+                                        {num}
+                                    </NumberText>
+                                )
                             }
                         </WinningNumbers>
                     </WinningNumber>
