@@ -95,6 +95,20 @@ export const buyTickets = async (lotteryContract, lotteryid: string, numbersList
   }
 }
 
+export const claimTickets = async (lotteryContract, lotteryId: string, ticketId: string, brackets: number, account: string) => {
+  console.log("[PRINCE](claimTickets): ", lotteryContract, lotteryId, ticketId, brackets, account)
+  try {
+    return lotteryContract.methods
+      .claimTickets(lotteryId, ticketId, brackets)
+      .send({ from: account })
+      .on('transactionHash', (tx) => {
+        return tx.transactionHash
+      })
+  } catch (err) {
+    return console.error(err)
+  }
+}
+
 export const approveTokens = async (tokenContract, targetAddress: string, account: string) => {
   console.log("approveTokens: ", tokenContract, targetAddress, account)
   try {

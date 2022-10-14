@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { Button, Flex, Input, InputProps, Text } from '@pancakeswap/uikit'
 import useBrisBalance from 'hooks/useGetBrisBalance'
+import { useGetPrizeLottery } from 'hooks/useBuyLottery'
+import useToast from 'hooks/useToast'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { useTranslation } from 'contexts/Localization'
 
@@ -31,7 +33,9 @@ interface ViewWinningNumberProps extends InputProps {
 }
 
 interface ViewTicketNumberAndGetPrizeProps extends InputProps {
-  index: string
+  lotteryId: string
+  ticketId: string
+  brackets: number
   ticketNumber: number
 }
 
@@ -286,19 +290,43 @@ export const ViewTicketNumber: React.FC<ViewTicketNumberProps> = ({ index, ticke
   )
 }
 
-export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizeProps> = ({ index, ticketNumber }) => {
+export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizeProps> = ({ lotteryId, ticketId, brackets, ticketNumber }) => {
+  const [pendingTx, setPendingTx] = useState(false)
+
   const { t } = useTranslation()
 
-  const handleSetRandomTicketNumber = () => {
-    console.log("aaa")
-  }
+  const { onGetPrize } = useGetPrizeLottery()
+
+  const { toastSuccess, toastError } = useToast()
+
+  const handleGetPrize = useCallback(async () => {
+    try {
+      setPendingTx(true)
+
+      const txHash = await onGetPrize(lotteryId, ticketId, brackets)
+      console.log("[PRINCE](handleGetPrize): ", txHash)
+
+      // user rejected tx or didn't go thru
+      if (txHash) {
+        toastSuccess("Congratulations!", `You received your prizes!`)
+        setPendingTx(false)
+      } else {
+        toastError("Sorry!", `You didn't receive your prizes! Please check your ticket number. You may have already won a prize or not been a winner.`)
+        setPendingTx(false)
+      }
+    } catch (e) {
+      toastError("Sorry!", `You didn't receive your prizes! Please check your ticket number. You may have already won a prize or not been a winner.`)
+      setPendingTx(false)
+      console.error(e)
+    }
+  }, [setPendingTx, toastSuccess, toastError, lotteryId, ticketId, brackets])
 
   return (
     <>
       <Flex alignItems="center">
-        <ViewTicketNumber index={index} ticketNumber={ticketNumber} />
+        <ViewTicketNumber index={ticketId} ticketNumber={ticketNumber} />
         <StyledTokenAdornmentWrapper>
-          <Button scale="sm" onClick={handleSetRandomTicketNumber}>
+          <Button scale="sm" disabled={pendingTx || brackets < 0} onClick={handleGetPrize}>
             {t('Get Prize')}
           </Button>
           <StyledPrizeSpacer />

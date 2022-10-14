@@ -416,7 +416,12 @@ const FinishedRounds = () => {
     const date = `${new Date(Number(selectedLotteryinfo[2]) * 1000).toDateString()} ${new Date(Number(selectedLotteryinfo[2]) * 1000).toLocaleTimeString()}`
     const usingSplit = finalNumber.split('')
 
-    const [onGetPrizesModal] = useModal(<GetPrizesModal winningNumber={parseInt(finalNumber)} ticketIds={accountTickets} lotteryId={selectedRoundId} />)
+    const [onGetPrizesModal] = useModal(
+        <GetPrizesModal
+            winningNumber={selectedLotteryinfo[12] === undefined ? "0" : selectedLotteryinfo[12].toString()}
+            ticketIds={accountTickets}
+            lotteryId={selectedRoundId} />
+    )
 
     return (
         <RoundsContainer>

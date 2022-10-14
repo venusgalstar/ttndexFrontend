@@ -6,6 +6,7 @@ import { useNewLottery, useLottery, useLotteryTicket, useBRIS } from 'hooks/useC
 import { getNewLotteryAddress } from 'utils/addressHelpers'
 import {
   multiClaim,
+  claimTickets,
   getMax,
   getLotteryInfo,
   getLotteryId,
@@ -33,6 +34,22 @@ export const useMultiClaimLottery = () => {
   }, [account, lotteryContract, lotteryTicketContract])
 
   return { onMultiClaim: handleClaim }
+}
+
+export const useGetPrizeLottery = () => {
+  const { account } = useWeb3React()
+  const lotteryContract = useNewLottery()
+
+  const handleClaim = useCallback(async (lotteryId: string, ticketId: string, brackets: number) => {
+    try {
+      const txHash = await claimTickets(lotteryContract, lotteryId, ticketId, brackets, account)
+      return txHash
+    } catch (e) {
+      return false
+    }
+  }, [account, lotteryContract])
+
+  return { onGetPrize: handleClaim }
 }
 
 export const useMultiBuyLottery = () => {
