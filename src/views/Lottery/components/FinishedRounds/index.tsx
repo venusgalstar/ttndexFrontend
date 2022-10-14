@@ -120,18 +120,18 @@ const WinningNumber = styled.div`
 `
 
 const PrizePanel = styled.div`
-    padding: 20px;
+    padding: 10px;
     background: #15154F;
     border-radius: 30px;
     width: 100%;
-    height: 250px;
+    height: 280px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 
     ${({ theme }) => theme.mediaQueries.sm} {
         font-size: 14px;
         flex: 0 0 38%;
-
+        height: 180px;
     }
 `
 const Prize = styled.div`
@@ -242,6 +242,16 @@ const NumberText = styled(Text)`
     ${({ theme }) => theme.mediaQueries.sm} {
         font-size: 20px;
     }
+`
+
+const LotteryImage = styled.img`
+  margin-right: 16px;
+  width: 56px;
+`
+
+const BatchImage = styled.div`
+    flex-direction: column;
+    margin-top: 25px;
 `
 
 interface RewardsState {
@@ -495,10 +505,14 @@ const FinishedRounds = () => {
                 </PrizePot>
                 <RightPanel>
                     <PrizePanel>
-                        <Text m='10px 0px' fontSize='20px' color='text'>{t('Get Prizes!')}</Text>
-                        <Button>
-                            {t('Prize')}
-                        </Button>
+                        <Button m='10px 0px' color='text'>{t('Get Prizes!')}</Button>
+                        <BatchImage>
+                            <LotteryImage src='images/lottery/star-big.png' alt="card icon" />
+                            <LotteryImage src='images/lottery/star-small.png' alt="card icon" />
+                            <LotteryImage src='images/lottery/three-stars.png' alt="card icon" />
+                            <LotteryImage src='images/lottery/star-small.png' alt="card icon" />
+                            <LotteryImage src='images/lottery/star-big.png' alt="card icon" />
+                        </BatchImage>
                     </PrizePanel>
                     <WinningNumber>
                         <Text m='10px 0px' fontSize='20px' color='text'>{t('Winning Number')}</Text>
