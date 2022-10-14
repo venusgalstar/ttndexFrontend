@@ -110,6 +110,23 @@ const WinningNumber = styled.div`
     border-radius: 30px;
     width: 100%;
     text-align: center;
+    margin-top: 50px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+        font-size: 14px;
+        flex: 0 0 38%;
+
+    }
+`
+
+const PrizePanel = styled.div`
+    padding: 20px;
+    background: #15154F;
+    border-radius: 30px;
+    width: 100%;
+    height: 250px;
+    text-align: center;
+    margin-top: 20px;
 
     ${({ theme }) => theme.mediaQueries.sm} {
         font-size: 14px;
@@ -148,15 +165,21 @@ const History = styled.div`
 const WinningNumbers = styled(Grid)`
     width: 80%;
     margin: 0 auto;
-    grid-template-columns: repeat(6, 60px);
-    grid-gap: 12px;
+    grid-template-columns: repeat(6, 30px);
+    grid-gap: 1px;
     justify-content: center;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+        grid-template-columns: repeat(6, 60px);
+        grid-gap: 12px;
+
+    }
 }
 `
 const DrawNumber = styled.div`
     background: ${({ theme }) => theme.colors.textSubtle};
     border-radius: 50%;
-    padding: 10px 0px;
+    padding: 2px 0px;
     color: ${({ theme }) => theme.colors.text};
 
     ${({ theme }) => theme.mediaQueries.sm} {
@@ -198,6 +221,27 @@ const StyledIconButton = styled(IconButton)`
 
 const FlexFragment = styled.div`
     display: flex;
+`
+
+const RightPanel = styled.div`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+        flex-direction: row;
+    }
+`
+
+const NumberText = styled(Text)`
+    font-size: 18px;
+    color: text;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+        font-size: 20px;
+    }
 `
 
 interface RewardsState {
@@ -449,19 +493,27 @@ const FinishedRounds = () => {
                         </RewardsInner>
                     </Wrapper>
                 </PrizePot>
-                <WinningNumber>
-                    <Text m='10px 0px' fontSize='20px' color='text'>{t('Winning Number')}</Text>
-                    <WinningNumbers>
-                        {
-                            usingSplit.map((num: string) =>
-                                <DrawNumber>
-                                    <Text fontSize='25px' color='text'>
-                                        {num}
-                                    </Text>
-                                </DrawNumber>)
-                        }
-                    </WinningNumbers>
-                </WinningNumber>
+                <RightPanel>
+                    <PrizePanel>
+                        <Text m='10px 0px' fontSize='20px' color='text'>{t('Get Prizes!')}</Text>
+                        <Button>
+                            {t('Prize')}
+                        </Button>
+                    </PrizePanel>
+                    <WinningNumber>
+                        <Text m='10px 0px' fontSize='20px' color='text'>{t('Winning Number')}</Text>
+                        <WinningNumbers>
+                            {
+                                usingSplit.map((num: string) =>
+                                    <DrawNumber>
+                                        <NumberText fontSize='25px' color='text'>
+                                            {num}
+                                        </NumberText>
+                                    </DrawNumber>)
+                            }
+                        </WinningNumbers>
+                    </WinningNumber>
+                </RightPanel>
             </PrizeWinningContainer>
         </RoundsContainer>
     )
