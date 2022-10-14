@@ -133,6 +133,11 @@ export const useViewRewardsForTicketId = (lotteryId: string, ticketId: string, b
   const [viewRewardsForTicketId, setViewRewardsForTicketId] = useState()
 
   const fetchLottery = useCallback(async () => {
+    if (brackets < 0 || new BigNumber(lotteryId).lte(0) || new BigNumber(lotteryId).lte(0)) {
+      setViewRewardsForTicketId(undefined)
+      return
+    }
+
     const viewRewardsForTicketIdNum = await getViewRewardsForTicketId(lotteryContract, lotteryId, ticketId, brackets)
     setViewRewardsForTicketId(viewRewardsForTicketIdNum)
   }, [lotteryContract])

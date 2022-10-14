@@ -302,15 +302,10 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
   const viewRewardsForTicketId = useViewRewardsForTicketId(lotteryId, ticketId, brackets)
   const { onGetPrize } = useGetPrizeLottery()
 
-  const canGetPrize: boolean = pendingTx || brackets < 0 || !ticketOwner || viewRewardsForTicketId === undefined || new BigNumber(viewRewardsForTicketId).lte(0)
+  const disableGetPrize: boolean = pendingTx || brackets < 0 || !ticketOwner || viewRewardsForTicketId === undefined || new BigNumber(viewRewardsForTicketId).lte(0)
 
   const handleGetPrize = useCallback(async () => {
     try {
-      if (brackets < 0) {
-        toastError("Sorry!", `You didn't receive your prizes! Please check your ticket number. You may have already won a prize or not been a winner.`)
-        return
-      }
-
       setPendingTx(true)
 
       const txHash = await onGetPrize(lotteryId, ticketId, brackets)
@@ -336,7 +331,7 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
       <Flex alignItems="center">
         <ViewTicketNumber index={ticketId} ticketNumber={ticketNumber} />
         <StyledTokenAdornmentWrapper>
-          <Button scale="sm" disabled={canGetPrize} onClick={handleGetPrize}>
+          <Button scale="sm" disabled={disableGetPrize} onClick={handleGetPrize}>
             {t('Get Prize')}
           </Button>
           <StyledPrizeSpacer />
