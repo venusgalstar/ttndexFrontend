@@ -41,7 +41,7 @@ interface CountDownDateProps {
     seconds: number
 }
 
-const CountDownDate: React.FC<CountDownDateProps> = ({seconds}) => {
+const CountDownDate: React.FC<CountDownDateProps> = ({ seconds }) => {
     let timeDays
     let timeHours
     let timeMinutes
@@ -67,20 +67,29 @@ const CountDownDate: React.FC<CountDownDateProps> = ({seconds}) => {
 
     return (
         <>
-        <Time>
-            <Value>{timeHours}</Value>
-            <TimeLabel>HOURS</TimeLabel>
-        </Time>
-        <Img src="/images/time-divider.svg" alt="time-divider" />
-        <Time>
-            <Value>{timeMinutes}</Value>
-            <TimeLabel>MINUTES</TimeLabel>
-        </Time>
-        <Img src="/images/time-divider.svg" alt="time-divider" />
-        <Time>
-            <Value>{timeSeconds}</Value>
-            <TimeLabel>SECONDS</TimeLabel>
-        </Time>
+            {parseInt(timeDays) > 0 &&
+                <>
+                    <Time>
+                        <Value>{timeDays}</Value>
+                        <TimeLabel>DAYS</TimeLabel>
+                    </Time>
+                    <Img src="/images/time-divider.svg" alt="time-divider" />
+                </>
+            }
+            <Time>
+                <Value>{timeHours}</Value>
+                <TimeLabel>HOURS</TimeLabel>
+            </Time>
+            <Img src="/images/time-divider.svg" alt="time-divider" />
+            <Time>
+                <Value>{timeMinutes}</Value>
+                <TimeLabel>MINUTES</TimeLabel>
+            </Time>
+            <Img src="/images/time-divider.svg" alt="time-divider" />
+            <Time>
+                <Value>{timeSeconds}</Value>
+                <TimeLabel>SECONDS</TimeLabel>
+            </Time>
         </>
     )
 }
