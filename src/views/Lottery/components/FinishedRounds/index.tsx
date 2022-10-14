@@ -193,6 +193,8 @@ const FinishedRounds = () => {
     const [selectedRoundId, setSelectedRoundId] = useState('')
     const [latestRoundId, setLatestRoundId] = useState(0)
 
+    const isHistoricRound = true; 
+
     const [state, setState] = useState<RewardsState>({
         isLoading: true,
         cakeToBurn: BIG_ZERO,
@@ -266,10 +268,10 @@ const FinishedRounds = () => {
 
     useEffect(() => {
         (async () => {
-            const ticketsArr = await onAccountTickets(selectedLotteryinfo.toString())
+            const ticketsArr = await onAccountTickets(selectedRoundId.toString())
             setAccountTickets(ticketsArr)
         })()
-    }, [selectedLotteryinfo, onAccountTickets])
+    }, [selectedRoundId, onAccountTickets])
 
     const handleInputChange = (event) => {
         const {
@@ -390,8 +392,7 @@ const FinishedRounds = () => {
                                     rewardBracket={bracketIndex}
                                     cakeAmount={!isLoading && getCakeRewards(bracketIndex)}
                                     numberWinners={!isLoading && countWinnersPerBracket[bracketIndex]}
-                                    // isHistoricRound={isHistoricRound}
-                                    isHistoricRound={false}
+                                    isHistoricRound={isHistoricRound}
                                     isLoading={isLoading}
                                 />
                             ))}
