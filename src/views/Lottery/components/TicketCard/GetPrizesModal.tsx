@@ -57,6 +57,7 @@ const GetPrizesModal: React.FC<GetPrizesModalProps> = ({ winningNumber, ticketId
               <ViewTicketNumberAndGetPrize
                 lotteryId={lotteryId}
                 ticketId={ticketIds[idx]}
+                ticketOwner={ticketNumbers ? ticketNumbers[1][idx] : false}
                 brackets={getRewardBracketByNumber(ticketNumbers[0][idx], winningNumber)}
                 ticketNumber={ticketNumbers ? parseInt(ticketNumbers[0][idx]) % 1000000 : 0}
               />

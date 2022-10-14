@@ -16,7 +16,8 @@ import {
   getAccountTickets,
   getMaxNumberTickets,
   viewNumbersAndStatusesForTicketIds,
-  getTotalPriceForBulkTickets
+  getTotalPriceForBulkTickets,
+  getViewRewardsForTicketId
 } from '../utils/lotteryUtils'
 
 export const useMultiClaimLottery = () => {
@@ -125,6 +126,24 @@ export const useCurrentLotteryId = () => {
   }, [lotteryContract, fetchLottery])
 
   return lotteryId
+}
+
+export const useViewRewardsForTicketId = (lotteryId: string, ticketId: string, brackets: number) => {
+  const lotteryContract = useNewLottery()
+  const [viewRewardsForTicketId, setViewRewardsForTicketId] = useState()
+
+  const fetchLottery = useCallback(async () => {
+    const viewRewardsForTicketIdNum = await getViewRewardsForTicketId(lotteryContract, lotteryId, ticketId, brackets)
+    setViewRewardsForTicketId(viewRewardsForTicketIdNum)
+  }, [lotteryContract])
+
+  useEffect(() => {
+    if (lotteryContract) {
+      fetchLottery()
+    }
+  }, [lotteryContract, fetchLottery])
+
+  return viewRewardsForTicketId
 }
 
 export const useCalculateTotalPriceForBulkTickets = (discountDivisor, priceTicket, numberTickets: number) => {

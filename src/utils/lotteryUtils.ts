@@ -133,6 +133,11 @@ export const getLotteryId = async (lotteryContract) => {
   return currentLotteryid
 }
 
+export const getViewRewardsForTicketId = async (lotteryContract, lotteryId: string, ticketId: string, brackets: number) => {
+  const currentLotteryid = await lotteryContract.methods.viewRewardsForTicketId(lotteryId, ticketId, brackets).call()
+  return currentLotteryid
+}
+
 export const getMaxNumberTickets = async (lotteryContract) => {
   const maxNumberTickets = await lotteryContract.methods.maxNumberTicketsPerBuyOrClaim().call()
   return maxNumberTickets

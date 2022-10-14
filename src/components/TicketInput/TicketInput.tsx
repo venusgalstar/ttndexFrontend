@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { Button, Flex, Input, InputProps, Text } from '@pancakeswap/uikit'
 import useBrisBalance from 'hooks/useGetBrisBalance'
-import { useGetPrizeLottery } from 'hooks/useBuyLottery'
+import { useGetPrizeLottery, useViewRewardsForTicketId } from 'hooks/useBuyLottery'
 import useToast from 'hooks/useToast'
 import { getBalanceNumber } from 'utils/formatBalance'
 import { useTranslation } from 'contexts/Localization'
@@ -35,6 +35,7 @@ interface ViewWinningNumberProps extends InputProps {
 interface ViewTicketNumberAndGetPrizeProps extends InputProps {
   lotteryId: string
   ticketId: string
+  ticketOwner: boolean
   brackets: number
   ticketNumber: number
 }
@@ -290,14 +291,18 @@ export const ViewTicketNumber: React.FC<ViewTicketNumberProps> = ({ index, ticke
   )
 }
 
-export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizeProps> = ({ lotteryId, ticketId, brackets, ticketNumber }) => {
+export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizeProps> = ({ lotteryId, ticketId, ticketOwner, brackets, ticketNumber }) => {
+  console.log("[PRINCE](ViewTicketNumberAndGetPrize) ", lotteryId, ticketId, ticketOwner, brackets, ticketNumber)
+
   const [pendingTx, setPendingTx] = useState(false)
 
   const { t } = useTranslation()
+  const { toastSuccess, toastError } = useToast()
 
+  const viewRewardsForTicketId = useViewRewardsForTicketId(lotteryId, ticketId, brackets)
   const { onGetPrize } = useGetPrizeLottery()
 
-  const { toastSuccess, toastError } = useToast()
+  const canGetPrize: boolean = pendingTx || brackets < 0 || !ticketOwner || viewRewardsForTicketId === undefined || new BigNumber(viewRewardsForTicketId).lte(0)
 
   const handleGetPrize = useCallback(async () => {
     try {
@@ -326,7 +331,7 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
       <Flex alignItems="center">
         <ViewTicketNumber index={ticketId} ticketNumber={ticketNumber} />
         <StyledTokenAdornmentWrapper>
-          <Button scale="sm" disabled={pendingTx || brackets < 0} onClick={handleGetPrize}>
+          <Button scale="sm" disabled={canGetPrize} onClick={handleGetPrize}>
             {t('Get Prize')}
           </Button>
           <StyledPrizeSpacer />
