@@ -48,11 +48,17 @@ const App: React.FC = () => {
   const newReferral = parameters.get('ref');
 
   useEffect(() => {
-    const referral = window.localStorage.getItem("REFERRAL");
-    if (!getWeb3NoAccount().utils.isAddress(referral, parseInt(MAINNET_CHAIN_ID)) && getWeb3NoAccount().utils.isAddress(newReferral, parseInt(MAINNET_CHAIN_ID))) {
-      window.localStorage.setItem("REFERRAL", newReferral);
-    } else if (!getWeb3NoAccount().utils.isAddress(newReferral, parseInt(MAINNET_CHAIN_ID))) {
-      window.localStorage.setItem("REFERRAL", ADMIN_ACCOUNT);
+    const referral = window.localStorage.getItem("REFERRAL")
+
+    const isAddress = getWeb3NoAccount().utils.isAddress
+    const MAINNET = parseInt(MAINNET_CHAIN_ID)
+
+    if (!isAddress(referral, MAINNET)) {
+      if (isAddress(newReferral, MAINNET)) {
+        window.localStorage.setItem("REFERRAL", newReferral);
+      } else {
+        window.localStorage.setItem("REFERRAL", ADMIN_ACCOUNT);
+      }
     }
     console.log("[PRINCE](referral): ", referral);
   }, [newReferral])
