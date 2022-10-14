@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { Heading, Text, BaseLayout, Button, Image, Card, Flex, Grid } from '@pancakeswap/uikit'
+import { Heading, Text, BaseLayout, Button, Image, Card, Flex, Grid, ArrowForwardIcon, IconButton, useModal } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import { useAccountTickets, useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { usePriceCakeBusd } from 'state/hooks'
+import ViewTicketsModal from '../TicketCard/ViewTicketsModal'
 import HistoryButtons from './HistoryButtons'
 import RewardBracketDetail from '../RewardBracketDetail'
 import RoundSwitcher from '../RoundSwitcher'
@@ -86,10 +87,10 @@ const PotTitle = styled(Flex)`
 `
 const PotHeading = styled(Text)`
     color: ${({ theme }) => theme.colors.text};
-    font-size: 15px;
+    font-size: 22px;
 
     ${({ theme }) => theme.mediaQueries.sm} {
-        font-size: 20px;
+        font-size: 22px;
 
     }
 `
@@ -166,6 +167,26 @@ const RewardsInner = styled.div`
   }
 `
 
+const StyledIconButton = styled(IconButton)`
+  width: 32px;
+
+  :disabled {
+    background: none;
+
+    svg {
+      fill: ${({ theme }) => theme.colors.textDisabled};
+
+      path {
+        fill: ${({ theme }) => theme.colors.textDisabled};
+      }
+    }
+  }
+`
+
+const FlexFragment = styled.div`
+    display: flex;
+`
+
 interface RewardsState {
     isLoading: boolean
     cakeToBurn: BigNumber
@@ -193,7 +214,7 @@ const FinishedRounds = () => {
     const [selectedRoundId, setSelectedRoundId] = useState('')
     const [latestRoundId, setLatestRoundId] = useState(0)
 
-    const isHistoricRound = true; 
+    const isHistoricRound = true;
 
     const [state, setState] = useState<RewardsState>({
         isLoading: true,
@@ -208,6 +229,7 @@ const FinishedRounds = () => {
     const { onAccountTickets } = useAccountTickets()
 
     const ttnpPriceUsd = usePriceCakeBusd()
+    const [onViewTicketsModal] = useModal(<ViewTicketsModal ticketIds={accountTickets} />)
 
     useEffect(() => {
         (async () => {
@@ -373,14 +395,25 @@ const FinishedRounds = () => {
                             {t(`~${getBalanceAmount(selectedLotteryinfo[11]).toString()} TTNP`)}
                         </Text>
                     </Prize>
-                    <Text color='text'>
+                    <Text color='text' fontSize='22px'>
                         {t("Your Tickets")}
                     </Text>
-                    <Text mb="22px" fontSize='12px' color='text'>
-                        {t(`You have `)}
-                        <UserTicket>{`{${accountTickets.length === undefined ? 0 : accountTickets.length}}`}</UserTicket>
-                        {t(` tickets for this round.`)}
-                    </Text>
+                    <FlexFragment>
+                        <Text mb="22px" fontSize='18px' color='grey'>
+                            {t(`You have `)}
+                            <UserTicket>{`{${accountTickets.length === undefined ? 0 : accountTickets.length}}`}</UserTicket>
+                            {t(` tickets for this round.`)}
+                        </Text>
+                        <StyledIconButton
+                            disabled={accountTickets.length === undefined}
+                            onClick={onViewTicketsModal}
+                            variant="text"
+                            scale="sm"
+                            mr="4px"
+                        >
+                            <ArrowForwardIcon />
+                        </StyledIconButton>
+                    </FlexFragment>
                     <Wrapper>
                         <Text fontSize="14px" mb="24px">
                             {t('Match the winning number in the same order to share prizes.')}{' '}

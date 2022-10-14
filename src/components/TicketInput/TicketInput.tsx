@@ -21,6 +21,11 @@ interface TokenNumberInputProps extends InputProps {
   setTicketNumbers: any
 }
 
+interface ViewTicketNumberProps extends InputProps {
+  index: string
+  ticketNumber: number
+}
+
 const TicketInput: React.FC<TokenInputProps> = ({ max, symbol, availableSymbol, onChange, onSelectMax, value }) => {
   const { t } = useTranslation()
   const ttnpBalance = useBrisBalance()
@@ -174,6 +179,53 @@ export const TicketNumberInput: React.FC<TokenNumberInputProps> = ({ index, tick
             {t('Randomize')}
           </Button>
         </StyledTokenAdornmentWrapper>
+      </Flex>
+    </>
+  )
+}
+
+export const ViewTicketNumber: React.FC<ViewTicketNumberProps> = ({ index, ticketNumber }) => {
+  const [val1, setVal1] = useState((Math.floor(ticketNumber / 100000)).toString())
+  const [val2, setVal2] = useState((Math.floor((ticketNumber % 100000) / 10000)).toString())
+  const [val3, setVal3] = useState((Math.floor((ticketNumber % 10000) / 1000)).toString())
+  const [val4, setVal4] = useState((Math.floor((ticketNumber % 1000) / 100)).toString())
+  const [val5, setVal5] = useState((Math.floor((ticketNumber % 100) / 10)).toString())
+  const [val6, setVal6] = useState((ticketNumber % 10).toString())
+
+  const disabled = true
+
+  return (
+    <>
+      <Flex alignItems="center" padding="10px">
+        <StyledMaxText style={{ width: "40px" }}>
+          {`#${index}`}
+        </StyledMaxText>
+        <StyledSpacer style={{ width: "15px" }} />
+
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val1} style={{ width: "45px" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val2} style={{ width: "45px" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val3} style={{ width: "45px" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val4} style={{ width: "45px" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val5} style={{ width: "45px" }}
+        />
+        <StyledSpacer />
+        <Input type="number" inputMode="numeric" min="0" max="9" disabled={disabled} placeholder="0"
+          value={val6} style={{ width: "45px" }}
+        />
+        <StyledSpacer style={{ width: "15px" }} />
       </Flex>
     </>
   )

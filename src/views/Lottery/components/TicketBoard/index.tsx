@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import BigNumber from 'bignumber.js'
-import { Heading, Text, BaseLayout, Button, Image, Card, Flex, Grid, useModal } from '@pancakeswap/uikit'
+import { Heading, Text, BaseLayout, Button, Image, Card, Flex, Grid, useModal, ArrowForwardIcon, IconButton } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import styled from 'styled-components'
 import { useAccountTickets, useCurrentLotteryId, useLotteryInfo } from 'hooks/useBuyLottery'
@@ -9,6 +9,7 @@ import { getBalanceAmount } from 'utils/formatBalance'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { usePriceCakeBusd } from 'state/hooks'
 import BuyTicketModal from '../TicketCard/BuyTicketModal'
+import ViewTicketsModal from '../TicketCard/ViewTicketsModal'
 import CountDownDate from './CountDownDate'
 import RewardBracketDetail from '../RewardBracketDetail'
 
@@ -37,6 +38,11 @@ const Board = styled.div`
         margin-bottom: 15px;
     }
 `
+
+const FlexFragment = styled.div`
+    display: flex;
+`
+
 const DrawTimeDisplay = styled(Flex)`
     justify-content: space-between;
 
@@ -142,6 +148,22 @@ const RewardsInner = styled.div`
   }
 `
 
+const StyledIconButton = styled(IconButton)`
+  width: 32px;
+
+  :disabled {
+    background: none;
+
+    svg {
+      fill: ${({ theme }) => theme.colors.textDisabled};
+
+      path {
+        fill: ${({ theme }) => theme.colors.textDisabled};
+      }
+    }
+  }
+`
+
 interface RewardsState {
     isLoading: boolean
     cakeToBurn: BigNumber
@@ -204,6 +226,7 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
     const timeStamp = new BigNumber(lotteryinfo[2]).times(1000).toNumber();
     const date = `${new Date(timeStamp).toDateString()} ${new Date(timeStamp).toLocaleTimeString()}`
     const [onPresentBuyTicketsModal] = useModal(<BuyTicketModal max={new BigNumber(maxBalance)} lotteryinfo={lotteryinfo} />)
+    const [onViewTicketsModal] = useModal(<ViewTicketsModal ticketIds={accountTickets} />)
 
     useEffect(() => {
         console.log("[PRINCE](lotteryInfo): ", lotteryinfo)
@@ -269,7 +292,7 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
 
             </DrawTimeDisplay>
             <PrizeDisplay>
-                <Text color='text'>
+                <Text color='text' fontSize='22px'>
                     {t("Prize Pot")}
                 </Text>
                 <PrizePot>
@@ -283,14 +306,25 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
                         <Text fontSize='11px' mb="22px" color='textSubtle'>
                             {t(`~${getBalanceAmount(lotteryinfo[11]).toString()} TTNP`)}
                         </Text>
-                        <Text color='text'>
+                        <Text color='text' fontSize='22px'>
                             {t("Your Tickets")}
                         </Text>
-                        <Text mb="22px" fontSize='12px' color='text'>
-                            {t(`You have `)}
-                            <UserTicket>{`{${accountTickets.length === undefined ? 0 : accountTickets.length}}`}</UserTicket>
-                            {t(` tickets for this round.`)}
-                        </Text>
+                        <FlexFragment>
+                            <Text mb="22px" fontSize='18px' color='grey'>
+                                {t(`You have `)}
+                                <UserTicket>{`{${accountTickets.length === undefined ? 0 : accountTickets.length}}`}</UserTicket>
+                                {t(` tickets for this round.`)}
+                            </Text>
+                            <StyledIconButton
+                                disabled={accountTickets.length === undefined}
+                                onClick={onViewTicketsModal}
+                                variant="text"
+                                scale="sm"
+                                mr="4px"
+                            >
+                                <ArrowForwardIcon />
+                            </StyledIconButton>
+                        </FlexFragment>
                         <Button scale="sm" variant="primary" onClick={onPresentBuyTicketsModal}>Buy Tickets</Button>
                     </PrizePotDetails>
 

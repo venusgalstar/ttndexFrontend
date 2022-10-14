@@ -14,6 +14,7 @@ import {
   approveTokens,
   getAccountTickets,
   getMaxNumberTickets,
+  viewNumbersAndStatusesForTicketIds,
   getTotalPriceForBulkTickets
 } from '../utils/lotteryUtils'
 
@@ -143,6 +144,24 @@ export const useNewLotteryMaxNumberTickets = () => {
   }, [lotteryContract, fetchLottery])
 
   return maxNumberTickets
+}
+
+export const useViewNumbersAndStatusesForTicketIds = (ticketIds: string[]) => {
+  const lotteryContract = useNewLottery()
+  const [numbersAndStatusesForTicketIds, setNumbersAndStatusesForTicketIds] = useState([])
+
+  const fetchLottery = useCallback(async () => {
+    const numbersAndStatusesForTicketIdsVal = await viewNumbersAndStatusesForTicketIds(lotteryContract, ticketIds)
+    setNumbersAndStatusesForTicketIds(numbersAndStatusesForTicketIdsVal)
+  }, [lotteryContract])
+
+  useEffect(() => {
+    if (lotteryContract) {
+      fetchLottery()
+    }
+  }, [lotteryContract, fetchLottery])
+
+  return numbersAndStatusesForTicketIds
 }
 
 export const useLotteryInfo = () => {
