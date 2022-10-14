@@ -329,7 +329,7 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
       setPendingTx(false)
       console.error(e)
     }
-  }, [setPendingTx, toastSuccess, toastError, lotteryId, ticketId, brackets])
+  }, [onGetPrize, setPendingTx, toastSuccess, toastError, lotteryId, ticketId, brackets])
 
   return (
     <>
