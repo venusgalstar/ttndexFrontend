@@ -37,7 +37,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
   const { login, logout } = useAuth()
   const { onPresentConnectModal } = useWalletModal(login, logout)
 
-  const [ticketNumbers, setTicketNumbers] = useState([Math.floor(Math.random() * 1000000)])
+  const [ticketNumbers, setTicketNumbers] = useState([])
 
   const { t } = useTranslation()
 
