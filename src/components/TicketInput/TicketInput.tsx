@@ -333,7 +333,7 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
         <ViewTicketNumber index={ticketId} ticketNumber={ticketNumber} />
         <StyledTokenAdornmentWrapper>
           <Button scale="sm" disabled={disableGetPrize} onClick={handleGetPrize}>
-            {t('Get Prize')}
+            {pendingTx ? t('Pending') : t('Get Prize')}
           </Button>
           <StyledPrizeSpacer />
         </StyledTokenAdornmentWrapper>
