@@ -414,14 +414,28 @@ const Home: React.FC = () => {
 
             <Card p="15px">
               <Heading as="h5" mb="10px" color="text">
+                {t('Liquidity')}
+              </Heading>
+              <Text small fontSize="12px" color="text">
+                {t('Add liquidity to receive LP tokens: NO registration or account needed.')}
+              </Text>
+              <FeatBtn variant="secondary" scale="sm">
+                <Link external href="https://dex.ttndex.com/#/pool" color="text">
+                  Add liquidity
+                </Link>
+              </FeatBtn>
+            </Card>
+
+            <Card p="15px">
+              <Heading as="h5" mb="10px" color="text">
                 {t('Farms')}
               </Heading>
               <Text fontSize="12px" color="text">
                 {t('Provide liqudity to earn yield.')}
               </Text>
               <FeatBtn variant="secondary" scale="sm">
-                <Link href="https://dex.ttndex.com/#/pool" color="text">
-                  Add liquidity
+                <Link href="/farms" color="text">
+                  Enter farms
                 </Link>
               </FeatBtn>
             </Card>
@@ -440,7 +454,7 @@ const Home: React.FC = () => {
               </FeatBtn>
             </Card>
 
-            <Card p="15px">
+            {/* <Card p="15px">
               <Heading as="h5" mb="10px" color="text">
                 {t('Defi 2.0 Zap')}
               </Heading>
@@ -452,7 +466,7 @@ const Home: React.FC = () => {
                   Swap now
                 </ReactLink>
               </FeatBtn>
-            </Card>
+            </Card> */}
 
             <Card p="15px">
               <Heading as="h5" mb="10px" color="text">
