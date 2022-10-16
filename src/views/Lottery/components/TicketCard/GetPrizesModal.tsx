@@ -1,9 +1,7 @@
 import React from 'react'
 import { Modal } from '@pancakeswap/uikit'
 import { ViewTicketNumberAndGetPrize, ViewWinningNumber } from 'components/TicketInput'
-import {
-  useViewNumbersAndStatusesForTicketIds
-} from 'hooks/useBuyLottery'
+import { useViewNumbersAndStatusesForTicketIds } from 'hooks/useBuyLottery'
 import { useTranslation } from 'contexts/Localization'
 
 const getRewardBracketByNumber = (ticketNumber: string, finalNumber: string): number => {
@@ -40,7 +38,7 @@ const GetPrizesModal: React.FC<GetPrizesModalProps> = ({ winningNumber, ticketId
 
   const ticketNumbers = useViewNumbersAndStatusesForTicketIds(ticketIds)
 
-  console.log("[PRINCE](ticketNumbers): ", ticketNumbers, ticketIds.length)
+  console.log("[PRINCE](GetPrizesModal): ", winningNumber, ticketIds, lotteryId, ticketNumbers, ticketIds.length)
 
   return (
     <Modal title={t('Get Your Prizes!')} onDismiss={onDismiss}>
@@ -57,7 +55,7 @@ const GetPrizesModal: React.FC<GetPrizesModalProps> = ({ winningNumber, ticketId
               <ViewTicketNumberAndGetPrize
                 lotteryId={lotteryId}
                 ticketId={ticketIds[idx]}
-                ticketOwner={ticketNumbers ? ticketNumbers[1][idx] : false}
+                ticketOwner={ticketNumbers ? !ticketNumbers[1][idx] : false}
                 brackets={getRewardBracketByNumber(ticketNumbers[0][idx], winningNumber)}
                 ticketNumber={ticketNumbers ? parseInt(ticketNumbers[0][idx]) % 1000000 : 0}
               />
