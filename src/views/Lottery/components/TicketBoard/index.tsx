@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import BigNumber from 'bignumber.js'
+// import web3NoAccount from 'utils/web3'
+// import { AbiItem } from 'web3-utils'
 import { Heading, Text, BaseLayout, Button, Image, Card, Flex, Grid, useModal, ArrowForwardIcon, IconButton } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import styled from 'styled-components'
@@ -278,6 +280,32 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
 
     const rewardBrackets = [0, 1, 2, 3, 4, 5]
 
+    // const [value, setValue] = useState()
+    // const testFunc = async () => {
+    //     const address = "0x362206079C9DCf0B2b7dC01f16bC7a66A3EE74bc"
+    //     const abi = [
+    //         {
+    //             "inputs": [],
+    //             "name": "bridgePerBlock",
+    //             "outputs": [
+    //               {
+    //                 "internalType": "uint256",
+    //                 "name": "",
+    //                 "type": "uint256"
+    //               }
+    //             ],
+    //             "stateMutability": "view",
+    //             "type": "function"
+    //           }
+    //     ]
+    //     const contract = new web3NoAccount.eth.Contract(abi as unknown as AbiItem, address);
+
+    //     const val = await contract.methods.bridgePerBlock().call();
+
+    //     setValue(val);
+    //     console.log("[PRINCE](setValue): ", val)
+
+    // }
     return (
         <Board>
             <DrawTimeDisplay>
@@ -354,6 +382,10 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
                 </PrizePot>
 
             </PrizeDisplay>
+
+            {/* <Button onClick={testFunc}>
+                {value}
+            </Button> */}
 
             <Wrapper>
                 <Text fontSize="14px" mb="24px">
