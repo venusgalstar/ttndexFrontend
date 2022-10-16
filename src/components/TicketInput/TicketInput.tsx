@@ -308,6 +308,7 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
     try {
       setPendingTx(true)
 
+      console.log("[PRINCE](handleGetPrize): ", lotteryId, ticketId, brackets)
       const txHash = await onGetPrize(lotteryId, ticketId, brackets)
       console.log("[PRINCE](handleGetPrize): ", txHash)
 

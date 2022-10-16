@@ -99,12 +99,13 @@ export const claimTickets = async (lotteryContract, lotteryId: string, ticketId:
   console.log("[PRINCE](claimTickets): ", lotteryContract, lotteryId, ticketId, brackets, account)
   try {
     return lotteryContract.methods
-      .claimTickets(lotteryId, ticketId, brackets)
+      .claimTickets(lotteryId, [ticketId], [brackets])
       .send({ from: account })
       .on('transactionHash', (tx) => {
         return tx.transactionHash
       })
   } catch (err) {
+    console.log("[PRINCE](claimTickets): ", err)
     return console.error(err)
   }
 }
