@@ -342,7 +342,7 @@ const Farms: React.FC = () => {
   return (
     <>
       <PageHeader>
-        <Heading as="h1" scale="xl" color="secondary" mb="24px">
+        <Heading as="h1" scale="xl" color="#efb126" mb="24px">
           {t('Farms')}
         </Heading>
         <Text color="text">

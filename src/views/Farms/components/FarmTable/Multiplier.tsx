@@ -46,7 +46,8 @@ const Multiplier: React.FunctionComponent<MultiplierProps> = ({ multiplier }) =>
 
   return (
     <Container>
-      <MultiplierWrapper>{displayMultiplier}</MultiplierWrapper>
+      {/* <MultiplierWrapper>{displayMultiplier}</MultiplierWrapper> */}
+      <MultiplierWrapper>1x</MultiplierWrapper>
       <ReferenceElement ref={targetRef}>
         <HelpIcon color="textSubtle" />
       </ReferenceElement>

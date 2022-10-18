@@ -46,7 +46,8 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({
         
         <Flex justifyContent="center">
           {isCommunityFarm ? <CommunityTag /> : <CoreTag />}
-          <MultiplierTag variant="secondary">{multiplier}</MultiplierTag>
+          {/* <MultiplierTag variant="secondary">{multiplier}</MultiplierTag> */}
+          <MultiplierTag variant="secondary">1x</MultiplierTag>
         </Flex>
       </Flex>
     </Wrapper>

@@ -20,7 +20,7 @@ interface CellLayoutProps {
 const CellLayout: React.FC<CellLayoutProps> = ({ label = '', children }) => {
   return (
     <div>
-      {label && <Label>{label}</Label>}
+      {label && <Label style={{ color: '#efb126' }}>{label}</Label>}
       <ContentContainer>{children}</ContentContainer>
     </div>
   )
