@@ -78,7 +78,8 @@ export const unstake = async (masterChefContract, pid, amount, account) => {
 
   return masterChefContract.methods
     .withdraw(pid, new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString())
-    .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+    // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+    .send({ from: account })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
     })
@@ -87,7 +88,8 @@ export const unstake = async (masterChefContract, pid, amount, account) => {
 export const sousUnstake = async (sousChefContract, amount, decimals, account) => {
   return sousChefContract.methods
     .withdraw(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString())
-    .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+    // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+    .send({ from: account })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
     })

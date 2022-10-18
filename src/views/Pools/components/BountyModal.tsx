@@ -52,7 +52,8 @@ const BountyModal: React.FC<BountyModalProps> = ({
   const handleConfirmClick = async () => {
     cakeVaultContract.methods
       .harvest()
-      .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+      // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+      .send({ from: account })
       .on('sending', () => {
         setPendingTx(true)
       })
