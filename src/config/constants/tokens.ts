@@ -7,7 +7,7 @@ const tokens = {
     symbol: 'TTNP',
     address: {
       56: '0x501345C098030AD7EBD6A33ce44E020033Fe0f79',
-      97: '',
+      97: '0x457752e5a1A576996FC1b9A050387919ea289Af9',
     },
     decimals: 18,
     projectLink: 'https://ttndex.com/',
