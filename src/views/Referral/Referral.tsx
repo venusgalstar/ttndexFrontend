@@ -300,7 +300,7 @@ const Referral: React.FC = () => {
                   {t("Total Referrals")}
                 </Text>
                 <Text fontSize='25px' mb="20px" color='white'>
-                  {t(`${getBalanceAmount(totalReferrals).toString()} TTNP`)}
+                  {t(`${getBalanceAmount(new BigNumber(totalReferrals)).toString()} TTNP`)}
                 </Text>
               </div>
 
@@ -312,7 +312,7 @@ const Referral: React.FC = () => {
                   {t("Total Referral Rewards")}
                 </Text>
                 <Text fontSize='25px' mb="20px" color='white'>
-                  {t(`${getBalanceAmount(totalCommissions).toString()} TTNP`)}
+                  {t(`${getBalanceAmount(new BigNumber(totalCommissions)).toString()} TTNP`)}
                 </Text>
               </div>
 
