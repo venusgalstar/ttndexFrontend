@@ -315,7 +315,7 @@ const Referral: React.FC = () => {
                   {t(`${getBalanceAmount(new BigNumber(totalCommissions)).toNumber().toLocaleString('en-US', {
                     minimumFractionDigits: 3,
                     maximumFractionDigits: 3,
-                  })}} TTNP`)}
+                  })} TTNP`)}
                 </Text>
               </div>
 
@@ -330,7 +330,7 @@ const Referral: React.FC = () => {
                   {t(`${getBalanceAmount(new BigNumber(pendingCommissions)).toNumber().toLocaleString('en-US', {
                     minimumFractionDigits: 3,
                     maximumFractionDigits: 3,
-                  })}} TTNP`)}
+                  })} TTNP`)}
                 </Text>
               </div>
 
