@@ -29,6 +29,7 @@ export const getPoolApr = (
  * @returns
  */
 export const getFarmApr = (poolWeight: BigNumber, cakePriceUsd: BigNumber, poolLiquidityUsd: BigNumber): number => {
+  console.log("[PRINCE](getFarmApr): ", poolWeight.toString().substring(0, 6), cakePriceUsd.toString().substring(0, 6), poolLiquidityUsd.toString().substring(0, 6))
   const yearlyCakeRewardAllocation = CAKE_PER_YEAR.times(poolWeight)
   const apr = yearlyCakeRewardAllocation.times(cakePriceUsd).div(poolLiquidityUsd).times(100)
   return apr.isNaN() || !apr.isFinite() ? null : apr.toNumber()

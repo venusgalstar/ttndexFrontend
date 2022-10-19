@@ -47,9 +47,12 @@ const BridgeLottery = () => {
   return (
     <LotteryInfo>
       <Text fontSize="12px" mb="15px" color="text">
-        {t("TTNDEX Lottery")}
+        {t("The TTNDEX Lottery")}
       </Text><Text fontWeight="700" mb="15px" fontSize="42px">
-        {t("Win $0")}
+        {t(`Win $${getBalanceAmount(lotteryinfo[11]).times(ttnpPriceUsd).toNumber().toLocaleString('en-US', {
+          minimumFractionDigits: 3,
+          maximumFractionDigits: 3,
+        })}`)}
       </Text>
       <Text fontSize="12px" mb="22px" color="text">
         {t("in prizes")}

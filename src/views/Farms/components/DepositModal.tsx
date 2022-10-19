@@ -46,7 +46,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
         onChange={handleChange}
         max={fullBalance}
         symbol={tokenName}
-        addLiquidityUrl={addLiquidityUrl}
+        addLiquidityUrl={tokenName === "TTNP" ? "https://dex.ttndex.com/#/swap" : addLiquidityUrl}
         inputTitle={t('Stake')}
       />
       <ModalActions>
@@ -66,7 +66,7 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
           {pendingTx ? t('Pending Confirmation') : t('Confirm')}
         </Button>
       </ModalActions>
-      <LinkExternal href={addLiquidityUrl} style={{ alignSelf: 'center' }}>
+      <LinkExternal href={tokenName === "TTNP" ? "https://dex.ttndex.com/#/swap" : addLiquidityUrl} style={{ alignSelf: 'center' }}>
         {t('Get %symbol%', { symbol: tokenName })}
       </LinkExternal>
     </Modal>

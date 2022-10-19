@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 31" width="50" height="50">
+	<title>ttnp</title>
+	<defs>
+		<image  width="29" height="29" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAMAAABhTZc9AAAAAXNSR0IB2cksfwAAADNQTFRF9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lde9lderSbzVgAAABF0Uk5TAH7/8IF7jXh1h29saQz5coRKRh4PAAAAXElEQVR4nO3SMRKAIBAEwb0FQVTU/7/WK43OKjYzc9JOBzAOS8iYhKaCKpQFs1A2LEKZsQqlYRPKilCPyh75pfj1G92lHlFj5/PaQJ1NqM+Uhd48Vucm1NmE+qkXhm8FjquyfNkAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="1" y="1"/>
+</svg>
