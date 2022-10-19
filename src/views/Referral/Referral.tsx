@@ -376,7 +376,7 @@ const Referral: React.FC = () => {
           </ReferralPad>
         </ReferralLink>
         <HowToParticipate />
-        <Faq />
+        {/* <Faq /> */}
       </div>
     </Page >
   )
