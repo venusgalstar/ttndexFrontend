@@ -494,10 +494,10 @@ const Home: React.FC = () => {
           </FeatsGrid>
         </BridgeBoard>
 
-        <BridgeBoard>
-          <Heading as="h5" mb="10px" color="text">
+        {/* <BridgeBoard> */}
+          {/* <Heading as="h5" mb="10px" color="text">
             {t('Top performers')}
-          </Heading>
+          </Heading> */}
           {/* <Performers>
             {
               farmsWitApr.map((f, i) => (
@@ -516,9 +516,9 @@ const Home: React.FC = () => {
               ))
             }
           </Performers>           */}
-          <LoadingTopPerformers>
+          {/* <LoadingTopPerformers>
             <Skeleton variant="rect" />
-          </LoadingTopPerformers>
+          </LoadingTopPerformers> */}
           {/* <FeatsGrid>
             <Card style={{width: "100%", border: "20x solid white"}}>
               <Heading as="h5" pt="12px" mb="10px" color="text">
@@ -570,7 +570,7 @@ const Home: React.FC = () => {
           </FeatsGrid> */}
           {/* <FarmStakingCard /> */}
           {/* <LotteryCard /> */}
-        </BridgeBoard>
+        {/* </BridgeBoard> */}
         {/* <CTACards>
           <EarnAPRCard />
           <EarnAssetCard />
@@ -607,7 +607,7 @@ const Home: React.FC = () => {
           </StatsFigures>
         </StatsValue>
 
-        <BridgeBoard style={{ marginTop: '20px' }}>
+        {/* <BridgeBoard style={{ marginTop: '20px' }}>
           <Heading as="h5" pt="12px" mb="30px" color="blue">
             {t('TTNDEX Partners')}
           </Heading>
@@ -616,7 +616,7 @@ const Home: React.FC = () => {
               <Skeleton />
             ))}
           </Partners>
-        </BridgeBoard>
+        </BridgeBoard> */}
       </div>
     </Page>
   )
