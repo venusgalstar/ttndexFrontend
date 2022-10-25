@@ -246,7 +246,7 @@ const Referral: React.FC = () => {
 
   const handlePendingReferralReward = useCallback(async () => {
     try {
-      console.log("[PRINCE](handlePendingReferralReward): ", pendingCommissions.toString(), minWithdraw.toString(), new BigNumber(pendingCommissions).lt(new BigNumber(minWithdraw)))
+      // console.log("[PRINCE](handlePendingReferralReward): ", pendingCommissions.toString(), minWithdraw.toString(), new BigNumber(pendingCommissions).lt(new BigNumber(minWithdraw)))
       if (new BigNumber(pendingCommissions).lt(new BigNumber(minWithdraw))) {
         const minWithdrawString = `${getBalanceAmount(new BigNumber(minWithdraw)).toNumber().toLocaleString('en-US', {
           minimumFractionDigits: 3,

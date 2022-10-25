@@ -82,7 +82,7 @@ export const getLotteryInfo = async (lotteryContract, lotteryid) => {
 }
 
 export const buyTickets = async (lotteryContract, lotteryid: string, numbersList: number[], account: string) => {
-  console.log("buyTickets: ", lotteryContract, lotteryid, numbersList)
+  // console.log("buyTickets: ", lotteryContract, lotteryid, numbersList)
   try {
     return lotteryContract.methods
       .buyTickets(lotteryid, numbersList)
@@ -96,7 +96,7 @@ export const buyTickets = async (lotteryContract, lotteryid: string, numbersList
 }
 
 export const claimTickets = async (lotteryContract, lotteryId: string, ticketId: string, brackets: number, account: string) => {
-  console.log("[PRINCE](claimTickets): ", lotteryContract, lotteryId, ticketId, brackets, account)
+  // console.log("[PRINCE](claimTickets): ", lotteryContract, lotteryId, ticketId, brackets, account)
   try {
     return lotteryContract.methods
       .claimTickets(lotteryId, [ticketId], [brackets])
@@ -105,13 +105,13 @@ export const claimTickets = async (lotteryContract, lotteryId: string, ticketId:
         return tx.transactionHash
       })
   } catch (err) {
-    console.log("[PRINCE](claimTickets): ", err)
+    // console.log("[PRINCE](claimTickets): ", err)
     return console.error(err)
   }
 }
 
 export const approveTokens = async (tokenContract, targetAddress: string, account: string) => {
-  console.log("approveTokens: ", tokenContract, targetAddress, account)
+  // console.log("approveTokens: ", tokenContract, targetAddress, account)
   try {
     return tokenContract.methods
       .approve(targetAddress, ethers.constants.MaxUint256)

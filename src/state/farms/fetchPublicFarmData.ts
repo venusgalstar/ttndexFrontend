@@ -60,7 +60,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
   const [tokenBalanceLP, quoteTokenBalanceLP, lpTokenBalanceMC, lpTotalSupply, tokenDecimals, quoteTokenDecimals] =
     await multicall(erc20, calls)
 
-  console.log(`[PRINCE](fetchFarm) ${farm.lpSymbol} :: (${tokenBalanceLP}, ${quoteTokenBalanceLP})`);
+  // console.log(`[PRINCE](fetchFarm) ${farm.lpSymbol} :: (${tokenBalanceLP}, ${quoteTokenBalanceLP})`);
   // Ratio in % of LP tokens that are staked in the MC, vs the total number in circulation
   const lpTokenRatio = new BigNumber(lpTokenBalanceMC).div(new BigNumber(lpTotalSupply))
 
@@ -90,7 +90,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
         },
       ])
     } catch (error) {
-      console.log("[PRINCE](getData): ", error)
+      // console.log("[PRINCE](getData): ", error)
       console.log(error)
       return [null, null]
     }
@@ -116,7 +116,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     multiplier: `${allocPoint.div(100).toString()}X`,
   }
 
-  console.log("[PRINCE](retVal): ", retVal)
+  // console.log("[PRINCE](retVal): ", retVal)
 
   return retVal;
 }

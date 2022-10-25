@@ -17,7 +17,7 @@ export const BSC_BLOCK_TIME = 3
 // TTNP/Block in src/views/Home/components/CakeStats.tsx = 20 (40 - Amount sent to burn pool)
 
 export const ADMIN_ACCOUNT = '0x2Cc4467e7a94D55497B704a0acd90ACd1BF9A5af'
-export const CAKE_PER_BLOCK = new BigNumber(0.1)
+export const CAKE_PER_BLOCK = new BigNumber(1.5)
 export const BLOCKS_PER_YEAR = new BigNumber((60 / BSC_BLOCK_TIME) * 60 * 24 * 365) // 10512000
 export const CAKE_PER_YEAR = CAKE_PER_BLOCK.times(BLOCKS_PER_YEAR)
 export const BASE_URL = 'https://ttndex.com'

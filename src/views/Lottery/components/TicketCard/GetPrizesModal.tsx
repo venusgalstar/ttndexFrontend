@@ -5,7 +5,7 @@ import { useViewNumbersAndStatusesForTicketIds } from 'hooks/useBuyLottery'
 import { useTranslation } from 'contexts/Localization'
 
 const getRewardBracketByNumber = (ticketNumber: string, finalNumber: string): number => {
-  console.log("[PRINCE](getRewardBracketByNumber): ", ticketNumber, finalNumber)
+  // console.log("[PRINCE](getRewardBracketByNumber): ", ticketNumber, finalNumber)
   // Winning numbers are evaluated right-to-left in the smart contract, so we reverse their order for validation here:
   // i.e. '1123456' should be evaluated as '6543211'
   const ticketNumAsArray = ticketNumber.split('').reverse()
@@ -38,7 +38,7 @@ const GetPrizesModal: React.FC<GetPrizesModalProps> = ({ winningNumber, ticketId
 
   const ticketNumbers = useViewNumbersAndStatusesForTicketIds(ticketIds)
 
-  console.log("[PRINCE](GetPrizesModal): ", winningNumber, ticketIds, lotteryId, ticketNumbers, ticketIds.length)
+  // console.log("[PRINCE](GetPrizesModal): ", winningNumber, ticketIds, lotteryId, ticketNumbers, ticketIds.length)
 
   return (
     <Modal title={t('Get Your Prizes!')} onDismiss={onDismiss}>

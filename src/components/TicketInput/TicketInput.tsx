@@ -292,7 +292,7 @@ export const ViewTicketNumber: React.FC<ViewTicketNumberProps> = ({ index, ticke
 }
 
 export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizeProps> = ({ lotteryId, ticketId, ticketOwner, brackets, ticketNumber }) => {
-  console.log("[PRINCE](ViewTicketNumberAndGetPrize) ", lotteryId, ticketId, ticketOwner, brackets, ticketNumber)
+  // console.log("[PRINCE](ViewTicketNumberAndGetPrize) ", lotteryId, ticketId, ticketOwner, brackets, ticketNumber)
 
   const [pendingTx, setPendingTx] = useState(false)
 
@@ -308,9 +308,9 @@ export const ViewTicketNumberAndGetPrize: React.FC<ViewTicketNumberAndGetPrizePr
     try {
       setPendingTx(true)
 
-      console.log("[PRINCE](handleGetPrize): ", lotteryId, ticketId, brackets)
+      // console.log("[PRINCE](handleGetPrize): ", lotteryId, ticketId, brackets)
       const txHash = await onGetPrize(lotteryId, ticketId, brackets)
-      console.log("[PRINCE](handleGetPrize): ", txHash)
+      // console.log("[PRINCE](handleGetPrize): ", txHash)
 
       // user rejected tx or didn't go thru
       if (txHash) {

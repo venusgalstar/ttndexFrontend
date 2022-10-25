@@ -42,6 +42,7 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
 }) => {
   const { t } = useTranslation()
   const oneThousandDollarsWorthOfToken = 1000 / tokenPrice
+  // console.log('[PRINCE](oneThousandDollarsWorthOfToken): ', oneThousandDollarsWorthOfToken, tokenPrice)
 
   const tokenEarnedPerThousand1D = tokenEarnedPerThousandDollarsCompounding({
     numberOfDays: 1,

@@ -42,8 +42,8 @@ export const fetchPoolsTotalStaking = async () => {
   const bnbPool = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
 
   const callsNonBnbPools = nonBnbPools.map((poolConfig) => {
-    console.log("In callsNonBnbPools, stakingToken address: ", getAddress(poolConfig.stakingToken.address))
-    console.log("In callsNonBnbPools, contract address: ", getAddress(poolConfig.contractAddress))
+    // console.log("In callsNonBnbPools, stakingToken address: ", getAddress(poolConfig.stakingToken.address))
+    // console.log("In callsNonBnbPools, contract address: ", getAddress(poolConfig.contractAddress))
     return {
       address: getAddress(poolConfig.stakingToken.address),
       name: 'balanceOf',
@@ -62,7 +62,7 @@ export const fetchPoolsTotalStaking = async () => {
   const nonBnbPoolsTotalStaked = await multicall(cakeABI, callsNonBnbPools)
   const bnbPoolsTotalStaked = await multicall(wbnbABI, callsBnbPools)
 
-  console.log("[DAVID] nonBnbPoolsTotalStaked = ", nonBnbPoolsTotalStaked);
+  // console.log("[DAVID] nonBnbPoolsTotalStaked = ", nonBnbPoolsTotalStaked);
   return [
     ...nonBnbPools.map((p, index) => ({
       sousId: p.sousId,

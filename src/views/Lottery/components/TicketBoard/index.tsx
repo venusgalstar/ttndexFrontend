@@ -231,9 +231,9 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
     const [onViewTicketsModal] = useModal(<ViewTicketsModal ticketIds={accountTickets} />)
 
     useEffect(() => {
-        console.log("[PRINCE](lotteryInfo): ", lotteryinfo)
+        // console.log("[PRINCE](lotteryInfo): ", lotteryinfo)
         if (lotteryinfo && Object.keys(lotteryinfo).length > 0) {
-            console.log("[PRINCE](lotteryInfo): 1", lotteryinfo)
+            // console.log("[PRINCE](lotteryInfo): 1", lotteryinfo)
 
             const rewardsBreakdown = lotteryinfo[5]
             const amountCollectedInCake = lotteryinfo[11];
@@ -252,7 +252,7 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
                 countWinnersPerBracket,
             })
         } else {
-            console.log("[PRINCE](lotteryInfo): 2", lotteryinfo)
+            // console.log("[PRINCE](lotteryInfo): 2", lotteryinfo)
             setState({
                 isLoading: true,
                 cakeToBurn: BIG_ZERO,
@@ -271,7 +271,7 @@ const TicketBoard: React.FC<React.PropsWithChildren<RewardMatchesProps>> = ({
             }
             return BIG_ZERO
         } catch (error) {
-            console.log("getCakeRewards error", error);
+            // console.log("getCakeRewards error", error);
             return BIG_ZERO
         }
     }

@@ -70,7 +70,7 @@ const BuyTicketModal: React.FC<BuyTicketModalProps> = ({ max, lotteryinfo, onDis
     try {
       setRequestedBuy(true)
       const numbers = ticketNumbers.length > 0 ? ticketNumbers.map((v, idx) => `${(1000000 + ticketNumbers[idx]).toString()}`) : []
-      console.log("[PRINCE](buyTicket): ", lotteryid.toString(), numbers)
+      // console.log("[PRINCE](buyTicket): ", lotteryid.toString(), numbers)
 
       const txHash = await onBuyTickets(lotteryid.toString(), numbers)
 

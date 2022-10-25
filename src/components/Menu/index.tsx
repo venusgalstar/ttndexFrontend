@@ -18,7 +18,7 @@ const Menu = (props) => {
   const { profile } = useProfile()
   const { currentLanguage, setLanguage, t } = useTranslation()
 
-  console.log("cakePriceUsd", cakePriceUsd)
+  // console.log("cakePriceUsd", cakePriceUsd)
   
   return (
     <UikitMenu

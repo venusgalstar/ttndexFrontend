@@ -60,7 +60,7 @@ const App: React.FC = () => {
         window.localStorage.setItem("REFERRAL", ADMIN_ACCOUNT);
       }
     }
-    console.log("[PRINCE](referral): ", referral);
+    // console.log("[PRINCE](referral): ", referral);
   }, [newReferral])
 
   return (
