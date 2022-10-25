@@ -44,8 +44,7 @@ const CakeStats = () => {
         </Row>
         <Row>
           <Text color="text" fontSize="14px">{t('New TTNP/block')}</Text>
-          {/* <CardValue fontSize="14px" decimals={100} value={0.100} /> */}
-          <div>40</div>
+          <CardValue fontSize="14px" decimals={0} value={getBalanceNumber(CAKE_PER_BLOCK)} />
         </Row>
       </CardBody>
     </StyledCakeStats>
