@@ -5,6 +5,7 @@ import { getBalanceNumber } from 'utils/formatBalance'
 import { useTotalSupply, useBurnedBalance } from 'hooks/useTokenBalance'
 import { useTranslation } from 'contexts/Localization'
 import { getCakeAddress } from 'utils/addressHelpers'
+import { CAKE_PER_BLOCK } from 'config'
 import CardValue from './CardValue'
 
 const StyledCakeStats = styled(Card)`
