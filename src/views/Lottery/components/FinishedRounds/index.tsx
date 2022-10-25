@@ -319,7 +319,7 @@ const FinishedRounds = () => {
     }, [selectedRoundId, onViewLottery, setSelectedLotteryinfo])
 
     useEffect(() => {
-        console.log("[PRINCE](lotteryInfo FinishedRounds): ", selectedLotteryinfo)
+        // console.log("[PRINCE](lotteryInfo FinishedRounds): ", selectedLotteryinfo)
         if (selectedLotteryinfo && Object.keys(selectedLotteryinfo).length > 0) {
 
             const rewardsBreakdown = selectedLotteryinfo[5]
@@ -390,7 +390,7 @@ const FinishedRounds = () => {
             }
             return BIG_ZERO
         } catch (error) {
-            console.log("getCakeRewards error", error);
+            // console.log("getCakeRewards error", error);
             return BIG_ZERO
         }
     }

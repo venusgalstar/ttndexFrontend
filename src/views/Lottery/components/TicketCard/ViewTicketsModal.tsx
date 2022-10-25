@@ -16,7 +16,7 @@ const ViewTicketsModal: React.FC<ViewTicketsModalProps> = ({ ticketIds, onDismis
 
   const ticketNumbers = useViewNumbersAndStatusesForTicketIds(ticketIds)
 
-  console.log("[PRINCE](ticketNumbers): ", ticketNumbers, ticketIds.length)
+  // console.log("[PRINCE](ticketNumbers): ", ticketNumbers, ticketIds.length)
 
   return (
     <Modal title={t('Your Ticket Numbers')} onDismiss={onDismiss}>

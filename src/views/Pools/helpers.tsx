@@ -57,7 +57,7 @@ export const getAprData = (pool: Pool, performanceFee: number) => {
       amountEarned: tokenEarnedPerThousand365D,
       amountInvested: oneThousandDollarsWorthOfToken,
     })
-    console.log("[DAVID] autoApr = ", autoApr);
+    // console.log("[DAVID] autoApr = ", autoApr);
     return { apr: autoApr, isHighValueToken, roundingDecimals, compoundFrequency }
   }
   return { apr, isHighValueToken, roundingDecimals, compoundFrequency }
