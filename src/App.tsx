@@ -76,9 +76,9 @@ const App: React.FC = () => {
             <Route path="/farms">
               <Farms />
             </Route>
-            {/* <Route path="/pools">
+            <Route path="/pools">
               <Pools />
-            </Route> */}
+            </Route>
             {/* <Route path="/defi">
               <DefiZap />
             </Route> */}

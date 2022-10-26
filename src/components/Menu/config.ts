@@ -27,11 +27,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     icon: 'FarmIcon',
     href: '/farms',
   },
-  // {
-  //   label: t('Pools'),
-  //   icon: 'PoolIcon',
-  //   href: '/pools',
-  // },
+  {
+    label: t('Pools'),
+    icon: 'PoolIcon',
+    href: '/pools',
+  },
   // {
   //   label: "Defi 2.0 Zap",
   //   icon: "DefiIcon",
