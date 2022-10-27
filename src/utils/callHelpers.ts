@@ -8,7 +8,8 @@ import { getAddress, getCakeAddress } from 'utils/addressHelpers'
 import { getWeb3NoAccount } from 'utils/web3'
 import tokens from 'config/constants/tokens'
 import pools from 'config/constants/pools'
-import sousChefABI from 'config/abi/sousChef.json'
+// import sousChefABI from 'config/abi/sousChef.json'
+import ttnpLockPoolABI from 'config/abi/ttnpLockPool.json'
 import { multicallv2 } from './multicall'
 import { getWeb3WithArchivedNodeProvider } from './web3'
 import { getBalanceAmount } from './formatBalance'
@@ -46,6 +47,46 @@ export const stake = async (masterChefContract, pid, amount, account) => {
 export const sousStake = async (sousChefContract, amount, decimals = 18, account) => {
   return sousChefContract.methods
     .deposit(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString())
+    // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
+export const cakePoolStake = async (cakePoolContract, sousId, amount, decimals = 18, lockTime, account) => {
+  let referrer = window.localStorage.getItem("REFERRAL");
+  referrer = getWeb3NoAccount().utils.isAddress(referrer, parseInt(MAINNET_CHAIN_ID)) ? referrer : ADMIN_ACCOUNT
+  if (sousId === 1) {
+    return cakePoolContract.methods
+      .deposit(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString(), new BigNumber(lockTime).times(86400).toString(), referrer)
+      // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+      .send({ from: account })
+      .on('transactionHash', (tx) => {
+        return tx.transactionHash
+      })
+  }
+  return cakePoolContract.methods
+    .deposit(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString(), referrer)
+    // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
+export const cakePoolUnstake = async (cakePoolContract, sousId, amount, decimals = 18, lockTime, account) => {
+  if (sousId === 1) {
+    return cakePoolContract.methods
+      .withdraw(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString(), new BigNumber(lockTime).times(86400).toString())
+      // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+      .send({ from: account })
+      .on('transactionHash', (tx) => {
+        return tx.transactionHash
+      })
+  }
+  return cakePoolContract.methods
+    .withdraw(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString())
     // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
     .send({ from: account })
     .on('transactionHash', (tx) => {
@@ -135,6 +176,25 @@ export const soushHarvest = async (sousChefContract, account) => {
     })
 }
 
+export const cakePoolHarvest = async (cakePoolContract, sousId, account) => {
+  if (sousId === 1) {
+    return cakePoolContract.methods
+      .withdraw('0', '0')
+      // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+      .send({ from: account })
+      .on('transactionHash', (tx) => {
+        return tx.transactionHash
+      })
+  }
+  return cakePoolContract.methods
+    .withdraw('0')
+    // .send({ from: account, gas: DEFAULT_GAS_LIMIT })
+    .send({ from: account })
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
 export const soushHarvestBnb = async (sousChefContract, account) => {
   return sousChefContract.methods
     .deposit()
@@ -214,23 +274,24 @@ export const getUserStakeInPools = async (account: string, block?: number) => {
       .filter((pool) => pool.isFinished === false || pool.isFinished === undefined)
 
     // Get the ending block is eligible pools
-    const endBlockCalls = eligiblePools.map((eligiblePool) => ({
-      address: getAddress(eligiblePool.contractAddress),
-      name: 'bonusEndBlock',
-    }))
-    const startBlockCalls = eligiblePools.map((eligiblePool) => ({
-      address: getAddress(eligiblePool.contractAddress),
-      name: 'startBlock',
-    }))
-    const endBlocks = await multicallv2(sousChefABI, endBlockCalls, multicallOptions)
-    const startBlocks = await multicallv2(sousChefABI, startBlockCalls, multicallOptions)
+    // const endBlockCalls = eligiblePools.map((eligiblePool) => ({
+    //   address: getAddress(eligiblePool.contractAddress),
+    //   name: 'bonusEndBlock',
+    // }))
+    // const startBlockCalls = eligiblePools.map((eligiblePool) => ({
+    //   address: getAddress(eligiblePool.contractAddress),
+    //   name: 'startBlock',
+    // }))
+    // const endBlocks = await multicallv2(sousChefABI, endBlockCalls, multicallOptions)
+    // const startBlocks = await multicallv2(sousChefABI, startBlockCalls, multicallOptions)
 
     // Filter out pools that have ended
     const activePools = eligiblePools.filter((eligiblePool, index) => {
-      const endBlock = new BigNumber(endBlocks[index])
-      const startBlock = new BigNumber(startBlocks[index])
+      // const endBlock = new BigNumber(endBlocks[index])
+      // const startBlock = new BigNumber(startBlocks[index])
 
-      return startBlock.lte(block) && endBlock.gte(block)
+      // return startBlock.lte(block) && endBlock.gte(block)
+      return true
     })
 
     // Get the user info of each pool
@@ -239,7 +300,8 @@ export const getUserStakeInPools = async (account: string, block?: number) => {
       name: 'userInfo',
       params: [account],
     }))
-    const userInfos = await multicallv2(sousChefABI, userInfoCalls, multicallOptions)
+    // const userInfos = await multicallv2(sousChefABI, userInfoCalls, multicallOptions)
+    const userInfos = await multicallv2(ttnpLockPoolABI, userInfoCalls, multicallOptions)
 
     return userInfos.reduce((accum: BigNumber, userInfo) => {
       return accum.plus(new BigNumber(userInfo.amount._hex))

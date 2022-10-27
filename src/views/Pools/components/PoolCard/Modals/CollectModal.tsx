@@ -13,7 +13,7 @@ import {
 } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
-import { useSousHarvest } from 'hooks/useHarvest'
+import { useSousHarvest, useCakePoolHarvest } from 'hooks/useHarvest'
 import { useSousStake } from 'hooks/useStake'
 import useToast from 'hooks/useToast'
 import { Token } from 'config/constants/types'
@@ -42,8 +42,9 @@ const CollectModal: React.FC<CollectModalProps> = ({
   const { t } = useTranslation()
   const { theme } = useTheme()
   const { toastSuccess, toastError } = useToast()
-  const { onReward } = useSousHarvest(sousId, isBnbPool)
-  const { onStake } = useSousStake(sousId, isBnbPool)
+  const { onReward } = useCakePoolHarvest(sousId)
+  // const { onReward } = useSousHarvest(sousId, isBnbPool)
+  // const { onStake } = useSousStake(sousId, isBnbPool)
   const [pendingTx, setPendingTx] = useState(false)
   const [shouldCompound, setShouldCompound] = useState(isCompoundPool)
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
@@ -57,33 +58,46 @@ const CollectModal: React.FC<CollectModalProps> = ({
   const handleHarvestConfirm = async () => {
     setPendingTx(true)
     // compounding
-    if (shouldCompound) {
-      try {
-        await onStake(fullBalance, earningToken.decimals)
-        toastSuccess(
-          `${t('Compounded')}!`,
-          t('Your %symbol% earnings have been re-invested into the pool!', { symbol: earningToken.symbol }),
-        )
-        setPendingTx(false)
-        onDismiss()
-      } catch (e) {
-        toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
-        setPendingTx(false)
-      }
-    } else {
-      // harvesting
-      try {
-        await onReward()
-        toastSuccess(
-          `${t('Harvested')}!`,
-          t('Your %symbol% earnings have been sent to your wallet!', { symbol: earningToken.symbol }),
-        )
-        setPendingTx(false)
-        onDismiss()
-      } catch (e) {
-        toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
-        setPendingTx(false)
-      }
+    // if (shouldCompound) {
+    //   try {
+    //     await onStake(fullBalance, earningToken.decimals)
+    //     toastSuccess(
+    //       `${t('Compounded')}!`,
+    //       t('Your %symbol% earnings have been re-invested into the pool!', { symbol: earningToken.symbol }),
+    //     )
+    //     setPendingTx(false)
+    //     onDismiss()
+    //   } catch (e) {
+    //     toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
+    //     setPendingTx(false)
+    //   }
+    // } else {
+    //   // harvesting
+    //   try {
+    //     await onReward()
+    //     toastSuccess(
+    //       `${t('Harvested')}!`,
+    //       t('Your %symbol% earnings have been sent to your wallet!', { symbol: earningToken.symbol }),
+    //     )
+    //     setPendingTx(false)
+    //     onDismiss()
+    //   } catch (e) {
+    //     toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
+    //     setPendingTx(false)
+    //   }
+    // }
+    // harvesting
+    try {
+      await onReward()
+      toastSuccess(
+        `${t('Harvested')}!`,
+        t('Your %symbol% earnings have been sent to your wallet!', { symbol: earningToken.symbol }),
+      )
+      setPendingTx(false)
+      onDismiss()
+    } catch (e) {
+      toastError(t('Canceled'), t('Please try again and confirm the transaction.'))
+      setPendingTx(false)
     }
   }
 

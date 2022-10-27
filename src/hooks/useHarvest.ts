@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
 import { updateUserBalance, updateUserPendingReward } from 'state/actions'
-import { soushHarvest, soushHarvestBnb, harvest } from 'utils/callHelpers'
-import { useMasterchef, useSousChef } from './useContract'
+import { soushHarvest, soushHarvestBnb, harvest, cakePoolHarvest } from 'utils/callHelpers'
+import { useMasterchef, useSousChef, useCakePool } from './useContract'
 
 export const useHarvest = (farmPid: number) => {
   const { account } = useWeb3React()
@@ -34,6 +34,20 @@ export const useSousHarvest = (sousId, isUsingBnb = false) => {
     dispatch(updateUserPendingReward(sousId, account))
     dispatch(updateUserBalance(sousId, account))
   }, [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId])
+
+  return { onReward: handleHarvest }
+}
+
+export const useCakePoolHarvest = (sousId: number) => {
+  const dispatch = useAppDispatch()
+  const { account } = useWeb3React()
+  const cakePoolContract = useCakePool(sousId)
+
+  const handleHarvest = useCallback(async () => {
+    await cakePoolHarvest(cakePoolContract, sousId, account)
+    dispatch(updateUserPendingReward(sousId, account))
+    dispatch(updateUserBalance(sousId, account))
+  }, [account, dispatch, cakePoolContract, sousId])
 
   return { onReward: handleHarvest }
 }

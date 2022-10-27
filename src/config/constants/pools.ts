@@ -3,18 +3,34 @@ import { PoolConfig, PoolCategory } from './types'
 
 const pools: PoolConfig[] = [
   {
-    sousId: 0,
+    sousId: 1,
     stakingToken: tokens.bris,
     earningToken: tokens.bris,
     contractAddress: {
       97: '0xd3af5fe61dbaf8f73149bfcfa9fb653ff096029a',
-      56: '0x0fb702557f4c0ab1ce0d9a1c37296409c5f57d06',
+      56: '0x82a91bFcbb5F4524f7C5d39eAc15684d5dfA60Bc',
     },
     poolCategory: PoolCategory.CORE,
     harvest: true,
-    tokenPerBlock: '0.01',
+    tokenPerBlock: '2',
     sortOrder: 1,
     isFinished: false,
+    isLockPool: true,
+  },
+  {
+    sousId: 2,
+    stakingToken: tokens.bris,
+    earningToken: tokens.bris,
+    contractAddress: {
+      97: '0xd3af5fe61dbaf8f73149bfcfa9fb653ff096029a',
+      56: '0x1664185Be2759a493f4E1d5b21035bf83eE3d6D8',
+    },
+    poolCategory: PoolCategory.CORE,
+    harvest: true,
+    tokenPerBlock: '1.2',
+    sortOrder: 2,
+    isFinished: false,
+    isLockPool: false,
   },
 //   {
 //     sousId: 174,

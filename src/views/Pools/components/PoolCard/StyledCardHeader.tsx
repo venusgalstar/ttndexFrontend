@@ -3,7 +3,7 @@ import { CardHeader, Heading, Text, Flex, Image } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 
-const Wrapper = styled(CardHeader)<{ isFinished?: boolean; background?: string }>`
+const Wrapper = styled(CardHeader) <{ isFinished?: boolean; background?: string }>`
   background: ${({ isFinished, background, theme }) =>
     isFinished ? theme.colors.backgroundDisabled : theme.colors.gradients[background]};
   border-radius: ${({ theme }) => `${theme.radii.card} ${theme.radii.card} 0 0`};
@@ -15,41 +15,56 @@ const StyledCardHeader: React.FC<{
   isAutoVault?: boolean
   isFinished?: boolean
   isStaking?: boolean
-}> = ({ earningTokenSymbol, stakingTokenSymbol, isFinished = false, isAutoVault = false, isStaking = false }) => {
+  isLockPool?: boolean
+}> = ({ earningTokenSymbol, stakingTokenSymbol, isFinished = false, isAutoVault = false, isStaking = false, isLockPool }) => {
   const { t } = useTranslation()
   const poolImageSrc = isAutoVault
     ? `bris-brisvault.svg`
     : `${earningTokenSymbol}-${stakingTokenSymbol}.svg`.toLocaleLowerCase()
   const isCakePool = earningTokenSymbol === 'TTNP' && stakingTokenSymbol === 'TTNP'
   const background = isStaking ? 'bubblegum' : 'cardHeader'
+  // const getHeadingPrefix = () => {
+  //   if (isAutoVault) {
+  //     // vault
+  //     return t('Auto')
+  //   }
+  //   if (isCakePool) {
+  //     // manual cake
+  //     return t('Manual')
+  //   }
+  //   // all other pools
+  //   return t('Earn')
+  // }
+
   const getHeadingPrefix = () => {
-    if (isAutoVault) {
-      // vault
-      return t('Auto')
+    if (isLockPool) {
+      return t('Lock')
     }
-    if (isCakePool) {
-      // manual cake
-      return t('Manual')
-    }
-    // all other pools
-    return t('Earn')
+    return t('Flexible')
   }
 
+  // const getSubHeading = () => {
+  //   if (isAutoVault) {
+  //     return t('Automatic restaking')
+  //   }
+  //   if (isCakePool) {
+  //     return t('Earn TTNP, stake TTNP')
+  //   }
+  //   return t('Stake %symbol%', { symbol: stakingTokenSymbol })
+  // }
+
   const getSubHeading = () => {
-    if (isAutoVault) {
-      return t('Automatic restaking')
+    if (isLockPool) {
+      return t('Earn TTNP stake TTNP with LockTime')
     }
-    if (isCakePool) {
-      return t('Earn TTNP, stake TTNP')
-    }
-    return t('Stake %symbol%', { symbol: stakingTokenSymbol })
+    return t('Earn TTNP stake TTNP with Flexible')
   }
 
   return (
     <Wrapper isFinished={isFinished} background={background}>
       <Flex alignItems="center" justifyContent="space-between">
         <Flex flexDirection="column">
-          <Heading color={isFinished ? 'textDisabled' : 'body'} scale="lg">
+          <Heading color={isFinished ? 'textDisabled' : '#efb126'} scale="lg">
             {`${getHeadingPrefix()} ${earningTokenSymbol}`}
           </Heading>
           <Text color={isFinished ? 'textDisabled' : 'textSubtle'}>{getSubHeading()}</Text>

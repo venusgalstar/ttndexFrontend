@@ -79,12 +79,12 @@ const HarvestAction: React.FunctionComponent<HarvestActionProps> = ({
   )
 
   const actionTitle = isAutoVault ? (
-    <Text fontSize="12px" bold color="secondary" as="span" textTransform="uppercase">
+    <Text fontSize="12px" bold color="#efb126" as="span" textTransform="uppercase">
       {t('Recent TTNP profit')}
     </Text>
   ) : (
     <>
-      <Text fontSize="12px" bold color="secondary" as="span" textTransform="uppercase">
+      <Text fontSize="12px" bold color="#efb126" as="span" textTransform="uppercase">
         {earningToken.symbol}{' '}
       </Text>
       <Text fontSize="12px" bold color="textSubtle" as="span" textTransform="uppercase">

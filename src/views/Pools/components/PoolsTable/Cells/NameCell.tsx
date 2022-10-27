@@ -25,7 +25,7 @@ const StyledCell = styled(BaseCell)`
 const NameCell: React.FC<NameCellProps> = ({ pool }) => {
   const { t } = useTranslation()
   const { isXs, isSm } = useMatchBreakpoints()
-  const { sousId, stakingToken, earningToken, userData, isFinished, isAutoVault } = pool
+  const { sousId, stakingToken, earningToken, userData, isFinished, isAutoVault, isLockPool } = pool
   const {
     userData: { userShares },
   } = useCakeVault()
@@ -45,12 +45,19 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
   let subtitle = `${t('Stake')} ${stakingTokenSymbol}`
   const showSubtitle = sousId !== 0 || (sousId === 0 && !isXs && !isSm)
 
-  if (isAutoVault) {
-    title = t('Auto TTNP')
-    subtitle = t('Automatic restaking')
-  } else if (isManualCakePool) {
-    title = t('Manual TTNP')
-    subtitle = `${t('Earn')} TTNP ${t('Stake').toLocaleLowerCase()} TTNP`
+  // if (isAutoVault) {
+  //   title = t('Lock TTNP')
+  //   subtitle = t('Automatic restaking')
+  // } else if (isManualCakePool) {
+  //   title = t('Flexible TTNP')
+  //   subtitle = `${t('Earn')} TTNP ${t('Stake').toLocaleLowerCase()} TTNP`
+  // }
+  if (isLockPool) {
+    title = t('Lock TTNP')
+    subtitle = `${t('Earn')} TTNP ${t('Stake').toLocaleLowerCase()} TTNP with LockTime`
+  } else {
+    title = t('Flexible TTNP')
+    subtitle = `${t('Earn')} TTNP ${t('Stake').toLocaleLowerCase()} TTNP with Flexible`
   }
 
   return (
@@ -58,11 +65,11 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
       <Image src={`/images/pools/${iconFile}`} alt="icon" width={40} height={40} mr="8px" />
       <CellContent>
         {showStakedTag && (
-          <Text fontSize="12px" bold color={isFinished ? 'failure' : 'secondary'} textTransform="uppercase">
+          <Text fontSize="12px" bold color={isFinished ? 'failure' : 'textSubtle'} textTransform="uppercase">
             {t('Staked')}
           </Text>
         )}
-        <Text bold={!isXs && !isSm} small={isXs || isSm}>
+        <Text bold={!isXs && !isSm} small={isXs || isSm} color="#efb126">
           {title}
         </Text>
         {showSubtitle && (

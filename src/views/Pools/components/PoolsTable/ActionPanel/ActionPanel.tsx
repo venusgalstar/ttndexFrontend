@@ -20,7 +20,7 @@ import BigNumber from 'bignumber.js'
 import { Pool } from 'state/types'
 import { useTranslation } from 'contexts/Localization'
 import Balance from 'components/Balance'
-import { CompoundingPoolTag, ManualPoolTag } from 'components/Tags'
+import { CompoundingPoolTag, ManualPoolTag, CoreTag } from 'components/Tags'
 import { getAddress } from 'utils/addressHelpers'
 import { registerToken } from 'utils/wallet'
 import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
@@ -219,11 +219,11 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ account, pool, userDataLoaded
         {maxStakeRow}
         {(isXs || isSm) && aprRow}
         {(isXs || isSm || isMd) && totalStakedRow}
-        {shouldShowBlockCountdown && blocksRow}
+        {/* {shouldShowBlockCountdown && blocksRow} */}
         <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
-          <LinkExternal href={`https://ttndex.info/token/${getAddress(earningToken.address)}`} bold={false}>
+          {/* <LinkExternal href={`https://ttndex.info/token/${getAddress(earningToken.address)}`} bold={false}>
             {t('Info site')}
-          </LinkExternal>
+          </LinkExternal> */}
         </Flex>
         <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
           <LinkExternal href={earningToken.projectLink} bold={false}>
@@ -243,7 +243,8 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ account, pool, userDataLoaded
             </Button>
           </Flex>
         )}
-        {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />}
+        {/* {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />} */}
+        <CoreTag />
         {tagTooltipVisible && tagTooltip}
         <span ref={tagTargetRef}>
           <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />

@@ -25,7 +25,8 @@ import {
   getChainlinkOracleContract,
   getSouschefV2Contract,
   getLotteryV2Contract,
-  getNewLotteryContract
+  getNewLotteryContract,
+  getCakePoolContract,
 } from 'utils/contractHelpers'
 
 /**
@@ -115,6 +116,11 @@ export const useMasterchef = () => {
 export const useSousChef = (id) => {
   const web3 = useWeb3()
   return useMemo(() => getSouschefContract(id, web3), [id, web3])
+}
+
+export const useCakePool = (id: number) => {
+  const web3 = useWeb3()
+  return useMemo(() => getCakePoolContract(id, web3), [id, web3])
 }
 
 export const useSousChefV2 = (id) => {

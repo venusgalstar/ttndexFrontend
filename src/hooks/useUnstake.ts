@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
 import { updateUserStakedBalance, updateUserBalance, updateUserPendingReward } from 'state/actions'
-import { unstake, sousUnstake, sousEmergencyUnstake } from 'utils/callHelpers'
-import { useMasterchef, useSousChef } from './useContract'
+import { unstake, sousUnstake, sousEmergencyUnstake, cakePoolUnstake } from 'utils/callHelpers'
+import { useMasterchef, useSousChef, useCakePool } from './useContract'
 
 const useUnstake = (pid: number) => {
   const { account } = useWeb3React()
@@ -43,6 +43,25 @@ export const useSousUnstake = (sousId, enableEmergencyWithdraw = false) => {
       dispatch(updateUserPendingReward(sousId, account))
     },
     [account, dispatch, enableEmergencyWithdraw, masterChefContract, sousChefContract, sousId],
+  )
+
+  return { onUnstake: handleUnstake }
+}
+
+export const useCakePoolUnstake = (sousId) => {
+  const dispatch = useAppDispatch()
+  const { account } = useWeb3React()
+  const cakePoolContract = useCakePool(sousId)
+
+  const handleUnstake = useCallback(
+    async (amount: string, decimals: number, lockTime: string) => {
+      const txHash = await cakePoolUnstake(cakePoolContract, sousId, amount, decimals, lockTime, account)
+      console.info(txHash)
+      dispatch(updateUserStakedBalance(sousId, account))
+      dispatch(updateUserBalance(sousId, account))
+      dispatch(updateUserPendingReward(sousId, account))
+    },
+    [account, dispatch, cakePoolContract, sousId],
   )
 
   return { onUnstake: handleUnstake }

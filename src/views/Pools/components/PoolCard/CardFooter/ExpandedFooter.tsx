@@ -87,7 +87,7 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
           )}
         </Flex>
       </Flex>
-      {shouldShowBlockCountdown && (
+      {/* {shouldShowBlockCountdown && (
         <Flex mb="2px" justifyContent="space-between" alignItems="center">
           <Text small>{hasPoolStarted ? t('End') : t('Start')}:</Text>
           <Flex alignItems="center">
@@ -102,8 +102,8 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
             <TimerIcon ml="4px" color="primary" />
           </Flex>
         </Flex>
-      )}
-      {isAutoVault && (
+      )} */}
+      {/* {isAutoVault && (
         <Flex mb="2px" justifyContent="space-between" alignItems="center">
           {tooltipVisible && tooltip}
           <TooltipText ref={targetRef} small>
@@ -120,7 +120,7 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
         <LinkExternal bold={false} small href={earningToken.projectLink}>
           {t('View Project Site')}
         </LinkExternal>
-      </Flex>
+      </Flex> */}
       {poolContractAddress && (
         <Flex mb="2px" justifyContent="flex-end">
           <LinkExternal

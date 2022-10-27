@@ -83,20 +83,21 @@ export const fetchPoolsPublicDataAsync = (currentBlock: number) => async (dispat
 }
 
 export const fetchPoolsStakingLimitsAsync = () => async (dispatch, getState) => {
-  const poolsWithStakingLimit = getState()
-    .pools.data.filter(({ stakingLimit }) => stakingLimit !== null && stakingLimit !== undefined)
-    .map((pool) => pool.sousId)
+  // const poolsWithStakingLimit = getState()
+  //   .pools.data.filter(({ stakingLimit }) => stakingLimit !== null && stakingLimit !== undefined)
+  //   .map((pool) => pool.sousId)
 
-  const stakingLimits = await fetchPoolsStakingLimits(poolsWithStakingLimit)
+  // const stakingLimits = await fetchPoolsStakingLimits(poolsWithStakingLimit)
 
   const stakingLimitData = poolsConfig.map((pool) => {
-    if (poolsWithStakingLimit.includes(pool.sousId)) {
-      return { sousId: pool.sousId }
-    }
-    const stakingLimit = stakingLimits[pool.sousId] || BIG_ZERO
+    // if (poolsWithStakingLimit.includes(pool.sousId)) {
+    //   return { sousId: pool.sousId }
+    // }
+    // const stakingLimit = stakingLimits[pool.sousId] || BIG_ZERO
     return {
       sousId: pool.sousId,
-      stakingLimit: stakingLimit.toJSON(),
+      // stakingLimit: stakingLimit.toJSON(),
+      stakingLimit: BIG_ZERO.toJSON(),
     }
   })
 

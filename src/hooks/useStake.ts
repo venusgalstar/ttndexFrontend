@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useAppDispatch } from 'state'
 import { updateUserStakedBalance, updateUserBalance } from 'state/actions'
-import { stake, sousStake, sousStakeBnb } from 'utils/callHelpers'
-import { useMasterchef, useSousChef } from './useContract'
+import { stake, sousStake, sousStakeBnb, cakePoolStake } from 'utils/callHelpers'
+import { useMasterchef, useSousChef, useCakePool } from './useContract'
 
 const useStake = (pid: number) => {
   const { account } = useWeb3React()
@@ -39,6 +39,24 @@ export const useSousStake = (sousId: number, isUsingBnb = false) => {
       dispatch(updateUserBalance(sousId, account))
     },
     [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId],
+  )
+
+  return { onStake: handleStake }
+}
+
+export const useCakePoolStake = (sousId: number) => {
+  const dispatch = useAppDispatch()
+  const { account } = useWeb3React()
+  const cakePoolContract = useCakePool(sousId)
+
+  const handleStake = useCallback(
+    async (amount: string, decimals: number, lockTime: string) => {
+      const txHash = await cakePoolStake(cakePoolContract, sousId, amount, decimals, lockTime, account)
+      console.info(txHash)
+      dispatch(updateUserStakedBalance(sousId, account))
+      dispatch(updateUserBalance(sousId, account))
+    },
+    [account, dispatch, cakePoolContract, sousId],
   )
 
   return { onStake: handleStake }

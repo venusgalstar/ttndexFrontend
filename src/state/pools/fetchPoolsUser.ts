@@ -1,7 +1,9 @@
 import { AbiItem } from 'web3-utils'
 import poolsConfig from 'config/constants/pools'
 import masterChefABI from 'config/abi/masterchef.json'
-import sousChefABI from 'config/abi/sousChef.json'
+// import sousChefABI from 'config/abi/sousChef.json'
+import ttnpLockPoolABI from 'config/abi/ttnpLockPool.json'
+import ttnpFlexiblePoolABI from 'config/abi/ttnpFlexiblePool.json'
 import erc20ABI from 'config/abi/erc20.json'
 import multicall from 'utils/multicall'
 import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
@@ -59,7 +61,9 @@ export const fetchUserStakeBalances = async (account) => {
     name: 'userInfo',
     params: [account],
   }))
-  const userInfo = await multicall(sousChefABI, calls)
+  // const userInfo = await multicall(sousChefABI, calls)
+  const userInfo = await multicall(ttnpFlexiblePoolABI, calls)
+  // console.log('[PRINCE](fetchUserStakeBalances): ', nonMasterPools, calls, userInfo)
   const stakedBalances = nonMasterPools.reduce(
     (acc, pool, index) => ({
       ...acc,
@@ -69,18 +73,20 @@ export const fetchUserStakeBalances = async (account) => {
   )
 
   // TTNP / TTNP pool
-  const { amount: masterPoolAmount } = await masterChefContract.methods.userInfo('0', account).call()
+  // const { amount: masterPoolAmount } = await masterChefContract.methods.userInfo('0', account).call()
 
-  return { ...stakedBalances, 0: new BigNumber(masterPoolAmount).toJSON() }
+  // return { ...stakedBalances, 0: new BigNumber(masterPoolAmount).toJSON() }
+  return { ...stakedBalances }
 }
 
 export const fetchUserPendingRewards = async (account) => {
   const calls = nonMasterPools.map((p) => ({
     address: getAddress(p.contractAddress),
-    name: 'pendingReward',
+    name: 'pendingTTNP',
     params: [account],
   }))
-  const res = await multicall(sousChefABI, calls)
+  // const res = await multicall(sousChefABI, calls)
+  const res = await multicall(ttnpLockPoolABI, calls)
   const pendingRewards = nonMasterPools.reduce(
     (acc, pool, index) => ({
       ...acc,
@@ -90,7 +96,8 @@ export const fetchUserPendingRewards = async (account) => {
   )
 
   // TTNP / TTNP pool
-  const pendingReward = await masterChefContract.methods.pendingTTNP('0', account).call()
+  // const pendingReward = await masterChefContract.methods.pendingTTNP('0', account).call()
 
-  return { ...pendingRewards, 0: new BigNumber(pendingReward).toJSON() }
+  // return { ...pendingRewards, 0: new BigNumber(pendingReward).toJSON() }
+  return { ...pendingRewards }
 }
