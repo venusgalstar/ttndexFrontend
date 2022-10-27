@@ -201,14 +201,14 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ account, pool, userDataLoaded
         {totalStaked ? (
           <>
             <Balance fontSize="16px" value={getTotalStakedBalance()} decimals={0} unit={` ${stakingToken.symbol}`} />
-            <span ref={totalStakedTargetRef}>
+            {/* <span ref={totalStakedTargetRef}>
               <HelpIcon color="textSubtle" width="20px" ml="6px" />
-            </span>
+            </span> */}
           </>
         ) : (
           <Skeleton width="56px" height="16px" />
         )}
-        {totalStakedTooltipVisible && totalStakedTooltip}
+        {/* {totalStakedTooltipVisible && totalStakedTooltip} */}
       </Flex>
     </Flex>
   )
@@ -245,10 +245,10 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ account, pool, userDataLoaded
         )}
         {/* {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />} */}
         <CoreTag />
-        {tagTooltipVisible && tagTooltip}
-        <span ref={tagTargetRef}>
+        {/* {tagTooltipVisible && tagTooltip} */}
+        {/* <span ref={tagTargetRef}>
           <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
-        </span>
+        </span> */}
       </InfoSection>
       <ActionContainer>
         {showSubtitle && (

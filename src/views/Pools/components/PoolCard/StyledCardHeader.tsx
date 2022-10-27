@@ -2,6 +2,7 @@ import React from 'react'
 import { CardHeader, Heading, Text, Flex, Image } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
+import displayRemainTime from 'utils/utils'
 
 const Wrapper = styled(CardHeader) <{ isFinished?: boolean; background?: string }>`
   background: ${({ isFinished, background, theme }) =>
@@ -16,7 +17,8 @@ const StyledCardHeader: React.FC<{
   isFinished?: boolean
   isStaking?: boolean
   isLockPool?: boolean
-}> = ({ earningTokenSymbol, stakingTokenSymbol, isFinished = false, isAutoVault = false, isStaking = false, isLockPool }) => {
+  leftTime?: string
+}> = ({ earningTokenSymbol, stakingTokenSymbol, isFinished = false, isAutoVault = false, isStaking = false, isLockPool, leftTime = '0' }) => {
   const { t } = useTranslation()
   const poolImageSrc = isAutoVault
     ? `bris-brisvault.svg`
@@ -43,6 +45,13 @@ const StyledCardHeader: React.FC<{
     return t('Flexible')
   }
 
+  const getDetails = () => {
+    if (isLockPool) {
+      return `LeftTime: ${displayRemainTime(leftTime)}`
+    }
+    return 'Flexible'
+  }
+
   // const getSubHeading = () => {
   //   if (isAutoVault) {
   //     return t('Automatic restaking')
@@ -55,9 +64,9 @@ const StyledCardHeader: React.FC<{
 
   const getSubHeading = () => {
     if (isLockPool) {
-      return t('Earn TTNP stake TTNP with LockTime')
+      return t('Earn TTNP stake TTNP with')
     }
-    return t('Earn TTNP stake TTNP with Flexible')
+    return t('Earn TTNP stake TTNP with')
   }
 
   return (
@@ -68,6 +77,9 @@ const StyledCardHeader: React.FC<{
             {`${getHeadingPrefix()} ${earningTokenSymbol}`}
           </Heading>
           <Text color={isFinished ? 'textDisabled' : 'textSubtle'}>{getSubHeading()}</Text>
+          <Text fontSize="14px" color="#efb126">
+            {getDetails()}
+          </Text>
         </Flex>
         <Image src={`/images/pools/${poolImageSrc}`} alt={earningTokenSymbol} width={64} height={64} />
       </Flex>

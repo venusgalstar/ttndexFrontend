@@ -31,7 +31,21 @@ const multicall = async (abi: any[], calls: Call[], options: MulticallOptions = 
     console.error(error);
     // throw new Error(error)
     throw new Error("Error")
-    
+
+  }
+}
+
+export const getTimeStamp = async () => {
+  try {
+    const web3 = getWeb3NoAccount()
+    const multi = new web3.eth.Contract(MultiCallAbi as unknown as AbiItem, getMulticallAddress())
+
+    const timeStamp = await multi.methods.getCurrentBlockTimestamp().call()
+    return timeStamp
+  } catch (error) {
+    console.error(error);
+    // throw new Error(error)
+    throw new Error("Error")
   }
 }
 

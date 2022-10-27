@@ -12,6 +12,7 @@ import {
   fetchPoolsAllowance,
   fetchUserBalances,
   fetchUserStakeBalances,
+  fetchUserLockEndTime,
   fetchUserPendingRewards,
 } from './fetchPoolsUser'
 import { fetchPublicVaultData, fetchVaultFees } from './fetchVaultPublic'
@@ -63,11 +64,11 @@ export const fetchPoolsPublicDataAsync = (currentBlock: number) => async (dispat
     const earningTokenPrice = earningTokenAddress ? prices[earningTokenAddress] : 0
     const apr = !isPoolFinished
       ? getPoolApr(
-          stakingTokenPrice,
-          earningTokenPrice,
-          getBalanceNumber(new BigNumber(totalStaking.totalStaked), pool.stakingToken.decimals),
-          parseFloat(pool.tokenPerBlock),
-        )
+        stakingTokenPrice,
+        earningTokenPrice,
+        getBalanceNumber(new BigNumber(totalStaking.totalStaked), pool.stakingToken.decimals),
+        parseFloat(pool.tokenPerBlock),
+      )
       : 0
     return {
       ...blockLimit,
@@ -106,50 +107,53 @@ export const fetchPoolsStakingLimitsAsync = () => async (dispatch, getState) => 
 
 export const fetchPoolsUserDataAsync =
   (account: string): AppThunk =>
-  async (dispatch) => {
-    const allowances = await fetchPoolsAllowance(account)
-    const stakingTokenBalances = await fetchUserBalances(account)
-    const stakedBalances = await fetchUserStakeBalances(account)
-    const pendingRewards = await fetchUserPendingRewards(account)
+    async (dispatch) => {
+      const allowances = await fetchPoolsAllowance(account)
+      const stakingTokenBalances = await fetchUserBalances(account)
+      const stakedBalances = await fetchUserStakeBalances(account)
+      const leftTimes = await fetchUserLockEndTime(account)
+      // console.log('[PRINCE]:(leftTimes) ', leftTimes, stakedBalances)
+      const pendingRewards = await fetchUserPendingRewards(account)
 
-    const userData = poolsConfig.map((pool) => ({
-      sousId: pool.sousId,
-      allowance: allowances[pool.sousId],
-      stakingTokenBalance: stakingTokenBalances[pool.sousId],
-      stakedBalance: stakedBalances[pool.sousId],
-      pendingReward: pendingRewards[pool.sousId],
-    }))
+      const userData = poolsConfig.map((pool) => ({
+        sousId: pool.sousId,
+        allowance: allowances[pool.sousId],
+        stakingTokenBalance: stakingTokenBalances[pool.sousId],
+        stakedBalance: stakedBalances[pool.sousId],
+        pendingReward: pendingRewards[pool.sousId],
+        leftTime: pool.sousId === 1 ? leftTimes[pool.sousId] : '0'
+      }))
 
-    dispatch(setPoolsUserData(userData))
-  }
+      dispatch(setPoolsUserData(userData))
+    }
 
 export const updateUserAllowance =
   (sousId: number, account: string): AppThunk =>
-  async (dispatch) => {
-    const allowances = await fetchPoolsAllowance(account)
-    dispatch(updatePoolsUserData({ sousId, field: 'allowance', value: allowances[sousId] }))
-  }
+    async (dispatch) => {
+      const allowances = await fetchPoolsAllowance(account)
+      dispatch(updatePoolsUserData({ sousId, field: 'allowance', value: allowances[sousId] }))
+    }
 
 export const updateUserBalance =
   (sousId: number, account: string): AppThunk =>
-  async (dispatch) => {
-    const tokenBalances = await fetchUserBalances(account)
-    dispatch(updatePoolsUserData({ sousId, field: 'stakingTokenBalance', value: tokenBalances[sousId] }))
-  }
+    async (dispatch) => {
+      const tokenBalances = await fetchUserBalances(account)
+      dispatch(updatePoolsUserData({ sousId, field: 'stakingTokenBalance', value: tokenBalances[sousId] }))
+    }
 
 export const updateUserStakedBalance =
   (sousId: number, account: string): AppThunk =>
-  async (dispatch) => {
-    const stakedBalances = await fetchUserStakeBalances(account)
-    dispatch(updatePoolsUserData({ sousId, field: 'stakedBalance', value: stakedBalances[sousId] }))
-  }
+    async (dispatch) => {
+      const stakedBalances = await fetchUserStakeBalances(account)
+      dispatch(updatePoolsUserData({ sousId, field: 'stakedBalance', value: stakedBalances[sousId] }))
+    }
 
 export const updateUserPendingReward =
   (sousId: number, account: string): AppThunk =>
-  async (dispatch) => {
-    const pendingRewards = await fetchUserPendingRewards(account)
-    dispatch(updatePoolsUserData({ sousId, field: 'pendingReward', value: pendingRewards[sousId] }))
-  }
+    async (dispatch) => {
+      const pendingRewards = await fetchUserPendingRewards(account)
+      dispatch(updatePoolsUserData({ sousId, field: 'pendingReward', value: pendingRewards[sousId] }))
+    }
 
 export const fetchCakeVaultPublicData = createAsyncThunk<CakeVault>('cakeVault/fetchPublicData', async () => {
   const publicVaultInfo = await fetchPublicVaultData()
@@ -187,6 +191,7 @@ export const PoolsSlice = createSlice({
         const userPoolData = userData.find((entry) => entry.sousId === pool.sousId)
         return { ...pool, userData: userPoolData }
       })
+      // console.log('[PRINCE]:(leftTimes) ', state.data)
       state.userDataLoaded = true
     },
     updatePoolsUserData: (state, action) => {

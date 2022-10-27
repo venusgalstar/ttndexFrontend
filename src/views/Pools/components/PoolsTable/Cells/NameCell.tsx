@@ -6,6 +6,7 @@ import { useTranslation } from 'contexts/Localization'
 import { useCakeVault } from 'state/hooks'
 import { Pool } from 'state/types'
 import { BIG_ZERO } from 'utils/bigNumber'
+import displayRemainTime from 'utils/utils'
 import BaseCell, { CellContent } from './BaseCell'
 
 interface NameCellProps {
@@ -36,6 +37,7 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
   const iconFile = `${earningTokenSymbol}-${stakingTokenSymbol}.svg`.toLocaleLowerCase()
 
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
+  const leftTime = userData?.leftTime ?? '0'
   const isStaked = stakedBalance.gt(0)
   const isManualCakePool = sousId === 0
 
@@ -54,10 +56,17 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
   // }
   if (isLockPool) {
     title = t('Lock TTNP')
-    subtitle = `${t('Earn')} TTNP ${t('Stake').toLocaleLowerCase()} TTNP with LockTime`
+    subtitle = `Earn TTNP stake TTNP with`
   } else {
     title = t('Flexible TTNP')
-    subtitle = `${t('Earn')} TTNP ${t('Stake').toLocaleLowerCase()} TTNP with Flexible`
+    subtitle = `Earn TTNP stake TTNP with`
+  }
+
+  const getDetails = () => {
+    if (isLockPool) {
+      return `LeftTime: ${displayRemainTime(leftTime)}`
+    }
+    return 'Flexible'
   }
 
   return (
@@ -73,9 +82,14 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
           {title}
         </Text>
         {showSubtitle && (
-          <Text fontSize="12px" color="textSubtle">
-            {subtitle}
-          </Text>
+          <div>
+            <Text fontSize="12px" color="textSubtle">
+              {subtitle}
+            </Text>
+            <Text fontSize="12px" color="#efb126">
+              {getDetails()}
+            </Text>
+          </div>
         )}
       </CellContent>
     </StyledCell>

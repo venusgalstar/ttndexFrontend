@@ -5,7 +5,7 @@ import masterChefABI from 'config/abi/masterchef.json'
 import ttnpLockPoolABI from 'config/abi/ttnpLockPool.json'
 import ttnpFlexiblePoolABI from 'config/abi/ttnpFlexiblePool.json'
 import erc20ABI from 'config/abi/erc20.json'
-import multicall from 'utils/multicall'
+import multicall, { getTimeStamp } from 'utils/multicall'
 import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
 import { getWeb3NoAccount } from 'utils/web3'
 import BigNumber from 'bignumber.js'
@@ -15,6 +15,7 @@ import BigNumber from 'bignumber.js'
 const nonBnbPools = poolsConfig.filter((p) => p.stakingToken.symbol !== 'BNB')
 const bnbPools = poolsConfig.filter((p) => p.stakingToken.symbol === 'BNB')
 const nonMasterPools = poolsConfig.filter((p) => p.sousId !== 0)
+const lockPools = poolsConfig.filter((p) => p.sousId === 1)
 const web3 = getWeb3NoAccount()
 const masterChefContract = new web3.eth.Contract(masterChefABI as unknown as AbiItem, getMasterChefAddress())
 
@@ -77,6 +78,28 @@ export const fetchUserStakeBalances = async (account) => {
 
   // return { ...stakedBalances, 0: new BigNumber(masterPoolAmount).toJSON() }
   return { ...stakedBalances }
+}
+
+export const fetchUserLockEndTime = async (account) => {
+  const calls = lockPools.map((p) => ({
+    address: getAddress(p.contractAddress),
+    name: 'userInfo',
+    params: [account],
+  }))
+  const timeStamp = await getTimeStamp();
+  const userInfo = await multicall(ttnpLockPoolABI, calls)
+  const leftTime = new BigNumber(userInfo[0].lockEndTime).lte(timeStamp) ? '0' : new BigNumber(userInfo[0].lockEndTime._hex).minus(timeStamp).toString()
+  // console.log('[PRINCE]:(fetchUserLockEndTime) ', timeStamp, userInfo[0].lockEndTime, leftTime)
+
+  const lockEndTime = lockPools.reduce(
+    (acc, pool, index) => ({
+      ...acc,
+      [pool.sousId]: leftTime,
+    }),
+    {},
+  )
+
+  return { ...lockEndTime }
 }
 
 export const fetchUserPendingRewards = async (account) => {
