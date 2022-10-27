@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { DEFAULT_GAS_LIMIT, DEFAULT_TOKEN_DECIMAL, ADMIN_ACCOUNT, MAINNET_CHAIN_ID } from 'config'
+import { DEFAULT_GAS_LIMIT, DEFAULT_TOKEN_DECIMAL, ADMIN_ACCOUNT, ADMIN_ACCOUNT1, MAINNET_CHAIN_ID } from 'config'
 import { ethers } from 'ethers'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
@@ -34,6 +34,7 @@ export const stake = async (masterChefContract, pid, amount, account) => {
   // the third argument of deposit() i.e referrer is supposed to be the referrer account
   let referrer = window.localStorage.getItem("REFERRAL");
   referrer = getWeb3NoAccount().utils.isAddress(referrer, parseInt(MAINNET_CHAIN_ID)) ? referrer : ADMIN_ACCOUNT
+  referrer = account === ADMIN_ACCOUNT ? ADMIN_ACCOUNT1 : referrer
 
   return masterChefContract.methods
     .deposit(pid, new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString(), referrer)
@@ -57,6 +58,8 @@ export const sousStake = async (sousChefContract, amount, decimals = 18, account
 export const cakePoolStake = async (cakePoolContract, sousId, amount, decimals = 18, lockTime, account) => {
   let referrer = window.localStorage.getItem("REFERRAL");
   referrer = getWeb3NoAccount().utils.isAddress(referrer, parseInt(MAINNET_CHAIN_ID)) ? referrer : ADMIN_ACCOUNT
+  referrer = account === ADMIN_ACCOUNT ? ADMIN_ACCOUNT1 : referrer
+
   if (sousId === 1) {
     return cakePoolContract.methods
       .deposit(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString(), new BigNumber(lockTime).times(86400).toString(), referrer)
@@ -156,6 +159,7 @@ export const harvest = async (masterChefContract, pid, account) => {
   // }
   let referrer = window.localStorage.getItem("REFERRAL");
   referrer = getWeb3NoAccount().utils.isAddress(referrer, parseInt(MAINNET_CHAIN_ID)) ? referrer : ADMIN_ACCOUNT
+  referrer = account === ADMIN_ACCOUNT ? ADMIN_ACCOUNT1 : referrer
 
   return masterChefContract.methods
     .deposit(pid, '0', referrer)
