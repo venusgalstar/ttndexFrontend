@@ -3335,6 +3335,17 @@ var Icon$l = function (props) {
         React.createElement("circle", { cx: "7.5", cy: "5.5", r: "1.5", fill: "white" })));
 };
 
+var Icon$lll = function (props) {
+    return (React.createElement(Svg, __assign({ height: "20", viewBox: "0 0 20 20", fill: "none" }, props),
+        React.createElement("path", { d: "M0.194067 9.1644C0.0924779 8.55487 0.562521 8 1.18046 8H18.8195C19.4375 8 19.9075 8.55487 19.8059 9.1644L18.1393 19.1644C18.0589 19.6466 17.6417 20 17.1529 20H2.84713C2.35829 20 1.9411 19.6466 1.86073 19.1644L0.194067 9.1644Z", fill: "white" }),
+        React.createElement("circle", { cx: "4.5", cy: "3.5", r: "1.5", fill: "white" }),
+        React.createElement("circle", { cx: "7.5", cy: "1.5", r: "1.5", fill: "white" }),
+        React.createElement("circle", { cx: "11.5", cy: "5.5", r: "1.5", fill: "white" }),
+        React.createElement("circle", { cx: "14.5", cy: "3.5", r: "1.5", fill: "white" }),
+        React.createElement("circle", { cx: "11.5", cy: "1.5", r: "1.5", fill: "white" }),
+        React.createElement("circle", { cx: "7.5", cy: "5.5", r: "1.5", fill: "white" })));
+};
+
 var Icon$k = function (props) {
     return (React.createElement(Svg, __assign({ viewBox: "0 0 24 24" }, props),
         React.createElement("path", { d: "M3.18731 5.68438C2.44993 5.52604 2.44993 4.47393 3.18731 4.31559L5.3203 3.85755C5.58957 3.79973 5.79991 3.58939 5.85774 3.32012L6.31577 1.18713C6.47411 0.449748 7.52622 0.449751 7.68457 1.18713L8.1426 3.32012C8.20042 3.58939 8.41076 3.79973 8.68003 3.85755L10.813 4.31559C11.5504 4.47393 11.5504 5.52604 10.813 5.68438L8.68003 6.14241C8.41076 6.20024 8.20042 6.41058 8.1426 6.67985L7.68457 8.81284C7.52622 9.55022 6.47411 9.55022 6.31577 8.81284L5.85774 6.67985C5.79991 6.41058 5.58957 6.20024 5.3203 6.14241L3.18731 5.68438Z" }),
@@ -3439,6 +3450,7 @@ var IconModule = /*#__PURE__*/Object.freeze({
     MoreIcon: Icon$n,
     NftIcon: Icon$m,
     PoolIcon: Icon$l,
+    BankIcon: Icon$lll,
     PredictionsIcon: Icon$k,
     SunIcon: Icon$j,
     TeamBattleIcon: Icon$i,
@@ -3529,6 +3541,11 @@ var links = [
         label: "Pools",
         icon: "PoolIcon",
         href: "/syrup",
+    },
+    {
+        label: "Bank",
+        icon: "BankIcon",
+        href: "https://mango-finance-2022.web.app",
     },
     {
         label: "Defi 2.0 Zap",

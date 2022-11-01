@@ -11,6 +11,7 @@ export { default as MoonIcon } from "./Moon";
 export { default as MoreIcon } from "./More";
 export { default as NftIcon } from "./Nft";
 export { default as PoolIcon } from "./Pool";
+export { default as BankIcon } from "./Bank";
 export { default as PredictionsIcon } from "./Predictions";
 export { default as SunIcon } from "./Sun";
 export { default as TeamBattleIcon } from "./TeamBattle";

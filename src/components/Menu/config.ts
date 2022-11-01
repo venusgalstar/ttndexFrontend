@@ -53,6 +53,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     href: '/referral',
     // status: menuStatus.LIVE
   },
+  {
+    label: t('Bank'),
+    icon: 'BankIcon',
+    href: 'https://mango-finance-2022.web.app',
+  },
   // {
   //   label: t('Collectibles'),
   //   icon: 'NftIcon',
