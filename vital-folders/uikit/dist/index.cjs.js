@@ -4259,12 +4259,12 @@ var Menu = function (_a) {
     }, []);
     // Find the home link if provided
     var homeLink = links.find(function (link) { return link.label === "Home"; });
-    var platformLink = links.find((link) => link.href === location.pathname)
+    var platformLink = links.find(function (link) { return link.href === location.pathname; });
     return (React__default['default'].createElement(Wrapper, null,
         React__default['default'].createElement(StyledNav, { showMenu: showMenu },
             React__default['default'].createElement(Logo$1, { isPushed: isPushed, togglePush: function () { return setIsPushed(function (prevState) { return !prevState; }); }, isDark: isDark, href: (_b = homeLink === null || homeLink === void 0 ? void 0 : homeLink.href) !== null && _b !== void 0 ? _b : "/" }),
             React__default['default'].createElement(Flex, null,
-                React__default['default'].createElement(Platform, null, platformLink)),
+                React__default['default'].createElement(Platform, null, platformLink.label)),
             React__default['default'].createElement(Flex, null,
                 React__default['default'].createElement(BridgePrice, null,
                     React__default['default'].createElement(WhiteBGLogo, null),

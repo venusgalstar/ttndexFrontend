@@ -4290,12 +4290,12 @@ var Menu = function (_a) {
     }, []);
     // Find the home link if provided
     var homeLink = links.find(function (link) { return link.label === "Home"; });
-    var platformLink = links.find((link) => link.href === location.pathname)
+    var platformLink = links.find(function (link) { return link.href === location.pathname; });
     return (React.createElement(Wrapper, null,
         React.createElement(StyledNav, { showMenu: showMenu },
             React.createElement(Logo$1, { isPushed: isPushed, togglePush: function () { return setIsPushed(function (prevState) { return !prevState; }); }, isDark: isDark, href: (_b = homeLink === null || homeLink === void 0 ? void 0 : homeLink.href) !== null && _b !== void 0 ? _b : "/" }),
             React.createElement(Flex, null,
-                React.createElement(Platform, null, platformLink)),
+                React.createElement(Platform, null, platformLink.label)),
             React.createElement(Flex, null,
                 React.createElement(BridgePrice, null,
                     React.createElement(WhiteBGLogo, null),
