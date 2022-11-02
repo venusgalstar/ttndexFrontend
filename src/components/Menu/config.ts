@@ -56,7 +56,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   {
     label: t('Bank'),
     icon: 'BankIcon',
-    href: 'https://ttnbank.web.app',
+    href: '/bank',
   },
   // {
   //   label: t('Collectibles'),

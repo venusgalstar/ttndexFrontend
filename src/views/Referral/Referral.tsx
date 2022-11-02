@@ -359,7 +359,7 @@ const Referral: React.FC = () => {
                         }, 1000);
                       }
                     }} />
-                    <Tooltip isTooltipDisplayed={isTooltipDisplayed} style={{ width: "70px", left: "-15px" }}>Copied</Tooltip>
+                    <Tooltip isTooltipDisplayed={isTooltipDisplayed} style={{ width: "70px", left: "-15px" }}>Copied!</Tooltip>
                   </Flex>
                 </LinkPad>
               )}

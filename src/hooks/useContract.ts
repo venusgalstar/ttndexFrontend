@@ -27,6 +27,8 @@ import {
   getLotteryV2Contract,
   getNewLotteryContract,
   getCakePoolContract,
+  getBankContract,
+  getBankTokenContract,
 } from 'utils/contractHelpers'
 
 /**
@@ -166,4 +168,14 @@ export const usePredictionsContract = () => {
 export const useChainlinkOracleContract = () => {
   const web3 = useWeb3()
   return useMemo(() => getChainlinkOracleContract(web3), [web3])
+}
+
+export const useBankContract = () => {
+  const web3 = useWeb3()
+  return useMemo(() => getBankContract(web3), [web3])
+}
+
+export const useBankTokenContract = () => {
+  const web3 = useWeb3()
+  return useMemo(() => getBankTokenContract(web3), [web3])
 }

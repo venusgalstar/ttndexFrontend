@@ -31,3 +31,34 @@ export const DEFAULT_GAS_LIMIT = 2000000
 export const DEFAULT_GAS_PRICE = 5
 export const TESTNET_CHAIN_ID = '97'
 export const MAINNET_CHAIN_ID = '56'
+
+// BANK
+export const REFERRAL_PERCENT = 1000
+export const WITHDRAW_FEE = 100
+export const DENOMINATOR = 10000
+export const DENOMINATOR_PERCENT = 100
+
+export const REF_PREFIX = `${BASE_URL}/?ref=`
+export const DECIMALS = 'ether' // 18
+
+// BSC TESTNET
+// export const TREASURY = '0x84f8bF4bB72F4BE2C131a5F7B519b23958A76980'
+// export const START_TIME = 1666300000
+// export const EPOCH_LENGTH = 3600
+// export const WITHDRAW_TIME = 600
+
+// export const TTNBANK = '0xf5341377d0e6368C16097E31c27bd2283A9Cdc8E';
+
+// export const RPC_URL = "https://data-seed-prebsc-2-s2.binance.org:8545"
+// export const MAINNET = 97
+
+// BSC MAINNET
+export const TREASURY = '0x350c140f27291D4B4307451ac515eec81997A280'
+export const START_TIME = 1669881600
+export const EPOCH_LENGTH = 2592000
+export const WITHDRAW_TIME = 86400
+
+export const TTNBANK = '0x370D30b3f8437c2f40E203c1307e84a4BB6d672e';
+
+export const RPC_URL = "https://bsc-dataseed1.binance.org"
+export const MAINNET = 56

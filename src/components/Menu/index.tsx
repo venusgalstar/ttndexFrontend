@@ -17,6 +17,7 @@ const Menu = (props) => {
   const cakePriceUsd = usePriceCakeBusd()
   const { profile } = useProfile()
   const { currentLanguage, setLanguage, t } = useTranslation()
+  const platform = config(t).find((link) => link.href === window.location.pathname)
 
   // console.log("cakePriceUsd", cakePriceUsd)
   
@@ -24,7 +25,7 @@ const Menu = (props) => {
     <UikitMenu
       netLogo={chainId !== undefined ? getChainLogo(chainId) : undefined}
       netName={chainId !== undefined ? getChainName(chainId) : undefined}
-      platform="Home"
+      platform={platform.label}
       account={account}
       login={login}
       logout={logout}

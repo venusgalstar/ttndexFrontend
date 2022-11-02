@@ -79,4 +79,12 @@ export default {
     56: '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE',
     97: '',
   },
+  bank: {
+    56: '0x370D30b3f8437c2f40E203c1307e84a4BB6d672e',
+    97: '0xf5341377d0e6368C16097E31c27bd2283A9Cdc8E',
+  },
+  bankToken: {
+    56: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
+    97: '0x457752e5a1A576996FC1b9A050387919ea289Af9',
+  },
 }

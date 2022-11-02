@@ -68,3 +68,9 @@ export const getPredictionsAddress = () => {
 export const getChainlinkOracleAddress = () => {
   return getAddress(addresses.chainlinkOracle)
 }
+export const getBankAddress = () => {
+  return getAddress(addresses.bank)
+}
+export const getBankTokenAddress = () => {
+  return getAddress(addresses.bankToken)
+}

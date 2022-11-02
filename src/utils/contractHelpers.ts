@@ -25,6 +25,8 @@ import {
   getPredictionsAddress,
   getChainlinkOracleAddress,
   getReferralAddress,
+  getBankAddress,
+  getBankTokenAddress,
 } from 'utils/addressHelpers'
 
 // ABI
@@ -56,6 +58,8 @@ import easterNftAbi from 'config/abi/easterNft.json'
 import cakeVaultAbi from 'config/abi/cakeVault.json'
 import predictionsAbi from 'config/abi/predictions.json'
 import chainlinkOracleAbi from 'config/abi/chainlinkOracle.json'
+import bankAbi from 'config/abi/bank.json'
+import bankTokenAbi from 'config/abi/bankToken.json'
 import { DEFAULT_GAS_PRICE, TESTNET_CHAIN_ID } from 'config'
 import { getSettings, getGasPriceInWei } from './settings'
 
@@ -162,4 +166,10 @@ export const getPredictionsContract = (web3?: Web3) => {
 }
 export const getChainlinkOracleContract = (web3?: Web3) => {
   return getContract(chainlinkOracleAbi, getChainlinkOracleAddress(), web3)
+}
+export const getBankContract = (web3?: Web3) => {
+  return getContract(bankAbi, getBankAddress(), web3)
+}
+export const getBankTokenContract = (web3?: Web3) => {
+  return getContract(bankTokenAbi, getBankTokenAddress(), web3)
 }
