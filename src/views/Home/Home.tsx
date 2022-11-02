@@ -482,7 +482,7 @@ const Home: React.FC = () => {
 
             <Card p="15px" style={{ background: 'linear-gradient(155.08deg, #FA00FF -35.34%, #17D2FB 134.08%)' }}>
               <Heading as="h5" mb="10px" color="text">
-                {t('Referral Program')}
+                {t('Referral')}
               </Heading>
               <Text small fontSize="12px" color="text">
                 {t('Share your referral link, invite your fiend and earn 10% of their yields FOREVER!')}
