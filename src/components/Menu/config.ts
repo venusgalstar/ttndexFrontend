@@ -56,7 +56,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   {
     label: t('Bank'),
     icon: 'BankIcon',
-    href: 'https://mango-finance-2022.web.app',
+    href: 'https://ttnbank.web.app',
   },
   // {
   //   label: t('Collectibles'),

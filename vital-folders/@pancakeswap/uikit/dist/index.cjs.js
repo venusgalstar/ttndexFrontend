@@ -3542,7 +3542,7 @@ var links = [
     {
         label: "Bank",
         icon: "BankIcon",
-        href: "https://mango-finance-2022.web.app",
+        href: "https://ttnbank.web.app",
     },
     {
         label: "Defi 2.0 Zap",
