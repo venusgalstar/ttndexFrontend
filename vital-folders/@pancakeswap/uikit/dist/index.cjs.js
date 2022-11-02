@@ -3335,15 +3335,12 @@ var Icon$l = function (props) {
         React__default['default'].createElement("circle", { cx: "7.5", cy: "5.5", r: "1.5", fill: "white" })));
 };
 
-var Icon$lll = function (props) {
+var Icon$BankIcon = function (props) {
     return (React__default['default'].createElement(Svg, __assign({ height: "20", viewBox: "0 0 20 20", fill: "none" }, props),
-        React__default['default'].createElement("path", { d: "M0.194067 9.1644C0.0924779 8.55487 0.562521 8 1.18046 8H18.8195C19.4375 8 19.9075 8.55487 19.8059 9.1644L18.1393 19.1644C18.0589 19.6466 17.6417 20 17.1529 20H2.84713C2.35829 20 1.9411 19.6466 1.86073 19.1644L0.194067 9.1644Z", fill: "white" }),
-        React__default['default'].createElement("circle", { cx: "4.5", cy: "3.5", r: "1.5", fill: "white" }),
-        React__default['default'].createElement("circle", { cx: "7.5", cy: "1.5", r: "1.5", fill: "white" }),
-        React__default['default'].createElement("circle", { cx: "11.5", cy: "5.5", r: "1.5", fill: "white" }),
-        React__default['default'].createElement("circle", { cx: "14.5", cy: "3.5", r: "1.5", fill: "white" }),
-        React__default['default'].createElement("circle", { cx: "11.5", cy: "1.5", r: "1.5", fill: "white" }),
-        React__default['default'].createElement("circle", { cx: "7.5", cy: "5.5", r: "1.5", fill: "white" })));
+        React__default['default'].createElement("path", { d: "M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z", fillRule: "evenodd" }),
+        React__default['default'].createElement("path", { d: "M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z" }),
+        React__default['default'].createElement("path", { d: "M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z" }),
+        React__default['default'].createElement("path", { d: "M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z" })));
 };
 
 var Icon$k = function (props) {
@@ -3450,7 +3447,7 @@ var IconModule = /*#__PURE__*/Object.freeze({
     MoreIcon: Icon$n,
     NftIcon: Icon$m,
     PoolIcon: Icon$l,
-    BankIcon: Icon$lll,
+    BankIcon: Icon$BankIcon,
     PredictionsIcon: Icon$k,
     SunIcon: Icon$j,
     TeamBattleIcon: Icon$i,
